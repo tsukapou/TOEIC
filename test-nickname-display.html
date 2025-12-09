@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ニックネーム表示テスト</title>
+    <link rel="stylesheet" href="css/personalized-dashboard.css">
+</head>
+<body style="background: #f3f4f6; padding: 2rem;">
+    <h1 style="text-align: center; color: #1f2937; margin-bottom: 2rem;">🎯 ニックネーム表示テスト</h1>
+    
+    <!-- テストボタン -->
+    <div style="text-align: center; margin-bottom: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <button onclick="setNickname('ツカサさん')" style="padding: 0.75rem 1.5rem; background: #3b82f6; color: white; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 600;">
+            ニックネーム: ツカサさん
+        </button>
+        <button onclick="setNickname('太郎さん')" style="padding: 0.75rem 1.5rem; background: #10b981; color: white; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 600;">
+            ニックネーム: 太郎さん
+        </button>
+        <button onclick="setNickname('花子さん')" style="padding: 0.75rem 1.5rem; background: #ec4899; color: white; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 600;">
+            ニックネーム: 花子さん
+        </button>
+        <button onclick="testRender()" style="padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 600;">
+            🔄 再描画
+        </button>
+    </div>
+    
+    <!-- ダッシュボードコンテナ -->
+    <div id="personalizedDashboard"></div>
+    
+    <!-- スクリプト -->
+    <script src="js/personalized-learning-nav.js"></script>
+    <script src="js/personalized-dashboard.js"></script>
+    
+    <script>
+        console.log('=== ニックネーム表示テスト ===');
+        
+        // ニックネームを設定する関数
+        function setNickname(nickname) {
+            console.log(`ニックネーム設定: ${nickname}`);
+            
+            // UserProfile形式でLocalStorageに保存
+            const userProfile = {
+                nickname: nickname,
+                targetScore: 800,
+                purposes: ['自己成長'],
+                registeredAt: new Date().toISOString()
+            };
+            
+            localStorage.setItem('userProfile', JSON.stringify(userProfile));
+            console.log('✅ userProfile保存完了');
+            
+            // ダッシュボードを再描画
+            testRender();
+        }
+        
+        // ダッシュボード描画
+        function testRender() {
+            console.log('PersonalizedDashboard.render() 実行中...');
+            
+            // 初期化
+            if (typeof PersonalizedLearningNav !== 'undefined') {
+                PersonalizedLearningNav.init();
+            }
+            
+            // 描画
+            if (typeof PersonalizedDashboard !== 'undefined') {
+                PersonalizedDashboard.render();
+            }
+            
+            console.log('PersonalizedDashboard.render() 完了');
+            
+            // 現在のニックネームを表示
+            const profile = PersonalizedLearningNav.getUserProfile();
+            console.log(`現在のニックネーム: ${profile.name}`);
+        }
+        
+        // 初回描画
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded');
+            testRender();
+        });
+        
+        console.log('=== テスト準備完了 ===');
+    </script>
+</body>
+</html>

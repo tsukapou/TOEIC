@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>グリーティング選択デバッグ</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            padding: 2rem;
+            background: #f3f4f6;
+        }
+        .debug-panel {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .debug-panel h3 {
+            margin: 0 0 1rem 0;
+            color: #1f2937;
+        }
+        pre {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+        button {
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🐛 グリーティング選択デバッグ</h1>
+    
+    <div class="debug-panel">
+        <h3>📋 LocalStorage の状態</h3>
+        <button onclick="checkLocalStorage()">LocalStorageを確認</button>
+        <button onclick="clearGreetingTeam()">グリーティングチームをクリア</button>
+        <button onclick="resetToDefault()">デフォルトに戻す</button>
+        <pre id="localStorageData"></pre>
+    </div>
+    
+    <div class="debug-panel">
+        <h3>👥 解除済み秘書</h3>
+        <pre id="unlockedSecretaries"></pre>
+    </div>
+    
+    <div class="debug-panel">
+        <h3>🌅 現在のグリーティングチーム</h3>
+        <pre id="currentTeam"></pre>
+    </div>
+    
+    <div class="debug-panel">
+        <h3>🎯 選択状態チェック</h3>
+        <pre id="selectionStatus"></pre>
+    </div>
+    
+    <div class="debug-panel">
+        <h3>🧪 テスト実行</h3>
+        <button onclick="testToggle('sakura')">さくらをトグル</button>
+        <button onclick="testToggle('reina')">レイナをトグル</button>
+        <button onclick="testToggle('rio')">りおをトグル</button>
+        <pre id="testResults"></pre>
+    </div>
+    
+    <div class="debug-panel">
+        <h3>🏠 秘書パネルテスト</h3>
+        <button onclick="showSecretaryPanel()">秘書の部屋を開く</button>
+    </div>
+
+    <script src="js/secretary-team.js"></script>
+    <script src="js/greeting-team-selector.js"></script>
+    <script src="js/secretary-panel.js"></script>
+    
+    <script>
+        function checkLocalStorage() {
+            const data = {
+                greetingTeam: localStorage.getItem('greetingTeamMembers'),
+                unlockedSecretaries: localStorage.getItem('toeic_unlocked_secretaries')
+            };
+            
+            document.getElementById('localStorageData').textContent = JSON.stringify(data, null, 2);
+            console.log('📦 LocalStorage:', data);
+        }
+        
+        function clearGreetingTeam() {
+            localStorage.removeItem('greetingTeamMembers');
+            console.log('🗑️ グリーティングチームをクリアしました');
+            checkLocalStorage();
+            updateAll();
+        }
+        
+        function resetToDefault() {
+            if (typeof GreetingTeamSelector !== 'undefined') {
+                GreetingTeamSelector.saveGreetingTeam(['sakura', 'reina', 'rio']);
+                console.log('🔄 デフォルト(sakura, reina, rio)に戻しました');
+                checkLocalStorage();
+                updateAll();
+            }
+        }
+        
+        function updateAll() {
+            // 解除済み秘書
+            if (typeof SecretaryTeam !== 'undefined') {
+                const unlocked = SecretaryTeam.getUnlockedSecretaries();
+                document.getElementById('unlockedSecretaries').textContent = 
+                    JSON.stringify(unlocked, null, 2);
+                console.log('👥 解除済み秘書:', unlocked);
+            }
+            
+            // 現在のチーム
+            if (typeof GreetingTeamSelector !== 'undefined') {
+                const team = GreetingTeamSelector.getGreetingTeam();
+                document.getElementById('currentTeam').textContent = 
+                    JSON.stringify(team, null, 2) + `\n\n人数: ${team.length}人`;
+                console.log('🌅 現在のチーム:', team);
+                
+                // 選択状態チェック
+                if (typeof SecretaryTeam !== 'undefined') {
+                    const unlocked = SecretaryTeam.getUnlockedSecretaries();
+                    const status = unlocked.map(id => {
+                        const isSelected = team.includes(id);
+                        return {
+                            id: id,
+                            name: SecretaryTeam.secretaries[id]?.name || id,
+                            selected: isSelected
+                        };
+                    });
+                    document.getElementById('selectionStatus').textContent = 
+                        JSON.stringify(status, null, 2);
+                    console.log('🎯 選択状態:', status);
+                }
+            }
+        }
+        
+        function testToggle(secretaryId) {
+            if (typeof GreetingTeamSelector === 'undefined') {
+                alert('GreetingTeamSelector が読み込まれていません');
+                return;
+            }
+            
+            console.log(`🧪 ${secretaryId} をトグルします...`);
+            const result = GreetingTeamSelector.toggleGreetingTeam(secretaryId);
+            
+            const resultText = document.getElementById('testResults');
+            resultText.textContent += `\n[${new Date().toLocaleTimeString()}] ${secretaryId} をトグル: ${result === null ? '最大人数に達しています' : result ? '追加' : '削除'}`;
+            
+            updateAll();
+        }
+        
+        // 初期化
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                console.log('🚀 デバッグツール初期化');
+                checkLocalStorage();
+                updateAll();
+                
+                // 自動的に秘書パネルを開く
+                setTimeout(() => {
+                    if (typeof showSecretaryPanel === 'function') {
+                        console.log('🏠 秘書パネルを自動オープン');
+                        showSecretaryPanel();
+                        
+                        // 挨拶担当タブを開く
+                        setTimeout(() => {
+                            if (typeof showSecretaryPanelTab === 'function') {
+                                console.log('🌅 挨拶担当タブを自動オープン');
+                                showSecretaryPanelTab('greeting');
+                            }
+                        }, 1000);
+                    }
+                }, 1000);
+            }, 500);
+        });
+    </script>
+</body>
+</html>

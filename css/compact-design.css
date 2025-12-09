@@ -1,0 +1,396 @@
+/* ===================================
+   コンパクト＆スマートデザイン
+   全体的にすっきりとした画面にする
+   =================================== */
+
+/* グローバルなスペーシング調整 */
+.container {
+    padding: 0.6rem 0.8rem !important;
+    max-width: 1200px;
+}
+
+/* カード全般のスタイル調整 */
+[style*="border-radius: 1rem"] {
+    border-radius: 0.75rem !important;
+}
+
+/* ヘッダー・タイトルのサイズ調整 */
+h2 {
+    font-size: 1.2rem !important;
+    margin-bottom: 0.6rem !important;
+}
+
+h3 {
+    font-size: 1.05rem !important;
+    margin-bottom: 0.4rem !important;
+}
+
+h4 {
+    font-size: 0.95rem !important;
+}
+
+/* プロフィールカードのコンパクト化 */
+#userProfileCard {
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+#userProfileCard h3 {
+    font-size: 1rem !important;
+}
+
+#userProfileCard [style*="font-size: 2rem"] {
+    font-size: 1.2rem !important;
+}
+
+/* 実践テスト領域のコンパクト化 */
+.test-selection h2 {
+    font-size: 1.15rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.sets-grid {
+    gap: 0.4rem !important;
+    margin-bottom: 0.6rem !important;
+}
+
+.set-card {
+    padding: 0.6rem !important;
+}
+
+.set-card h3 {
+    font-size: 0.95rem !important;
+    margin-bottom: 0.3rem !important;
+}
+
+/* ボタン全般のコンパクト化 */
+button,
+.btn {
+    padding: 0.5rem 0.85rem !important;
+    font-size: 0.9rem !important;
+}
+
+/* ヘッダーボタン（秘書の部屋、リワードショップ）は個別スタイル優先 */
+/* インラインスタイルで制御されるため、ここでは上書きしない */
+
+/* おすすめの学習カードのコンパクト化 */
+#nextActionCard {
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+#nextActionCard [style*="width: 64px; height: 64px"] {
+    width: 36px !important;
+    height: 36px !important;
+}
+
+#nextActionCard h3 {
+    font-size: 1rem !important;
+}
+
+#nextActionCard p {
+    font-size: 0.8rem !important;
+}
+
+#nextActionEmoji {
+    font-size: 1.2rem !important;
+}
+
+#nextActionTitle {
+    font-size: 0.95rem !important;
+}
+
+/* 学習ストリークカードのコンパクト化 */
+#streakCard {
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+#streakCard h3 {
+    font-size: 0.95rem !important;
+}
+
+#streakCard [style*="font-size: 2.5rem"] {
+    font-size: 1.5rem !important;
+}
+
+#streakCard [style*="font-size: 2rem"] {
+    font-size: 1.2rem !important;
+}
+
+/* デイリーミッションカードのコンパクト化 */
+.daily-missions-card {
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.daily-missions-card h3 {
+    font-size: 1rem !important;
+}
+
+/* 成長ダッシュボードのコンパクト化 */
+#growthDashboardCard {
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+/* バックアップカードのコンパクト化 */
+#backupCard {
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+/* 統合復習ハブのコンパクト化 */
+#unifiedReviewHub {
+    margin-bottom: 0.75rem !important;
+}
+
+#unifiedReviewHub > div:first-child {
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+#unifiedReviewHub h3 {
+    font-size: 1.15rem !important;
+}
+
+#unifiedReviewHub h4 {
+    font-size: 0.95rem !important;
+}
+
+/* 復習モード画面のコンパクト化 */
+.review-questions-container {
+    padding: 0.75rem !important;
+}
+
+/* 弱点特訓モードのコンパクト化 */
+#weaknessTrainingScreen .container {
+    padding: 0.6rem 0.8rem !important;
+}
+
+/* アイコン・絵文字のサイズ統一 */
+[style*="font-size: 2.5rem"] {
+    font-size: 1.3rem !important;
+}
+
+[style*="font-size: 3rem"] {
+    font-size: 1.5rem !important;
+}
+
+/* 余白の調整 */
+[style*="margin-bottom: 2rem"],
+[style*="margin-bottom: 2.5rem"],
+[style*="margin-bottom: 3rem"] {
+    margin-bottom: 0.75rem !important;
+}
+
+[style*="padding: 2rem"],
+[style*="padding: 2.5rem"],
+[style*="padding: 3rem"] {
+    padding: 0.75rem !important;
+}
+
+/* 優先度バッジのコンパクト化 */
+#priorityBadge {
+    padding: 0.2rem 0.5rem !important;
+    font-size: 0.7rem !important;
+}
+
+/* グリッドレイアウトの調整 */
+.sets-grid,
+[style*="display: grid"] {
+    gap: 0.4rem !important;
+}
+
+/* ボーダーの調整 */
+[style*="border: 2px"] {
+    border-width: 1px !important;
+}
+
+/* シャドウの軽量化 */
+[style*="box-shadow: 0 20px 25px"] {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1) !important;
+}
+
+[style*="box-shadow: 0 10px 15px"] {
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.1) !important;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .container {
+        padding: 0.4rem 0.6rem !important;
+    }
+    
+    h2 {
+        font-size: 1.05rem !important;
+    }
+    
+    h3 {
+        font-size: 0.95rem !important;
+    }
+    
+    button,
+    .btn {
+        padding: 0.45rem 0.65rem !important;
+        font-size: 0.85rem !important;
+    }
+}
+
+/* 行間・文字間の調整 */
+p {
+    line-height: 1.5 !important;
+}
+
+/* カード間のスペーシング統一 */
+.screen > .container > div,
+.screen > .container > button {
+    margin-bottom: 0.75rem;
+}
+
+.screen > .container > div:last-child,
+.screen > .container > button:last-child {
+    margin-bottom: 0;
+}
+
+/* ホバーエフェクトの軽量化 */
+button:hover,
+.btn:hover {
+    transform: translateY(-1px) !important;
+}
+
+/* アニメーションの最適化 */
+* {
+    transition-duration: 0.2s !important;
+}
+
+/* ===================================
+   より強力なインラインスタイル上書き
+   =================================== */
+
+/* 実践テスト領域のタイトル */
+.test-selection h2[style*="font-size"] {
+    font-size: 1.15rem !important;
+}
+
+/* 秘書の部屋・リワードショップボタン内の絵文字 */
+button[onclick*="showSecretaryPanel"] span[style*="font-size: 2rem"],
+button[onclick*="SecretaryRewards.showShop"] span[style*="font-size: 2rem"] {
+    font-size: 1.2rem !important;
+}
+
+/* Next Action Card のパディング・マージン強制調整 */
+#nextActionCard[style] {
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+/* Next Action Card の絵文字サイズ強制調整 */
+#nextActionEmoji[style*="font-size"] {
+    font-size: 1.2rem !important;
+}
+
+#nextActionIcon[style*="font-size"] {
+    font-size: 1.3rem !important;
+}
+
+/* Next Action Card のアイコンボックスサイズ */
+#nextActionCard div[style*="width: 48px; height: 48px"] {
+    width: 36px !important;
+    height: 36px !important;
+}
+
+/* Next Action Card のタイトルとテキスト */
+#nextActionTitle[style*="font-size"] {
+    font-size: 0.95rem !important;
+}
+
+#nextActionDescription[style*="font-size"] {
+    font-size: 0.85rem !important;
+}
+
+/* Next Action Card のボタンサイズ */
+#nextActionButton[style*="padding"] {
+    padding: 0.6rem 1.2rem !important;
+    font-size: 0.9rem !important;
+}
+
+/* デイリーミッションカード */
+.daily-missions-card[style*="padding"] {
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+/* 成長ダッシュボードカード */
+#growthDashboardCard[style*="padding"] {
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+/* ストリークカード */
+#streakCard[style*="padding"] {
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+/* 全カード共通：大きな絵文字の削減 */
+div[style*="font-size: 2.5rem"],
+div[style*="font-size: 3rem"],
+span[style*="font-size: 2.5rem"],
+span[style*="font-size: 3rem"] {
+    font-size: 1.3rem !important;
+}
+
+div[style*="font-size: 2rem"],
+span[style*="font-size: 2rem"] {
+    font-size: 1.2rem !important;
+}
+
+/* 大きな見出しの削減 */
+h2[style*="font-size: 2rem"] {
+    font-size: 1.2rem !important;
+}
+
+h3[style*="font-size: 1.5rem"],
+h3[style*="font-size: 1.75rem"] {
+    font-size: 1.05rem !important;
+}
+
+h4[style*="font-size: 1.25rem"] {
+    font-size: 0.95rem !important;
+}
+
+/* パディングの全体的な削減 */
+div[style*="padding: 1.5rem"],
+div[style*="padding: 2rem"],
+div[style*="padding: 2.5rem"] {
+    padding: 0.75rem !important;
+}
+
+div[style*="padding: 1.75rem"] {
+    padding: 0.75rem !important;
+}
+
+/* マージンボトムの削減 */
+div[style*="margin-bottom: 1.5rem"],
+div[style*="margin-bottom: 2rem"],
+button[style*="margin-bottom: 1.5rem"],
+button[style*="margin-bottom: 2rem"] {
+    margin-bottom: 0.75rem !important;
+}
+
+/* ボタンのパディング削減 */
+button[style*="padding: 1rem 1.5rem"],
+button[style*="padding: 1rem 2rem"] {
+    padding: 0.6rem 1rem !important;
+    font-size: 0.9rem !important;
+}
+
+/* 小さめのテキストを更に少し小さく */
+p[style*="font-size: 1rem"] {
+    font-size: 0.85rem !important;
+}
+
+p[style*="font-size: 0.875rem"] {
+    font-size: 0.78rem !important;
+}

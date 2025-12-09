@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>リワードショップテスト</title>
+</head>
+<body>
+    <h1>リワードショップテスト</h1>
+    <button onclick="testShop()">ショップを開く</button>
+    <div id="log"></div>
+    
+    <!-- 必須システム -->
+    <script>
+        // DailyMissions模擬
+        window.DailyMissions = {
+            getTotalPoints: () => 1500,
+            spendPoints: (amount) => {
+                console.log(`ポイント消費: ${amount}pt`);
+                return true;
+            }
+        };
+        
+        // SecretarySystem模擬
+        window.SecretarySystem = {
+            userInfo: {
+                nickname: 'テストユーザー',
+                targetScore: 850
+            }
+        };
+        
+        // SecretaryMulti模擬
+        window.SecretaryMulti = {
+            getCurrentSecretary: async () => ({
+                id: 'sakura',
+                name: 'さくら',
+                imageUrl: 'https://via.placeholder.com/200'
+            })
+        };
+        
+        // SecretaryExpressions模擬
+        window.SecretaryExpressions = {
+            updateExpression: async (expr) => {
+                console.log(`表情変更: ${expr}`);
+            },
+            switchSecretary: async (id) => {
+                console.log(`秘書切替: ${id}`);
+            }
+        };
+        
+        // SecretaryMessages模擬
+        window.SecretaryMessages = {
+            showLongMessage: async (msg, duration) => {
+                console.log(`メッセージ: ${msg}`);
+            }
+        };
+        
+        // SecretaryTeam模擬
+        window.SecretaryTeam = {
+            secretaries: {
+                sakura: { id: 'sakura', name: 'さくら', imageUrl: 'https://via.placeholder.com/200' },
+                reina: { id: 'reina', name: '麗奈', imageUrl: 'https://via.placeholder.com/200' },
+                rio: { id: 'rio', name: '莉緒', imageUrl: 'https://via.placeholder.com/200' }
+            },
+            getUnlockedSecretaries: () => [
+                { id: 'sakura', name: 'さくら', imageUrl: 'https://via.placeholder.com/200' },
+                { id: 'reina', name: '麗奈', imageUrl: 'https://via.placeholder.com/200' },
+                { id: 'rio', name: '莉緒', imageUrl: 'https://via.placeholder.com/200' }
+            ],
+            unlockSecretary: async (id) => {
+                console.log(`秘書解放: ${id}`);
+            }
+        };
+        
+        // WeaknessAnalysis模擬
+        window.WeaknessAnalysis = {
+            generateReport: () => ({
+                overallAccuracy: 75,
+                weakestCategories: [{ name: '品詞問題', accuracy: 50 }],
+                strongestCategories: [{ name: '語彙問題', accuracy: 90 }]
+            }),
+            startTraining: () => {
+                console.log('弱点特訓開始');
+            }
+        };
+        
+        // GrowthDashboard模擬
+        window.GrowthDashboard = {
+            getGrowthData: () => ({
+                totalTime: 3600000
+            })
+        };
+    </script>
+    
+    <!-- リワードシステム読み込み -->
+    <script src="js/secretary-rewards-new.js"></script>
+    
+    <script>
+        function testShop() {
+            const log = document.getElementById('log');
+            log.innerHTML += '<p>ショップを開きます...</p>';
+            
+            if (typeof SecretaryRewards !== 'undefined') {
+                log.innerHTML += '<p style="color: green;">✅ SecretaryRewards読み込み成功!</p>';
+                SecretaryRewards.showShop();
+            } else {
+                log.innerHTML += '<p style="color: red;">❌ SecretaryRewardsが見つかりません</p>';
+            }
+        }
+        
+        // 初期化確認
+        window.addEventListener('DOMContentLoaded', () => {
+            const log = document.getElementById('log');
+            if (typeof SecretaryRewards !== 'undefined') {
+                log.innerHTML += '<p style="color: green;">✅ システム準備完了 - 現在のポイント: 1500pt</p>';
+            } else {
+                log.innerHTML += '<p style="color: red;">❌ システムエラー</p>';
+            }
+        });
+    </script>
+</body>
+</html>

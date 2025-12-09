@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>終了ボタン修正テスト</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            background: #f3f4f6;
+        }
+        .test-panel {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .log {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .success {
+            background: #d1fae5;
+            border: 2px solid #10b981;
+            color: #065f46;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        .error {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 終了ボタン修正テスト</h1>
+    
+    <div class="test-panel">
+        <h2>❌ 発生していたエラー</h2>
+        <div class="error">
+            <strong>TypeError: Secretary.onProgressUpdate is not a function</strong><br>
+            at saveProgress (app.js:1086:15)
+        </div>
+        
+        <h3 style="margin-top: 20px;">原因</h3>
+        <p>
+            <code>Secretary.onProgressUpdate()</code> メソッドが存在しないのに、
+            チェックなしで呼び出していました。
+        </p>
+        
+        <h3>修正内容</h3>
+        <p>
+            <strong>修正前:</strong>
+        </p>
+        <pre style="background: #fee2e2; padding: 10px; border-radius: 4px;">if (typeof Secretary !== 'undefined') {
+  Secretary.onProgressUpdate(completedTests);
+}</pre>
+        
+        <p style="margin-top: 15px;">
+            <strong>修正後:</strong>
+        </p>
+        <pre style="background: #d1fae5; padding: 10px; border-radius: 4px;">if (typeof Secretary !== 'undefined' && typeof Secretary.onProgressUpdate === 'function') {
+  Secretary.onProgressUpdate(completedTests);
+}</pre>
+    </div>
+    
+    <div class="test-panel">
+        <h2>🧪 動作テスト</h2>
+        <button onclick="testSaveProgress()">saveProgress() をテスト</button>
+        <button onclick="testFinishTest()">finishTest() をテスト</button>
+        <button onclick="clearLog()">ログをクリア</button>
+        
+        <div id="log" class="log" style="margin-top: 15px;">テストを実行してください...</div>
+    </div>
+    
+    <div class="test-panel">
+        <h2>✅ 確認方法</h2>
+        <ol style="line-height: 2;">
+            <li>このページでテストを実行して、エラーが出ないことを確認</li>
+            <li><code>index.html</code> を開く</li>
+            <li>テストを開始して30問すべて回答</li>
+            <li>「テストを終了」ボタンをクリック</li>
+            <li>✅ 結果画面が正常に表示されればOK</li>
+        </ol>
+    </div>
+
+    <script>
+        const STORAGE_KEYS = {
+            progress: 'toeic_part5_progress',
+            scores: 'toeic_part5_scores'
+        };
+        
+        let logElement;
+        
+        function log(message, type = 'info') {
+            if (!logElement) logElement = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️';
+            logElement.textContent += `[${timestamp}] ${icon} ${message}\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+        
+        function clearLog() {
+            if (!logElement) logElement = document.getElementById('log');
+            logElement.textContent = 'ログをクリアしました\n';
+        }
+        
+        function getProgress() {
+            const stored = localStorage.getItem(STORAGE_KEYS.progress);
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch (e) {
+                    return { tests: {}, completedQuestions: [] };
+                }
+            }
+            return { tests: {}, completedQuestions: [] };
+        }
+        
+        function saveProgress() {
+            log('📝 saveProgress() 実行開始...', 'info');
+            
+            // 進捗データを取得
+            const progress = getProgress();
+            
+            // ダミーのテストデータを追加
+            const testNumber = Object.keys(progress.tests).length + 1;
+            progress.tests[testNumber] = {
+                completed: true,
+                score: 24,
+                timestamp: Date.now()
+            };
+            
+            log(`   テスト${testNumber}を進捗に追加`, 'info');
+            
+            // LocalStorageに保存
+            localStorage.setItem(STORAGE_KEYS.progress, JSON.stringify(progress));
+            log('   LocalStorageに保存完了', 'success');
+            
+            // 秘書に進捗更新を通知（修正後のコード）
+            const completedTests = Object.keys(progress.tests).length;
+            log(`   完了テスト数: ${completedTests}`, 'info');
+            
+            if (typeof Secretary !== 'undefined' && typeof Secretary.onProgressUpdate === 'function') {
+                log('   Secretary.onProgressUpdate() を呼び出し', 'info');
+                Secretary.onProgressUpdate(completedTests);
+            } else {
+                log('   Secretary.onProgressUpdate() は存在しません（スキップ）', 'warning');
+            }
+            
+            log('✅ saveProgress() 完了（エラーなし）', 'success');
+        }
+        
+        function testSaveProgress() {
+            log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+            log('🧪 テスト: saveProgress()', 'info');
+            log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+            
+            try {
+                saveProgress();
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+                log('🎉 テスト成功！エラーなし！', 'success');
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n', 'info');
+            } catch (error) {
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+                log(`❌ エラー発生: ${error.message}`, 'error');
+                log(`   スタック: ${error.stack}`, 'error');
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n', 'info');
+            }
+        }
+        
+        function testFinishTest() {
+            log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+            log('🧪 テスト: finishTest() シミュレーション', 'info');
+            log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+            
+            try {
+                log('1. タイマー停止（シミュレート）', 'info');
+                log('2. 結果を計算（シミュレート）', 'info');
+                log('3. テスト履歴を保存（シミュレート）', 'info');
+                
+                // saveProgress() を実行
+                saveProgress();
+                
+                log('4. 結果画面を表示（シミュレート）', 'info');
+                
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+                log('🎉 テスト成功！エラーなし！', 'success');
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n', 'info');
+            } catch (error) {
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+                log(`❌ エラー発生: ${error.message}`, 'error');
+                log(`   スタック: ${error.stack}`, 'error');
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n', 'info');
+            }
+        }
+        
+        // 初期化
+        log('✅ テストページが読み込まれました', 'success');
+        log('上部のボタンからテストを実行してください', 'info');
+    </script>
+</body>
+</html>

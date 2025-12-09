@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャッシュバスティング確認</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f3f4f6;
+        }
+        .box {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success {
+            background: #d1fae5;
+            border: 2px solid #10b981;
+            color: #065f46;
+        }
+        .error {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+            color: #991b1b;
+        }
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .log {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 キャッシュバスティング確認</h1>
+    
+    <div class="box">
+        <h2>✅ 修正内容</h2>
+        <p>
+            <strong>問題</strong>: ブラウザが古いバージョンの <code>app.js</code> をキャッシュしていた<br>
+            <strong>解決策</strong>: Lazy Loaderにキャッシュバスティングを追加
+        </p>
+        
+        <h3 style="margin-top: 20px;">修正箇所</h3>
+        <pre style="background: #1f2937; color: #10b981; padding: 15px; border-radius: 6px; overflow-x: auto;">// js/lazy-loader.js の loadScript() 関数
+
+// 修正前
+script.src = src;
+
+// 修正後（キャッシュバスティング）
+script.src = src + '?v=' + Date.now();</pre>
+        
+        <p style="margin-top: 15px;">
+            これにより、毎回異なるURLでスクリプトを読み込むため、ブラウザキャッシュを無視できます。
+        </p>
+    </div>
+    
+    <div class="box">
+        <h2>🧪 動作確認</h2>
+        <button onclick="testLoadTestHistory()">loadTestHistory() をテスト</button>
+        <button onclick="openIndexPage()">index.htmlを開く</button>
+        <div id="result"></div>
+    </div>
+    
+    <div class="box">
+        <h2>📋 確認手順</h2>
+        <ol style="line-height: 2;">
+            <li>上の「loadTestHistory() をテスト」ボタンをクリック</li>
+            <li>✅ が表示されれば成功</li>
+            <li>「index.htmlを開く」ボタンで本番環境を確認</li>
+            <li>テストを1回受けて、スコア予測が表示されることを確認</li>
+        </ol>
+    </div>
+    
+    <div class="box">
+        <h2>📊 期待される動作</h2>
+        <ul style="line-height: 2;">
+            <li>✅ エラーなしでページが読み込まれる</li>
+            <li>✅ テスト終了ボタンが正常に動作する</li>
+            <li>✅ 結果画面が表示される</li>
+            <li>✅ ホーム画面にスコア予測が表示される</li>
+            <li>✅ マイスコア画面にアクセスできる</li>
+        </ul>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            const resultDiv = document.getElementById('result');
+            if (!resultDiv.querySelector('.log')) {
+                resultDiv.innerHTML = '<div class="log"></div>';
+            }
+            const logDiv = resultDiv.querySelector('.log');
+            const timestamp = new Date().toLocaleTimeString();
+            const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+            logDiv.textContent += `[${timestamp}] ${icon} ${message}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        function testLoadTestHistory() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+            
+            log('🧪 テスト開始...', 'info');
+            log('', 'info');
+            
+            // app.jsを動的に読み込む（キャッシュバスティング付き）
+            const script = document.createElement('script');
+            script.src = 'js/app.js?v=' + Date.now();
+            
+            script.onload = () => {
+                log('✅ app.js を読み込みました', 'success');
+                log('', 'info');
+                
+                // loadTestHistory の存在チェック
+                if (typeof loadTestHistory === 'function') {
+                    log('✅ loadTestHistory 関数が見つかりました', 'success');
+                    log(`   型: ${typeof loadTestHistory}`, 'info');
+                    log('', 'info');
+                    
+                    // 実際に呼び出してみる
+                    try {
+                        const history = loadTestHistory();
+                        log('✅ loadTestHistory() を実行しました', 'success');
+                        log(`   結果: ${history.length}件のテスト履歴`, 'info');
+                        log('', 'info');
+                        log('━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+                        log('🎉 すべてのテストに合格しました！', 'success');
+                        log('━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+                        
+                        resultDiv.insertAdjacentHTML('beforeend', `
+                            <div class="box success" style="margin-top: 20px;">
+                                <h3>✅ 成功！</h3>
+                                <p><strong>loadTestHistory</strong> 関数が正常に動作しています。</p>
+                                <p style="margin-top: 10px;"><strong>次のステップ</strong>:</p>
+                                <ol>
+                                    <li>「index.htmlを開く」ボタンをクリック</li>
+                                    <li>テストを1回受ける</li>
+                                    <li>ホーム画面でスコア予測を確認</li>
+                                </ol>
+                            </div>
+                        `);
+                    } catch (error) {
+                        log(`❌ エラー: ${error.message}`, 'error');
+                        log(`   スタック: ${error.stack}`, 'error');
+                        
+                        resultDiv.insertAdjacentHTML('beforeend', `
+                            <div class="box error" style="margin-top: 20px;">
+                                <h3>❌ エラー</h3>
+                                <p><strong>loadTestHistory</strong> の実行中にエラーが発生しました。</p>
+                                <p style="margin-top: 10px;">${error.message}</p>
+                            </div>
+                        `);
+                    }
+                } else {
+                    log('❌ loadTestHistory 関数が見つかりません', 'error');
+                    log(`   型: ${typeof loadTestHistory}`, 'info');
+                    log('', 'info');
+                    log('⚠️ app.js が正しく読み込まれていない可能性があります', 'error');
+                    
+                    resultDiv.insertAdjacentHTML('beforeend', `
+                        <div class="box error" style="margin-top: 20px;">
+                            <h3>❌ 失敗</h3>
+                            <p><strong>loadTestHistory</strong> 関数が見つかりません。</p>
+                            <p style="margin-top: 10px;"><strong>対処方法</strong>:</p>
+                            <ol>
+                                <li>ブラウザを完全に再起動</li>
+                                <li>Ctrl+Shift+R でスーパーリロード</li>
+                                <li>シークレットモードで試す</li>
+                            </ol>
+                        </div>
+                    `);
+                }
+            };
+            
+            script.onerror = () => {
+                log('❌ app.js の読み込みに失敗しました', 'error');
+                
+                resultDiv.insertAdjacentHTML('beforeend', `
+                    <div class="box error" style="margin-top: 20px;">
+                        <h3>❌ 読み込みエラー</h3>
+                        <p>app.js の読み込みに失敗しました。</p>
+                        <p style="margin-top: 10px;">ファイルが存在することを確認してください。</p>
+                    </div>
+                `);
+            };
+            
+            document.head.appendChild(script);
+        }
+        
+        function openIndexPage() {
+            window.open('index.html', '_blank');
+        }
+    </script>
+</body>
+</html>

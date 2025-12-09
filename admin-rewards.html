@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者機能 - リワード設定 | TOEIC学習アプリ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header .admin-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .reward-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .reward-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .reward-card h2 {
+            font-size: 24px;
+            color: #1f2937;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .reward-card-icon {
+            font-size: 32px;
+        }
+        
+        .current-value {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .current-value-label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+        
+        .current-value-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .input-group input[type="number"] {
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-secondary {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .btn-secondary:hover {
+            background: #f3f4f6;
+        }
+        
+        .achievement-list {
+            max-height: 400px;
+            overflow-y: auto;
+            background: #f9fafb;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .achievement-item.unlocked {
+            background: #d1fae5;
+            border: 2px solid #10b981;
+        }
+        
+        .achievement-item-icon {
+            font-size: 32px;
+        }
+        
+        .achievement-item-info {
+            flex: 1;
+        }
+        
+        .achievement-item-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+        
+        .achievement-item-desc {
+            font-size: 13px;
+            color: #6b7280;
+        }
+        
+        .achievement-item-status {
+            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        
+        .achievement-item-status.unlocked {
+            background: #10b981;
+            color: white;
+        }
+        
+        .achievement-item-status.locked {
+            background: #e5e7eb;
+            color: #6b7280;
+        }
+        
+        .success-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            display: none;
+            animation: slideIn 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .success-toast.show {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+        
+        .quick-actions {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .quick-actions h3 {
+            font-size: 20px;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+        
+        .quick-action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .quick-action-btn {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quick-action-btn.gold {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #333;
+        }
+        
+        .quick-action-btn.silver {
+            background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+            color: #333;
+        }
+        
+        .quick-action-btn.bronze {
+            background: linear-gradient(135deg, #cd7f32, #d4a574);
+            color: white;
+        }
+        
+        .quick-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .reward-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎁 リワード設定</h1>
+            <span class="admin-badge">Admin Only</span>
+        </div>
+        
+        <div id="successToast" class="success-toast">
+            ✅ 設定を更新しました！
+        </div>
+        
+        <!-- クイックアクション -->
+        <div class="quick-actions">
+            <h3>⚡ クイックアクション</h3>
+            <div class="quick-action-buttons">
+                <button class="quick-action-btn gold" onclick="addPoints(10000)">
+                    💰 +10,000 ポイント
+                </button>
+                <button class="quick-action-btn silver" onclick="addPoints(5000)">
+                    💰 +5,000 ポイント
+                </button>
+                <button class="quick-action-btn bronze" onclick="addPoints(1000)">
+                    💰 +1,000 ポイント
+                </button>
+                <button class="quick-action-btn gold" onclick="unlockAllAchievements()">
+                    🏆 全実績解放
+                </button>
+                <button class="quick-action-btn silver" onclick="setMaxStreak()">
+                    🔥 ストリーク100日
+                </button>
+                <button class="quick-action-btn bronze" onclick="setHighScore()">
+                    📊 満点スコア設定
+                </button>
+            </div>
+        </div>
+        
+        <!-- リワード設定カード -->
+        <div class="reward-grid">
+            <!-- ポイント設定 -->
+            <div class="reward-card">
+                <h2>
+                    <span class="reward-card-icon">💰</span>
+                    ポイント設定
+                </h2>
+                
+                <div class="current-value">
+                    <div class="current-value-label">現在のポイント</div>
+                    <div class="current-value-number" id="currentPoints">0</div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="pointsInput">新しいポイント数</label>
+                    <input type="number" id="pointsInput" min="0" max="999999" value="0" placeholder="0">
+                </div>
+                
+                <button class="btn-primary" onclick="setPoints()">
+                    ポイントを設定
+                </button>
+                
+                <button class="btn-secondary" onclick="addPointsCustom()">
+                    ➕ ポイントを追加
+                </button>
+            </div>
+            
+            <!-- ストリーク設定 -->
+            <div class="reward-card">
+                <h2>
+                    <span class="reward-card-icon">🔥</span>
+                    ストリーク設定
+                </h2>
+                
+                <div class="current-value">
+                    <div class="current-value-label">現在のストリーク</div>
+                    <div class="current-value-number" id="currentStreak">0</div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="streakInput">ストリーク日数</label>
+                    <input type="number" id="streakInput" min="0" max="365" value="0" placeholder="0">
+                </div>
+                
+                <button class="btn-primary" onclick="setStreak()">
+                    ストリークを設定
+                </button>
+                
+                <button class="btn-secondary" onclick="resetStreak()">
+                    🔄 ストリークをリセット
+                </button>
+            </div>
+            
+            <!-- テスト回数設定 -->
+            <div class="reward-card">
+                <h2>
+                    <span class="reward-card-icon">📝</span>
+                    テスト回数設定
+                </h2>
+                
+                <div class="current-value">
+                    <div class="current-value-label">テスト実施回数</div>
+                    <div class="current-value-number" id="currentTests">0</div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="testsInput">テスト回数</label>
+                    <input type="number" id="testsInput" min="0" max="9999" value="0" placeholder="0">
+                </div>
+                
+                <button class="btn-primary" onclick="setTestCount()">
+                    テスト回数を設定
+                </button>
+            </div>
+        </div>
+        
+        <!-- 実績解放カード -->
+        <div class="reward-card" style="margin-bottom: 30px;">
+            <h2>
+                <span class="reward-card-icon">🏆</span>
+                実績解放
+            </h2>
+            
+            <div class="achievement-list" id="achievementList">
+                <!-- JavaScriptで動的生成 -->
+            </div>
+            
+            <button class="btn-primary" onclick="unlockAllAchievements()">
+                全実績を解放
+            </button>
+            
+            <button class="btn-secondary" onclick="resetAllAchievements()">
+                🔄 実績をリセット
+            </button>
+        </div>
+        
+        <a href="admin-menu.html" class="back-link">← 管理者メニューに戻る</a>
+    </div>
+    
+    <script>
+        // 全42種類の実績定義
+        const ALL_ACHIEVEMENTS = [
+            // 習慣化カテゴリ
+            { id: 'first_test', name: '初めの一歩', desc: '最初のテストを完了', icon: '🎯' },
+            { id: 'streak_3', name: '3日連続', desc: '3日間連続で学習', icon: '🔥' },
+            { id: 'streak_7', name: '一週間継続', desc: '7日間連続で学習', icon: '📅' },
+            { id: 'streak_30', name: '一ヶ月継続', desc: '30日間連続で学習', icon: '📆' },
+            { id: 'streak_100', name: '百日修行', desc: '100日間連続で学習', icon: '💯' },
+            { id: 'early_bird', name: '早起き学習者', desc: '朝6時前に学習を開始', icon: '🌅' },
+            { id: 'night_owl', name: '夜型学習者', desc: '夜10時以降に学習を完了', icon: '🌙' },
+            
+            // テストカテゴリ
+            { id: 'test_10', name: 'テスト10回', desc: '10回のテストを完了', icon: '📝' },
+            { id: 'test_50', name: 'テスト50回', desc: '50回のテストを完了', icon: '📚' },
+            { id: 'test_100', name: 'テスト100回', desc: '100回のテストを完了', icon: '📖' },
+            { id: 'test_500', name: 'テストマスター', desc: '500回のテストを完了', icon: '🎓' },
+            
+            // 高スコアカテゴリ
+            { id: 'perfect_score', name: '満点', desc: '30問全問正解', icon: '💯' },
+            { id: 'high_score_27', name: '27問正解', desc: '30問中27問正解（90%）', icon: '⭐' },
+            { id: 'score_800', name: 'スコア800点', desc: '予測スコア800点到達', icon: '🏆' },
+            { id: 'score_900', name: 'スコア900点', desc: '予測スコア900点到達', icon: '👑' },
+            { id: 'perfect_5times', name: '満点5回', desc: '満点を5回達成', icon: '🌟' },
+            
+            // 速答カテゴリ
+            { id: 'speed_10min', name: 'スピード解答', desc: '10分以内に完了', icon: '⚡' },
+            { id: 'speed_5min', name: '超速解答', desc: '5分以内に完了', icon: '🚀' },
+            
+            // 復習カテゴリ
+            { id: 'review_10', name: '復習10回', desc: '復習を10回実施', icon: '📖' },
+            { id: 'review_50', name: '復習50回', desc: '復習を50回実施', icon: '📚' },
+            { id: 'weakness_overcome', name: '弱点克服', desc: '苦手問題を5問連続正解', icon: '💪' },
+            
+            // マスターカテゴリ
+            { id: 'grammar_master', name: '文法マスター', desc: '文法問題の正答率90%以上', icon: '📘' },
+            { id: 'vocabulary_master', name: '語彙マスター', desc: '語彙問題の正答率90%以上', icon: '📗' },
+            { id: 'all_categories', name: '全カテゴリ制覇', desc: '全問題カテゴリで80%以上', icon: '🎖️' },
+            
+            // その他
+            { id: 'point_1000', name: 'ポイント1000', desc: '1000ポイント獲得', icon: '💰' },
+            { id: 'point_10000', name: 'ポイント10000', desc: '10000ポイント獲得', icon: '💎' },
+            { id: 'secretary_unlock_5', name: '秘書5人解放', desc: '5人の秘書を解放', icon: '💼' },
+            { id: 'secretary_unlock_10', name: '秘書10人解放', desc: '10人の秘書を解放', icon: '🏢' },
+            { id: 'secretary_unlock_all', name: '全秘書解放', desc: '全23人の秘書を解放', icon: '👥' },
+            { id: 'mission_complete_10', name: 'ミッション10回', desc: 'デイリーミッションを10回完了', icon: '🎯' },
+            { id: 'mission_complete_30', name: 'ミッション30回', desc: 'デイリーミッションを30回完了', icon: '🎪' }
+        ];
+        
+        /**
+         * ページ読み込み時の初期化
+         */
+        function init() {
+            loadCurrentValues();
+            renderAchievementList();
+        }
+        
+        /**
+         * 現在の値を読み込み
+         */
+        function loadCurrentValues() {
+            // ポイント
+            const points = localStorage.getItem('toeic_points') || 0;
+            document.getElementById('currentPoints').textContent = parseInt(points).toLocaleString();
+            
+            // ストリーク
+            const streakData = JSON.parse(localStorage.getItem('toeic_streak_data') || '{}');
+            const currentStreak = streakData.currentStreak || 0;
+            document.getElementById('currentStreak').textContent = currentStreak;
+            
+            // テスト回数
+            const testHistory = JSON.parse(localStorage.getItem('toeic_test_history') || '[]');
+            document.getElementById('currentTests').textContent = testHistory.length;
+        }
+        
+        /**
+         * 実績リストを表示
+         */
+        function renderAchievementList() {
+            const achievements = JSON.parse(localStorage.getItem('toeic_achievements') || '{}');
+            const achievementList = document.getElementById('achievementList');
+            
+            achievementList.innerHTML = ALL_ACHIEVEMENTS.map(ach => {
+                const isUnlocked = achievements[ach.id] && achievements[ach.id].unlocked;
+                return `
+                    <div class="achievement-item ${isUnlocked ? 'unlocked' : ''}" onclick="toggleAchievement('${ach.id}')">
+                        <span class="achievement-item-icon">${ach.icon}</span>
+                        <div class="achievement-item-info">
+                            <div class="achievement-item-name">${ach.name}</div>
+                            <div class="achievement-item-desc">${ach.desc}</div>
+                        </div>
+                        <span class="achievement-item-status ${isUnlocked ? 'unlocked' : 'locked'}">
+                            ${isUnlocked ? '解放済み' : '未解放'}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        /**
+         * ポイントを設定
+         */
+        function setPoints() {
+            const points = parseInt(document.getElementById('pointsInput').value) || 0;
+            localStorage.setItem('toeic_points', points);
+            showSuccess();
+            loadCurrentValues();
+        }
+        
+        /**
+         * ポイントを追加
+         */
+        function addPoints(amount) {
+            const currentPoints = parseInt(localStorage.getItem('toeic_points') || 0);
+            const newPoints = currentPoints + amount;
+            localStorage.setItem('toeic_points', newPoints);
+            showSuccess();
+            loadCurrentValues();
+        }
+        
+        /**
+         * カスタムポイント追加
+         */
+        function addPointsCustom() {
+            const points = parseInt(document.getElementById('pointsInput').value) || 0;
+            addPoints(points);
+        }
+        
+        /**
+         * ストリークを設定
+         */
+        function setStreak() {
+            const streak = parseInt(document.getElementById('streakInput').value) || 0;
+            const streakData = JSON.parse(localStorage.getItem('toeic_streak_data') || '{}');
+            
+            streakData.currentStreak = streak;
+            streakData.longestStreak = Math.max(streakData.longestStreak || 0, streak);
+            streakData.lastStudyDate = new Date().toISOString().slice(0, 10);
+            
+            localStorage.setItem('toeic_streak_data', JSON.stringify(streakData));
+            showSuccess();
+            loadCurrentValues();
+        }
+        
+        /**
+         * ストリークをリセット
+         */
+        function resetStreak() {
+            if (!confirm('ストリークをリセットしますか？')) return;
+            
+            const streakData = {
+                currentStreak: 0,
+                longestStreak: 0,
+                lastStudyDate: null,
+                totalStudyDays: 0
+            };
+            
+            localStorage.setItem('toeic_streak_data', JSON.stringify(streakData));
+            showSuccess();
+            loadCurrentValues();
+        }
+        
+        /**
+         * 最大ストリークを設定
+         */
+        function setMaxStreak() {
+            const streakData = JSON.parse(localStorage.getItem('toeic_streak_data') || '{}');
+            streakData.currentStreak = 100;
+            streakData.longestStreak = 100;
+            streakData.lastStudyDate = new Date().toISOString().slice(0, 10);
+            localStorage.setItem('toeic_streak_data', JSON.stringify(streakData));
+            showSuccess();
+            loadCurrentValues();
+        }
+        
+        /**
+         * テスト回数を設定
+         */
+        function setTestCount() {
+            const count = parseInt(document.getElementById('testsInput').value) || 0;
+            const testHistory = [];
+            
+            // ダミーの履歴を作成
+            for (let i = 0; i < count; i++) {
+                testHistory.push({
+                    date: Date.now() - (i * 86400000),
+                    score: Math.floor(Math.random() * 10) + 20,
+                    total: 30
+                });
+            }
+            
+            localStorage.setItem('toeic_test_history', JSON.stringify(testHistory));
+            showSuccess();
+            loadCurrentValues();
+        }
+        
+        /**
+         * 実績を切り替え
+         */
+        function toggleAchievement(id) {
+            const achievements = JSON.parse(localStorage.getItem('toeic_achievements') || '{}');
+            
+            if (achievements[id] && achievements[id].unlocked) {
+                // 解放済み → ロック
+                delete achievements[id];
+            } else {
+                // 未解放 → 解放
+                achievements[id] = {
+                    unlocked: true,
+                    timestamp: Date.now()
+                };
+            }
+            
+            localStorage.setItem('toeic_achievements', JSON.stringify(achievements));
+            renderAchievementList();
+            showSuccess();
+        }
+        
+        /**
+         * 全実績を解放
+         */
+        function unlockAllAchievements() {
+            if (!confirm('全42個の実績を解放しますか？')) return;
+            
+            const achievements = {};
+            ALL_ACHIEVEMENTS.forEach(ach => {
+                achievements[ach.id] = {
+                    unlocked: true,
+                    timestamp: Date.now()
+                };
+            });
+            
+            localStorage.setItem('toeic_achievements', JSON.stringify(achievements));
+            renderAchievementList();
+            showSuccess();
+        }
+        
+        /**
+         * 全実績をリセット
+         */
+        function resetAllAchievements() {
+            if (!confirm('全ての実績をリセットしますか？')) return;
+            
+            localStorage.setItem('toeic_achievements', JSON.stringify({}));
+            renderAchievementList();
+            showSuccess();
+        }
+        
+        /**
+         * 満点スコアを設定
+         */
+        function setHighScore() {
+            const testHistory = JSON.parse(localStorage.getItem('toeic_test_history') || '[]');
+            testHistory.push({
+                date: Date.now(),
+                score: 30,
+                total: 30,
+                accuracy: 100
+            });
+            localStorage.setItem('toeic_test_history', JSON.stringify(testHistory));
+            showSuccess();
+            loadCurrentValues();
+        }
+        
+        /**
+         * 成功通知を表示
+         */
+        function showSuccess() {
+            const toast = document.getElementById('successToast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+        
+        // 初期化
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

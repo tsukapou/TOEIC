@@ -1,0 +1,347 @@
+/**
+ * Toast Notification Styles
+ * Version: 1.0.0
+ * Updated: 2025-12-09
+ * 
+ * Purpose: モダンで美しいトースト通知のスタイリング
+ * Features: アニメーション、レスポンシブ、アクセシビリティ対応
+ */
+
+/* ========================================
+   トーストコンテナ
+   ======================================== */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+    pointer-events: none;
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+    .toast-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+}
+
+/* ========================================
+   トースト基本スタイル
+   ======================================== */
+.toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    min-height: 60px;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateX(400px);
+    border-left: 4px solid #ddd;
+}
+
+/* ホバーエフェクト */
+.toast:hover {
+    transform: translateX(0) translateY(-2px) scale(1.02);
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* ========================================
+   アニメーション
+   ======================================== */
+.toast-show {
+    animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.toast-hide {
+    animation: fadeOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(400px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100px) scale(0.9);
+    }
+}
+
+/* ========================================
+   トーストタイプ別スタイル
+   ======================================== */
+
+/* Success（成功） */
+.toast-success {
+    border-left-color: #10b981;
+    background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
+}
+
+.toast-success .toast-icon {
+    color: #10b981;
+}
+
+.toast-success .toast-icon i {
+    animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+/* Error（エラー） */
+.toast-error {
+    border-left-color: #ef4444;
+    background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+}
+
+.toast-error .toast-icon {
+    color: #ef4444;
+}
+
+.toast-error .toast-icon i {
+    animation: errorShake 0.5s ease-out;
+}
+
+@keyframes errorShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-8px);
+    }
+    75% {
+        transform: translateX(8px);
+    }
+}
+
+/* Warning（警告） */
+.toast-warning {
+    border-left-color: #f59e0b;
+    background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+}
+
+.toast-warning .toast-icon {
+    color: #f59e0b;
+}
+
+.toast-warning .toast-icon i {
+    animation: warningBounce 0.6s ease-out;
+}
+
+@keyframes warningBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Info（情報） */
+.toast-info {
+    border-left-color: #3b82f6;
+    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+}
+
+.toast-info .toast-icon {
+    color: #3b82f6;
+}
+
+.toast-info .toast-icon i {
+    animation: infoSpin 0.8s ease-out;
+}
+
+@keyframes infoSpin {
+    from {
+        transform: rotate(-180deg);
+    }
+    to {
+        transform: rotate(0);
+    }
+}
+
+/* ========================================
+   トースト内部要素
+   ======================================== */
+
+/* アイコン */
+.toast-icon {
+    font-size: 24px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* コンテンツエリア */
+.toast-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* メッセージ */
+.toast-message {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #1f2937;
+    word-wrap: break-word;
+}
+
+/* サブタイトル（オプション） */
+.toast-subtitle {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #6b7280;
+    margin-top: 4px;
+    word-wrap: break-word;
+}
+
+/* 閉じるボタン */
+.toast-close {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.toast-close:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #4b5563;
+}
+
+.toast-close:active {
+    transform: scale(0.9);
+}
+
+/* ========================================
+   アクセシビリティ
+   ======================================== */
+
+/* フォーカス表示 */
+.toast:focus-within,
+.toast-close:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* 高コントラストモード */
+@media (prefers-contrast: high) {
+    .toast {
+        border: 2px solid currentColor;
+    }
+}
+
+/* モーション軽減モード */
+@media (prefers-reduced-motion: reduce) {
+    .toast,
+    .toast-show,
+    .toast-hide,
+    .toast-icon i {
+        animation: none;
+        transition: none;
+    }
+    
+    .toast-show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ========================================
+   ダークモード対応
+   ======================================== */
+@media (prefers-color-scheme: dark) {
+    .toast {
+        background: #1f2937;
+        box-shadow: 
+            0 4px 12px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .toast-message {
+        color: #f9fafb;
+    }
+
+    .toast-subtitle {
+        color: #d1d5db;
+    }
+
+    .toast-close {
+        color: #9ca3af;
+    }
+
+    .toast-close:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #e5e7eb;
+    }
+
+    /* ダークモード用グラデーション */
+    .toast-success {
+        background: linear-gradient(135deg, #064e3b 0%, #1f2937 100%);
+    }
+
+    .toast-error {
+        background: linear-gradient(135deg, #7f1d1d 0%, #1f2937 100%);
+    }
+
+    .toast-warning {
+        background: linear-gradient(135deg, #78350f 0%, #1f2937 100%);
+    }
+
+    .toast-info {
+        background: linear-gradient(135deg, #1e3a8a 0%, #1f2937 100%);
+    }
+}
+
+/* ========================================
+   プリント時は非表示
+   ======================================== */
+@media print {
+    .toast-container {
+        display: none;
+    }
+}

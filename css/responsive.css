@@ -1,0 +1,642 @@
+/* ===================================
+   📱 TOEIC PART5 レスポンシブ対応CSS
+   iPhone・スマートフォン画面最適化
+   =================================== */
+
+/* ===================================
+   🎯 スマートフォン全般（横幅768px以下）
+   =================================== */
+@media screen and (max-width: 768px) {
+    
+    /* ===== 基本レイアウト ===== */
+    body {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    
+    .container {
+        padding: 1rem;
+        max-width: 100%;
+    }
+    
+    /* ===== ヘッダー・タイトル ===== */
+    .app-header {
+        margin-bottom: 1.5rem;
+    }
+    
+    .app-title {
+        font-size: 1.75rem !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .app-subtitle {
+        font-size: 1rem !important;
+    }
+    
+    /* ===== データ引継ぎボタン（左上埋め込み式） ===== */
+    #dataTransferBtn,
+    button[onclick*="showDataTransferModal"],
+    button[onclick*="dataTransfer"],
+    button[onclick*="showDataSyncPanel"] {
+        padding: 0.375rem 0.625rem !important;
+        font-size: 0.7rem !important;
+        top: 0.5rem !important;
+        left: 0.5rem !important;
+        min-height: auto !important;
+        width: auto !important;
+        border-radius: 0.375rem !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    /* ===== グリッドレイアウト（1カラム化） ===== */
+    .level-selection,
+    .mode-selection,
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    /* ===== カード全般 ===== */
+    .level-card,
+    .mode-card,
+    .stat-card,
+    .card {
+        padding: 1rem !important;
+        margin-bottom: 1rem;
+    }
+    
+    .card-title {
+        font-size: 1.25rem !important;
+    }
+    
+    /* ===== ボタン全般 ===== */
+    .btn,
+    button {
+        padding: 0.75rem 1.25rem !important;
+        font-size: 0.95rem !important;
+        min-height: 44px; /* タップ領域確保 */
+        width: 100%;
+        margin-bottom: 0.75rem;
+    }
+    
+    /* データ引継ぎボタンとスキップボタンは例外 */
+    #dataTransferBtn,
+    button[onclick*="showDataTransferModal"],
+    button[onclick*="dataTransfer"],
+    button[onclick*="showDataSyncPanel"],
+    #skipGreetingBtn,
+    button[onclick*="skip"] {
+        width: auto !important;
+        min-height: auto !important;
+    }
+    
+    .btn-primary,
+    .btn-secondary,
+    .btn-success {
+        width: 100% !important;
+    }
+    
+    /* ===== 「秘書の部屋」ボタン ===== */
+    button[onclick*="SecretaryPanel.show"] {
+        padding: 0.875rem 1.5rem !important;
+        font-size: 1rem !important;
+    }
+    
+    /* ===== プロフィールカード ===== */
+    .profile-card,
+    #userProfileCard {
+        padding: 1.25rem !important;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .profile-avatar {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    /* ===== 進捗バー ===== */
+    .progress-bar-container {
+        height: 10px !important;
+    }
+    
+    .score-display {
+        font-size: 1.5rem !important;
+    }
+    
+    /* ===== 統計情報 ===== */
+    .stat-box .stat-value {
+        font-size: 1.25rem !important;
+    }
+    
+    .stat-box .stat-label {
+        font-size: 0.8rem !important;
+    }
+    
+    /* ===================================
+       🎯 問題画面の最適化
+       =================================== */
+    
+    #questionCard {
+        padding: 1rem !important;
+    }
+    
+    .question-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 0.5rem;
+    }
+    
+    .question-number {
+        font-size: 1rem !important;
+    }
+    
+    .question-text {
+        font-size: 1.1rem !important;
+        line-height: 1.6;
+    }
+    
+    .option-card {
+        padding: 0.875rem !important;
+        margin-bottom: 0.75rem;
+    }
+    
+    .option-label {
+        font-size: 0.9rem !important;
+    }
+    
+    .option-text {
+        font-size: 0.95rem !important;
+    }
+    
+    /* 選択肢のホバー効果をタップ用に調整 */
+    .option-card:active {
+        transform: scale(0.98);
+    }
+    
+    /* ===== 問題ナビゲーション ===== */
+    .question-nav {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .question-nav button {
+        width: 100% !important;
+    }
+    
+    /* ===================================
+       🎯 結果画面の最適化
+       =================================== */
+    
+    .result-header {
+        padding: 1.5rem 1rem !important;
+    }
+    
+    .result-score {
+        font-size: 2.5rem !important;
+    }
+    
+    .result-message {
+        font-size: 1rem !important;
+    }
+    
+    .result-stats {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem;
+    }
+    
+    /* Chart.js グラフの高さ調整 */
+    canvas {
+        max-height: 250px !important;
+    }
+    
+    /* ===================================
+       🎯 秘書システムの最適化
+       =================================== */
+    
+    /* ===== 秘書アバター（右下固定） ===== */
+    .secretary-container {
+        bottom: 1rem !important;
+        right: 0.5rem !important;
+    }
+    
+    .secretary-avatar {
+        width: 70px !important;
+        height: 70px !important;
+    }
+    
+    .secretary-avatar img {
+        width: 70px !important;
+        height: 70px !important;
+    }
+    
+    /* ===== 秘書メッセージバルーン ===== */
+    .secretary-message-balloon {
+        max-width: 280px !important;
+        padding: 0.875rem !important;
+        font-size: 0.85rem !important;
+        bottom: 90px !important;
+        right: 0.5rem !important;
+    }
+    
+    .secretary-message-balloon::after {
+        right: 20px !important;
+    }
+    
+    /* ===== 秘書の部屋モーダル ===== */
+    #secretaryPanelModal {
+        padding: 0.5rem !important;
+    }
+    
+    #secretaryPanelModal > div {
+        max-width: 100% !important;
+        max-height: 95vh !important;
+        padding: 1.25rem !important;
+        border-radius: 1rem !important;
+    }
+    
+    /* モーダルヘッダー */
+    .secretary-panel-header h2 {
+        font-size: 1.35rem !important;
+    }
+    
+    /* ポイント表示 */
+    .secretary-panel-header > div {
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 0.85rem !important;
+    }
+    
+    /* 秘書グリッド（1カラム） */
+    .secretary-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.875rem !important;
+        max-height: 55vh !important;
+    }
+    
+    /* 秘書カード */
+    .secretary-card {
+        padding: 1rem !important;
+    }
+    
+    .secretary-card-avatar {
+        width: 70px !important;
+        height: 70px !important;
+    }
+    
+    .secretary-card-name {
+        font-size: 1.1rem !important;
+    }
+    
+    .secretary-card-type {
+        font-size: 0.8rem !important;
+    }
+    
+    .secretary-card-description {
+        font-size: 0.85rem !important;
+    }
+    
+    /* ロック状態の秘書 */
+    .secretary-card.locked .required-points {
+        font-size: 0.85rem !important;
+    }
+    
+    /* ===== アドバイスパネル ===== */
+    #advicePanel {
+        max-width: 95% !important;
+        padding: 1.25rem !important;
+        max-height: 80vh !important;
+    }
+    
+    #advicePanel h3 {
+        font-size: 1.2rem !important;
+    }
+    
+    #adviceContent {
+        font-size: 0.9rem !important;
+        line-height: 1.6;
+    }
+    
+    /* 閉じるボタン */
+    #advicePanel button {
+        padding: 0.75rem 1.5rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* ===================================
+       🎯 デイリー会話システム
+       =================================== */
+    
+    .daily-conversation-overlay {
+        padding: 0.5rem !important;
+    }
+    
+    .daily-conversation-card {
+        max-width: 95% !important;
+        padding: 1.25rem !important;
+    }
+    
+    .daily-conversation-header {
+        font-size: 1.1rem !important;
+    }
+    
+    .daily-conversation-text {
+        font-size: 0.9rem !important;
+        line-height: 1.6;
+    }
+    
+    /* ===================================
+       🎯 モーダル全般
+       =================================== */
+    
+    .modal-content,
+    .modal-body {
+        padding: 1.25rem !important;
+        max-width: 95% !important;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.35rem !important;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .modal-footer button {
+        width: 100% !important;
+    }
+    
+    /* ===================================
+       🎯 ユーザー登録モーダル
+       =================================== */
+    
+    #userRegistrationModal > div {
+        padding: 2rem 1.25rem !important;
+        max-width: 95% !important;
+    }
+    
+    #userRegistrationModal h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    #userRegistrationModal input,
+    #userRegistrationModal select {
+        padding: 0.75rem !important;
+        font-size: 0.95rem !important;
+    }
+    
+    #userRegistrationModal label {
+        font-size: 0.9rem !important;
+    }
+    
+    /* ===================================
+       🎯 スキップボタン（小型化）
+       =================================== */
+    
+    #skipGreetingBtn,
+    button[onclick*="skip"] {
+        bottom: 1rem !important;
+        right: 1rem !important;
+        padding: 0.375rem 0.75rem !important;
+        font-size: 0.75rem !important;
+        min-height: auto !important;
+        width: auto !important;
+    }
+    
+    /* ===================================
+       🎯 学習モード切替
+       =================================== */
+    
+    .mode-toggle-container {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .mode-toggle-btn {
+        width: 100% !important;
+        padding: 0.875rem !important;
+    }
+    
+    /* ===================================
+       🎯 テーブル・リスト表示
+       =================================== */
+    
+    table {
+        font-size: 0.85rem !important;
+    }
+    
+    table th,
+    table td {
+        padding: 0.5rem !important;
+    }
+    
+    /* 横スクロール対応 */
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* ===================================
+       🎯 その他のUI要素
+       =================================== */
+    
+    /* バッジ */
+    .badge {
+        font-size: 0.75rem !important;
+        padding: 0.25rem 0.5rem !important;
+    }
+    
+    /* タグ */
+    .tag {
+        font-size: 0.8rem !important;
+        padding: 0.375rem 0.625rem !important;
+    }
+    
+    /* アイコン */
+    .icon {
+        width: 20px !important;
+        height: 20px !important;
+    }
+    
+    /* セパレーター */
+    .separator {
+        margin: 1rem 0 !important;
+    }
+}
+
+/* ===================================
+   🎯 小型スマートフォン（横幅480px以下）
+   iPhone SE, iPhone 12 mini 等
+   =================================== */
+@media screen and (max-width: 480px) {
+    
+    .app-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .app-subtitle {
+        font-size: 0.9rem !important;
+    }
+    
+    /* さらに小さいボタン */
+    .btn,
+    button {
+        padding: 0.625rem 1rem !important;
+        font-size: 0.875rem !important;
+    }
+    
+    /* データ引継ぎボタンとスキップボタンは例外 */
+    #dataTransferBtn,
+    button[onclick*="showDataTransferModal"],
+    button[onclick*="dataTransfer"],
+    button[onclick*="showDataSyncPanel"],
+    #skipGreetingBtn,
+    button[onclick*="skip"] {
+        width: auto !important;
+        min-height: auto !important;
+    }
+    
+    /* 秘書アバターをさらに小型化 */
+    .secretary-avatar {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    .secretary-avatar img {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    /* メッセージバルーン */
+    .secretary-message-balloon {
+        max-width: 240px !important;
+        font-size: 0.8rem !important;
+        bottom: 75px !important;
+    }
+    
+    /* 秘書カードアバター */
+    .secretary-card-avatar {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    /* 問題テキスト */
+    .question-text {
+        font-size: 1rem !important;
+    }
+    
+    /* 結果スコア */
+    .result-score {
+        font-size: 2rem !important;
+    }
+    
+    /* データ引継ぎボタン（さらに小型化） */
+    #dataTransferBtn,
+    button[onclick*="showDataTransferModal"],
+    button[onclick*="dataTransfer"],
+    button[onclick*="showDataSyncPanel"] {
+        padding: 0.3rem 0.5rem !important;
+        font-size: 0.65rem !important;
+    }
+    
+    /* スキップボタン（さらに小型化） */
+    #skipGreetingBtn,
+    button[onclick*="skip"] {
+        padding: 0.3rem 0.625rem !important;
+        font-size: 0.7rem !important;
+    }
+}
+
+/* ===================================
+   🎯 横向き（ランドスケープ）対応
+   =================================== */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    
+    .container {
+        padding: 0.75rem;
+    }
+    
+    .app-header {
+        margin-bottom: 1rem;
+    }
+    
+    .app-title {
+        font-size: 1.5rem !important;
+    }
+    
+    /* 秘書アバターを控えめに */
+    .secretary-container {
+        bottom: 0.5rem !important;
+        right: 0.5rem !important;
+    }
+    
+    .secretary-avatar {
+        width: 55px !important;
+        height: 55px !important;
+    }
+    
+    .secretary-avatar img {
+        width: 55px !important;
+        height: 55px !important;
+    }
+    
+    /* モーダルの高さ調整 */
+    .secretary-grid {
+        max-height: 45vh !important;
+    }
+    
+    #advicePanel {
+        max-height: 70vh !important;
+    }
+}
+
+/* ===================================
+   🎯 タッチデバイス最適化
+   =================================== */
+@media (hover: none) and (pointer: coarse) {
+    
+    /* タップ時のハイライト削除 */
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* ボタンのタップフィードバック */
+    button:active,
+    .btn:active,
+    .option-card:active {
+        transform: scale(0.97);
+        transition: transform 0.1s ease;
+    }
+    
+    /* スクロールの慣性 */
+    .secretary-grid,
+    .modal-body,
+    .table-container {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ===================================
+   🎯 アクセシビリティ強化
+   =================================== */
+@media screen and (max-width: 768px) {
+    
+    /* フォーカス表示を明確に */
+    button:focus,
+    input:focus,
+    select:focus {
+        outline: 3px solid #3b82f6;
+        outline-offset: 2px;
+    }
+    
+    /* テキストの可読性向上 */
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}

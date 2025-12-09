@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>関数テスト</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .status {
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .ok {
+            background: #d4edda;
+            color: #155724;
+        }
+        .ng {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 グローバル関数テスト</h1>
+    <button onclick="checkAllFunctions()">すべての関数をチェック</button>
+    
+    <div id="results"></div>
+    
+    <h2>🧪 実際にボタンをテスト</h2>
+    <button onclick="testStartTest()">startTest(1) を実行</button>
+    <button onclick="testShowHome()">showHome() を実行</button>
+    
+    <div id="testResults" style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;"></div>
+    
+    <script src="js/lazy-loader.js"></script>
+    
+    <script>
+        function checkAllFunctions() {
+            const functions = [
+                'startTest', 'nextQuestion', 'previousQuestion', 'showHome',
+                'showScreen', 'renderQuestion', 'startTimer', 'stopTimer',
+                'updateTimer', 'selectAnswer', 'showExplanation',
+                'updateNavigationButtons', 'renderOptions',
+                'startUnifiedReview', 'finishTest', 'executeNextAction',
+                'updateGrowthDashboard'
+            ];
+            
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<h2>検証結果</h2>';
+            
+            let okCount = 0;
+            let ngCount = 0;
+            
+            functions.forEach(funcName => {
+                const isAvailable = typeof window[funcName] === 'function';
+                const item = document.createElement('div');
+                item.className = 'test-item';
+                item.innerHTML = `
+                    <span>${funcName}</span>
+                    <span class="status ${isAvailable ? 'ok' : 'ng'}">${isAvailable ? '✅ OK' : '❌ NG'}</span>
+                `;
+                resultsDiv.appendChild(item);
+                
+                if (isAvailable) {
+                    okCount++;
+                } else {
+                    ngCount++;
+                }
+            });
+            
+            const summary = document.createElement('div');
+            summary.style.cssText = 'margin-top: 20px; padding: 20px; background: ' + (ngCount === 0 ? '#d4edda' : '#fff3cd') + '; border-radius: 8px; font-size: 18px; font-weight: bold;';
+            summary.textContent = `結果: ${okCount}/${functions.length}個の関数が利用可能 ${ngCount > 0 ? '⚠️ ' + ngCount + '個の関数が未定義' : '✅ すべて正常'}`;
+            resultsDiv.appendChild(summary);
+        }
+        
+        function testStartTest() {
+            const results = document.getElementById('testResults');
+            try {
+                if (typeof window.startTest === 'function') {
+                    results.innerHTML = '<p style="color: green;">✅ startTest関数は定義されています！</p><p>※実際には問題データがないので実行はスキップします</p>';
+                } else {
+                    results.innerHTML = '<p style="color: red;">❌ startTest関数が定義されていません！</p>';
+                }
+            } catch (e) {
+                results.innerHTML = '<p style="color: red;">❌ エラー: ' + e.message + '</p>';
+            }
+        }
+        
+        function testShowHome() {
+            const results = document.getElementById('testResults');
+            try {
+                if (typeof window.showHome === 'function') {
+                    results.innerHTML = '<p style="color: green;">✅ showHome関数は定義されています！</p><p>※実際には画面がないので実行はスキップします</p>';
+                } else {
+                    results.innerHTML = '<p style="color: red;">❌ showHome関数が定義されていません！</p>';
+                }
+            } catch (e) {
+                results.innerHTML = '<p style="color: red;">❌ エラー: ' + e.message + '</p>';
+            }
+        }
+        
+        // ページ読み込み時に自動チェック
+        window.addEventListener('load', function() {
+            setTimeout(checkAllFunctions, 3000); // 3秒後にチェック（Lazy Loader完了後）
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+/**
+ * 🔒 データバックアップUI スタイル
+ */
+
+/* ==================== バックアップカード ==================== */
+
+.data-backup-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.data-backup-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+}
+
+.data-backup-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.data-backup-card > p {
+  margin: 0 0 1rem 0;
+  font-size: 0.95rem;
+  opacity: 0.95;
+}
+
+/* ==================== バックアップボタン ==================== */
+
+.backup-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.export-btn,
+.import-btn {
+  flex: 1;
+  min-width: 200px;
+  background: white;
+  color: #667eea;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.export-btn:hover,
+.import-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  background: #f8f9ff;
+}
+
+.export-btn:active,
+.import-btn:active {
+  transform: translateY(0);
+}
+
+.import-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.import-btn input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  font-size: 0;
+}
+
+/* ==================== バックアップステータス ==================== */
+
+.backup-status {
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  font-weight: 500;
+  display: inline-block;
+  backdrop-filter: blur(10px);
+}
+
+.backup-status-recent {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #d1fae5;
+}
+
+.backup-status-warning {
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #fef3c7;
+}
+
+.backup-status-danger {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fee2e2;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* ==================== 通知システム ==================== */
+
+.backup-notification {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  min-width: 350px;
+  max-width: 500px;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  z-index: 100000;
+  transform: translateX(600px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backup-notification.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.backup-notification-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.backup-notification-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.backup-notification-body {
+  flex: 1;
+}
+
+.backup-notification-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.backup-notification-message {
+  font-size: 0.95rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.backup-notification-close {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+
+.backup-notification-close:hover {
+  color: #6b7280;
+}
+
+/* ==================== 通知タイプ別スタイル ==================== */
+
+.backup-notification-success {
+  border-left: 4px solid #10b981;
+}
+
+.backup-notification-error {
+  border-left: 4px solid #ef4444;
+}
+
+.backup-notification-warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.backup-notification-info {
+  border-left: 4px solid #3b82f6;
+}
+
+/* ==================== バックアップ警告バナー ==================== */
+
+.backup-warning-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 99999;
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.warning-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.warning-icon {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.warning-text {
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  min-width: 250px;
+}
+
+.warning-content button {
+  background: white;
+  color: #d97706;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.warning-content button:hover {
+  background: #fef3c7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.warning-content .dismiss-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.75rem 1rem;
+}
+
+.warning-content .dismiss-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ==================== レスポンシブデザイン ==================== */
+
+@media (max-width: 768px) {
+  .backup-buttons {
+    flex-direction: column;
+  }
+  
+  .export-btn,
+  .import-btn {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  .backup-notification {
+    left: 1rem;
+    right: 1rem;
+    min-width: auto;
+    max-width: none;
+  }
+  
+  .warning-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .warning-content button {
+    width: 100%;
+  }
+}
+
+/* ==================== ダークモード対応 ==================== */
+
+@media (prefers-color-scheme: dark) {
+  .backup-notification {
+    background: #1f2937;
+  }
+  
+  .backup-notification-title {
+    color: #f9fafb;
+  }
+  
+  .backup-notification-message {
+    color: #d1d5db;
+  }
+  
+  .backup-notification-close {
+    color: #6b7280;
+  }
+  
+  .backup-notification-close:hover {
+    color: #9ca3af;
+  }
+}
+
+/* ==================== アニメーション ==================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.data-backup-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* ==================== アクセシビリティ ==================== */
+
+.export-btn:focus,
+.import-btn:focus {
+  outline: 3px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+.backup-notification-close:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* スクリーンリーダー用 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

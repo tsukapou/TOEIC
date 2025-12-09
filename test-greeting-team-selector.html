@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>グリーティングチーム選択テスト</title>
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #f3f4f6;
+            padding: 2rem;
+        }
+        .test-section {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        h2 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        button {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2);
+        }
+        .result {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #1f2937;">🌅 グリーティングチーム選択テスト</h1>
+    
+    <!-- テスト1: 初期化 -->
+    <div class="test-section">
+        <h2>テスト1: 初期化</h2>
+        <button onclick="testInit()">初期化テスト</button>
+        <div id="result1" class="result"></div>
+    </div>
+    
+    <!-- テスト2: チーム操作 -->
+    <div class="test-section">
+        <h2>テスト2: チーム操作</h2>
+        <button onclick="testAdd()">秘書を追加</button>
+        <button onclick="testRemove()">秘書を削除</button>
+        <button onclick="testToggle()">トグル</button>
+        <div id="result2" class="result"></div>
+    </div>
+    
+    <!-- テスト3: チーム取得 -->
+    <div class="test-section">
+        <h2>テスト3: 現在のチーム</h2>
+        <button onclick="testGetTeam()">チームを表示</button>
+        <button onclick="testGetStats()">統計を表示</button>
+        <div id="result3" class="result"></div>
+    </div>
+    
+    <!-- テスト4: リセット -->
+    <div class="test-section">
+        <h2>テスト4: リセット</h2>
+        <button onclick="testReset()">LocalStorageをクリア</button>
+        <div id="result4" class="result"></div>
+    </div>
+    
+    <!-- スクリプト -->
+    <script src="js/secretary-team.js"></script>
+    <script src="js/greeting-team-selector.js"></script>
+    
+    <script>
+        console.log('=== グリーティングチーム選択テスト ===');
+        
+        function testInit() {
+            console.log('\n--- テスト1: 初期化 ---');
+            
+            // 初期化
+            GreetingTeamSelector.init();
+            
+            const team = GreetingTeamSelector.getGreetingTeam();
+            
+            const result = `
+初期化完了
+現在のチーム: ${JSON.stringify(team, null, 2)}
+チーム人数: ${team.length}人
+            `;
+            
+            document.getElementById('result1').textContent = result;
+            console.log(result);
+        }
+        
+        function testAdd() {
+            console.log('\n--- テスト2-1: 追加 ---');
+            
+            // sakuraを追加
+            const result1 = GreetingTeamSelector.addToGreetingTeam('sakura');
+            console.log(`sakura追加: ${result1}`);
+            
+            // reinaを追加
+            const result2 = GreetingTeamSelector.addToGreetingTeam('reina');
+            console.log(`reina追加: ${result2}`);
+            
+            // yuiを追加
+            const result3 = GreetingTeamSelector.addToGreetingTeam('yui');
+            console.log(`yui追加: ${result3}`);
+            
+            // 4人目を追加しようとする（失敗するはず）
+            const result4 = GreetingTeamSelector.addToGreetingTeam('mio');
+            console.log(`mio追加: ${result4}`);
+            
+            const team = GreetingTeamSelector.getGreetingTeam();
+            
+            const result = `
+追加テスト結果:
+- sakura: ${result1 ? '✅' : '❌'}
+- reina: ${result2 ? '✅' : '❌'}
+- yui: ${result3 ? '✅' : '❌'}
+- mio (4人目): ${result4 ? '✅' : '❌ (想定通り失敗)'}
+
+現在のチーム: ${JSON.stringify(team, null, 2)}
+            `;
+            
+            document.getElementById('result2').textContent = result;
+            console.log(result);
+        }
+        
+        function testRemove() {
+            console.log('\n--- テスト2-2: 削除 ---');
+            
+            // reinaを削除
+            const result = GreetingTeamSelector.removeFromGreetingTeam('reina');
+            console.log(`reina削除: ${result}`);
+            
+            const team = GreetingTeamSelector.getGreetingTeam();
+            
+            const resultText = `
+削除テスト結果:
+- reina削除: ${result ? '✅' : '❌'}
+
+現在のチーム: ${JSON.stringify(team, null, 2)}
+残り枠: ${3 - team.length}人
+            `;
+            
+            document.getElementById('result2').textContent = resultText;
+            console.log(resultText);
+        }
+        
+        function testToggle() {
+            console.log('\n--- テスト2-3: トグル ---');
+            
+            // sakuraをトグル（削除されるはず）
+            const result1 = GreetingTeamSelector.toggleGreetingTeam('sakura');
+            console.log(`sakuraトグル: ${result1}`);
+            
+            // mioをトグル（追加されるはず）
+            const result2 = GreetingTeamSelector.toggleGreetingTeam('mio');
+            console.log(`mioトグル: ${result2}`);
+            
+            const team = GreetingTeamSelector.getGreetingTeam();
+            
+            const result = `
+トグルテスト結果:
+- sakura: ${result1 ? '追加' : '削除'} ${!result1 ? '✅' : '❌'}
+- mio: ${result2 ? '追加' : '削除'} ${result2 ? '✅' : '❌'}
+
+現在のチーム: ${JSON.stringify(team, null, 2)}
+            `;
+            
+            document.getElementById('result2').textContent = result;
+            console.log(result);
+        }
+        
+        function testGetTeam() {
+            console.log('\n--- テスト3-1: チーム取得 ---');
+            
+            const team = GreetingTeamSelector.getGreetingTeam();
+            const secretaries = GreetingTeamSelector.getGreetingTeamSecretaries();
+            
+            const result = `
+現在のグリーティングチーム:
+
+チームID: ${JSON.stringify(team, null, 2)}
+
+チーム秘書:
+${secretaries.map(s => `- ${s.name} (${s.id})`).join('\n')}
+
+合計: ${team.length}人
+            `;
+            
+            document.getElementById('result3').textContent = result;
+            console.log(result);
+        }
+        
+        function testGetStats() {
+            console.log('\n--- テスト3-2: 統計取得 ---');
+            
+            const stats = GreetingTeamSelector.getTeamStats();
+            
+            const result = `
+グリーティングチーム統計:
+
+${JSON.stringify(stats, null, 2)}
+            `;
+            
+            document.getElementById('result3').textContent = result;
+            console.log(result);
+        }
+        
+        function testReset() {
+            console.log('\n--- テスト4: リセット ---');
+            
+            localStorage.removeItem('greetingTeamMembers');
+            
+            const result = `
+LocalStorageをクリアしました
+
+初期化を実行してデフォルトチームを再作成してください
+            `;
+            
+            document.getElementById('result4').textContent = result;
+            console.log(result);
+        }
+        
+        // 初回実行
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded');
+            testInit();
+        });
+    </script>
+</body>
+</html>

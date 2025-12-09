@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ランキング | TOEIC PART5 学習アプリ</title>
+    <link rel="stylesheet" href="css/social-features.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ranking-container">
+        <div class="ranking-header">
+            <h1>🏆 ランキング</h1>
+            <p>全国のユーザーと競争しよう！</p>
+        </div>
+        
+        <!-- タブ切り替え -->
+        <div class="ranking-tabs">
+            <button class="ranking-tab active" onclick="switchTab('all')">全国ランキング</button>
+            <button class="ranking-tab" onclick="switchTab('friends')">フレンドランキング</button>
+        </div>
+        
+        <!-- ランキングリスト -->
+        <div class="ranking-list" id="rankingList">
+            <!-- JavaScriptで動的生成 -->
+        </div>
+        
+        <!-- フレンド招待カード -->
+        <div class="friend-invite-card">
+            <h2>👥 友達を招待しよう！</h2>
+            <p>友達と一緒に学習すると、モチベーションが3倍アップ！</p>
+            <button class="btn-invite-friend" onclick="inviteFriend()">
+                📤 招待リンクをシェア
+            </button>
+        </div>
+        
+        <!-- ホームに戻るボタン -->
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="index.html" style="color: white; text-decoration: none; font-size: 18px; font-weight: 600;">
+                ← ホームに戻る
+            </a>
+        </div>
+    </div>
+    
+    <script src="js/social-features.js"></script>
+    <script>
+        let currentTab = 'all';
+        
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // タブのアクティブ状態を更新
+            document.querySelectorAll('.ranking-tab').forEach(t => {
+                t.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // ランキングを更新
+            renderRanking();
+        }
+        
+        function renderRanking() {
+            if (!window.socialFeatures) {
+                setTimeout(renderRanking, 100);
+                return;
+            }
+            
+            const rankingData = window.socialFeatures.getRankingData();
+            const rankingList = document.getElementById('rankingList');
+            
+            if (currentTab === 'friends') {
+                // フレンドランキング（デモ版では自分のみ）
+                const myData = rankingData.find(u => u.isMe);
+                rankingList.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: white;">
+                        <p style="font-size: 18px; margin-bottom: 20px;">まだフレンドがいません</p>
+                        <p style="font-size: 14px; opacity: 0.8;">友達を招待して一緒に学習を始めましょう！</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 全国ランキング
+            rankingList.innerHTML = rankingData.map(user => {
+                const isTopThree = user.rank <= 3;
+                const medalEmoji = ['🥇', '🥈', '🥉'][user.rank - 1] || '';
+                
+                return `
+                    <div class="ranking-item ${user.isMe ? 'me' : ''}">
+                        <div class="ranking-rank ${isTopThree ? 'ranking-rank-medal' : ''}">
+                            ${isTopThree ? medalEmoji : user.rank}
+                        </div>
+                        <div class="ranking-avatar">
+                            ${user.isMe ? '😊' : '👤'}
+                        </div>
+                        <div class="ranking-info">
+                            <div class="ranking-username">${user.username}</div>
+                            <div class="ranking-stats">テスト${user.totalTests}回実施</div>
+                        </div>
+                        <div class="ranking-score">
+                            ${user.highScore}<span style="font-size: 16px; opacity: 0.8;">/30</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function inviteFriend() {
+            const inviteText = `TOEIC PART5の学習アプリで一緒に勉強しませんか？\\n\\n毎日30問で確実にスコアアップ！\\n無料で始められます 🎓`;
+            
+            if (navigator.share) {
+                // Web Share API対応ブラウザ
+                navigator.share({
+                    title: 'TOEIC PART5 学習アプリ',
+                    text: inviteText,
+                    url: window.location.origin
+                }).catch(err => console.log('シェアがキャンセルされました'));
+            } else {
+                // フォールバック：TwitterまたはLINE
+                const choice = confirm('Twitterでシェアしますか？\\n（キャンセルでLINEシェア）');
+                
+                if (choice) {
+                    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(inviteText)}&hashtags=TOEIC,英語学習`;
+                    window.open(url, '_blank', 'width=550,height=420');
+                } else {
+                    const url = `https://line.me/R/msg/text/?${encodeURIComponent(inviteText)}`;
+                    window.open(url, '_blank');
+                }
+            }
+        }
+        
+        // ページ読み込み時にランキングを表示
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(renderRanking, 500);
+        });
+    </script>
+</body>
+</html>

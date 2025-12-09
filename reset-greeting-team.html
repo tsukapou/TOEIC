@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>グリーティングチーム リセットツール</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .container {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+        .icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .description {
+            color: #6b7280;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .status {
+            background: #f3f4f6;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
+        }
+        .status h3 {
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            font-size: 1.125rem;
+        }
+        .status-value {
+            color: #667eea;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        button {
+            flex: 1;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+        .btn-reset {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+        .btn-check {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+        .btn-home {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .message {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            animation: slideIn 0.3s ease;
+        }
+        .message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+        .message.info {
+            background: #dbeafe;
+            color: #1e40af;
+            border-left: 4px solid #3b82f6;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .note {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            color: #92400e;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🔧</div>
+        <h1>グリーティングチーム リセットツール</h1>
+        
+        <p class="description">
+            挨拶担当の秘書選択をリセットするツールです。<br>
+            「全員選択されている」状態を解除できます。
+        </p>
+        
+        <div class="status">
+            <h3>📊 現在の状態</h3>
+            <div id="currentStatus">読み込み中...</div>
+        </div>
+        
+        <div id="messages"></div>
+        
+        <div class="button-group">
+            <button class="btn-check" onclick="checkStatus()">
+                🔍 状態を確認
+            </button>
+            <button class="btn-reset" onclick="resetGreetingTeam()">
+                🔄 リセット実行
+            </button>
+        </div>
+        
+        <button class="btn-home" onclick="goToHome()" style="width: 100%;">
+            🏠 ホームに戻る
+        </button>
+        
+        <div class="note" style="margin-top: 1.5rem;">
+            <strong>💡 ヒント:</strong><br>
+            リセット後は誰も選択されていない状態になります。好きな秘書を最大3人まで選択してください。
+        </div>
+    </div>
+
+    <script>
+        function showMessage(text, type = 'info') {
+            const messagesDiv = document.getElementById('messages');
+            const message = document.createElement('div');
+            message.className = `message ${type}`;
+            message.textContent = text;
+            messagesDiv.appendChild(message);
+            
+            // 5秒後に自動削除
+            setTimeout(() => {
+                message.remove();
+            }, 5000);
+        }
+        
+        function checkStatus() {
+            const greetingTeam = localStorage.getItem('greetingTeamMembers');
+            const statusDiv = document.getElementById('currentStatus');
+            
+            if (greetingTeam === null || greetingTeam === undefined) {
+                statusDiv.innerHTML = `
+                    <div style="color: #10b981;">
+                        ✅ <strong>正常</strong><br>
+                        <span style="font-size: 0.875rem;">グリーティングチームは設定されていません</span>
+                    </div>
+                `;
+                showMessage('✅ 正常な状態です。問題ありません。', 'success');
+            } else {
+                try {
+                    const team = JSON.parse(greetingTeam);
+                    statusDiv.innerHTML = `
+                        <div style="color: #667eea;">
+                            📋 <strong>設定あり</strong><br>
+                            <span class="status-value">${team.length}人</span>
+                            <span style="font-size: 0.875rem;"> の秘書が選択されています</span><br>
+                            <span style="font-size: 0.875rem; color: #6b7280;">秘書ID: ${team.join(', ')}</span>
+                        </div>
+                    `;
+                    showMessage(`📋 現在${team.length}人の秘書が選択されています`, 'info');
+                } catch (e) {
+                    statusDiv.innerHTML = `
+                        <div style="color: #ef4444;">
+                            ❌ <strong>エラー</strong><br>
+                            <span style="font-size: 0.875rem;">データが破損している可能性があります</span>
+                        </div>
+                    `;
+                    showMessage('⚠️ データが破損しています。リセットしてください。', 'info');
+                }
+            }
+            
+            console.log('📊 LocalStorage状態:', {
+                greetingTeamMembers: greetingTeam
+            });
+        }
+        
+        function resetGreetingTeam() {
+            if (confirm('グリーティングチームをリセットしますか?\n選択した秘書が全てクリアされます。')) {
+                // LocalStorageから削除
+                localStorage.removeItem('greetingTeamMembers');
+                
+                showMessage('✅ リセット完了!誰も選択されていない状態になりました。', 'success');
+                
+                // 状態を再確認
+                setTimeout(() => {
+                    checkStatus();
+                }, 500);
+                
+                console.log('🔄 グリーティングチームをリセットしました');
+            }
+        }
+        
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+        
+        // 初期表示
+        window.addEventListener('DOMContentLoaded', () => {
+            checkStatus();
+        });
+    </script>
+</body>
+</html>

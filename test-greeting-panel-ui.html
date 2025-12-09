@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>秘書パネル - 挨拶担当タブテスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', sans-serif;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h1 {
+            color: white;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .btn {
+            padding: 1.5rem 3rem;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        .test-info {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+        .test-info h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        .test-info ul {
+            padding-left: 1.5rem;
+            line-height: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏠 秘書パネル - 挨拶担当タブテスト</h1>
+        
+        <button class="btn" onclick="showSecretaryPanel()">
+            🏠 秘書の部屋を開く
+        </button>
+        
+        <div class="test-info">
+            <h2>📋 テスト手順</h2>
+            <ol style="padding-left: 1.5rem; line-height: 2;">
+                <li>「秘書の部屋を開く」ボタンをクリック</li>
+                <li>「🌅 挨拶担当」タブをクリック</li>
+                <li>解除済み秘書の一覧が表示されることを確認</li>
+                <li>秘書をクリックして選択・削除できることを確認</li>
+                <li>最大3人まで選択できることを確認</li>
+            </ol>
+            
+            <h2 style="margin-top: 1.5rem;">✅ 確認ポイント</h2>
+            <ul>
+                <li>解除済み秘書(さくら、レイナ、りお)が表示される</li>
+                <li>各秘書に絵文字アバター・名前・タイプが表示される</li>
+                <li>選択中の秘書は緑色でハイライト</li>
+                <li>未選択の秘書は「+ 選択」ボタン</li>
+                <li>選択・削除がスムーズに動作</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 必要なJSファイルを読み込み -->
+    <script src="js/secretary-team.js"></script>
+    <script src="js/greeting-team-selector.js"></script>
+    <script src="js/secretary-panel.js"></script>
+    
+    <script>
+        console.log('🧪 秘書パネルUIテスト開始');
+        
+        // 初期化確認
+        if (typeof SecretaryTeam !== 'undefined') {
+            console.log('✅ SecretaryTeam loaded');
+            const unlocked = SecretaryTeam.getUnlockedSecretaries();
+            console.log('📋 解除済み秘書:', unlocked);
+        } else {
+            console.error('❌ SecretaryTeam not loaded');
+        }
+        
+        if (typeof GreetingTeamSelector !== 'undefined') {
+            console.log('✅ GreetingTeamSelector loaded');
+            const team = GreetingTeamSelector.getGreetingTeam();
+            console.log('👥 現在のチーム:', team);
+        } else {
+            console.error('❌ GreetingTeamSelector not loaded');
+        }
+        
+        if (typeof showSecretaryPanel === 'function') {
+            console.log('✅ showSecretaryPanel function loaded');
+        } else {
+            console.error('❌ showSecretaryPanel function not loaded');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRコード生成機能テスト</title>
+    <script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #1f2937;
+            margin-bottom: 8px;
+            font-size: 2rem;
+        }
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 32px;
+            font-size: 1rem;
+        }
+        .section {
+            margin-bottom: 32px;
+            padding: 24px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+        }
+        .section h2 {
+            color: #374151;
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        .test-data-form {
+            margin-bottom: 16px;
+        }
+        .test-data-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 600;
+        }
+        .test-data-form input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+        .test-data-form input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .stat-card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            border: 2px solid #e5e7eb;
+        }
+        .stat-card .label {
+            color: #6b7280;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+        .stat-card .value {
+            color: #1f2937;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .stat-card .value.success {
+            color: #10b981;
+        }
+        .stat-card .value.warning {
+            color: #f59e0b;
+        }
+        .stat-card .value.error {
+            color: #ef4444;
+        }
+        #qrCodeCanvas {
+            max-width: 100%;
+            height: auto;
+            border: 4px solid #e5e7eb;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: block;
+        }
+        .result-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 2px solid #e5e7eb;
+        }
+        .result-box h3 {
+            margin-top: 0;
+            color: #374151;
+        }
+        .result-box pre {
+            background: #1f2937;
+            color: #10b981;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+        }
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            border-left: 4px solid #10b981;
+        }
+        .warning-message {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            border-left: 4px solid #f59e0b;
+        }
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            border-left: 4px solid #ef4444;
+        }
+        .buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 QRコード生成機能テスト</h1>
+        <p class="subtitle">データ引継ぎ機能のQRコード生成をテストします</p>
+        
+        <!-- テストデータ作成 -->
+        <div class="section">
+            <h2>📝 テストデータ作成</h2>
+            <div class="test-data-form">
+                <label>テスト完了数:</label>
+                <input type="number" id="testCount" value="3" min="0" max="15">
+                
+                <label>間違えた問題数:</label>
+                <input type="number" id="wrongCount" value="15" min="0" max="450">
+                
+                <label>学習日数:</label>
+                <input type="number" id="studyDays" value="7" min="0" max="365">
+            </div>
+            <div class="buttons">
+                <button onclick="createTestData()">📦 テストデータ生成</button>
+                <button onclick="clearTestData()">🗑️ データクリア</button>
+            </div>
+            <div id="dataCreationResult"></div>
+        </div>
+        
+        <!-- QRコード生成 -->
+        <div class="section">
+            <h2>📱 QRコード生成</h2>
+            <div class="buttons">
+                <button onclick="generateQRCode()">🚀 QRコードを生成</button>
+                <button onclick="downloadQRCode()" id="downloadBtn" disabled>💾 QRコードを保存</button>
+            </div>
+            
+            <div id="qrResult"></div>
+            
+            <canvas id="qrCodeCanvas" style="display: none;"></canvas>
+        </div>
+        
+        <!-- データサイズ分析 -->
+        <div class="section">
+            <h2>📊 データサイズ分析</h2>
+            <button onclick="analyzeDataSize()">🔍 データサイズを分析</button>
+            <div id="sizeAnalysisResult"></div>
+        </div>
+    </div>
+    
+    <script>
+        // LocalStorageキー定義
+        const STORAGE_KEYS = {
+            progress: 'toeic_part5_progress',
+            scores: 'toeic_part5_scores',
+            wrongAnswers: 'toeic_wrong_answers',
+            streakData: 'toeic_streak_data',
+            dailyMissions: 'toeic_daily_missions',
+            userProfile: 'toeic_user_profile'
+        };
+        
+        // テストデータ生成
+        function createTestData() {
+            try {
+                const testCount = parseInt(document.getElementById('testCount').value);
+                const wrongCount = parseInt(document.getElementById('wrongCount').value);
+                const studyDays = parseInt(document.getElementById('studyDays').value);
+                
+                console.log('📦 テストデータ生成開始...');
+                
+                // テスト進捗
+                const progress = { tests: {} };
+                for (let i = 1; i <= testCount; i++) {
+                    progress.tests[i] = {
+                        score: Math.floor(Math.random() * 10) + 20,
+                        predictedScore: Math.floor(Math.random() * 200) + 400,
+                        completed: true,
+                        date: new Date(Date.now() - i * 86400000).toISOString()
+                    };
+                }
+                localStorage.setItem(STORAGE_KEYS.progress, JSON.stringify(progress));
+                
+                // 間違えた問題
+                const wrongAnswers = [];
+                for (let i = 0; i < wrongCount; i++) {
+                    wrongAnswers.push({
+                        questionId: i + 1,
+                        category: ['文法', '語彙', '熟語'][Math.floor(Math.random() * 3)],
+                        mistakeCount: Math.floor(Math.random() * 3) + 1,
+                        lastAttempt: new Date(Date.now() - Math.random() * 604800000).toISOString()
+                    });
+                }
+                localStorage.setItem(STORAGE_KEYS.wrongAnswers, JSON.stringify(wrongAnswers));
+                
+                // 学習ストリーク
+                const studyHistory = [];
+                for (let i = 0; i < studyDays; i++) {
+                    const date = new Date(Date.now() - i * 86400000);
+                    studyHistory.push(date.toISOString().split('T')[0]);
+                }
+                const streakData = {
+                    currentStreak: Math.min(studyDays, 7),
+                    longestStreak: studyDays,
+                    totalStudyDays: studyDays,
+                    studyHistory: studyHistory,
+                    lastStudyDate: new Date().toISOString().split('T')[0]
+                };
+                localStorage.setItem(STORAGE_KEYS.streakData, JSON.stringify(streakData));
+                
+                // デイリーミッション
+                const dailyMissions = {
+                    totalPoints: studyDays * 50,
+                    history: [],
+                    lastDate: new Date().toISOString().split('T')[0]
+                };
+                localStorage.setItem(STORAGE_KEYS.dailyMissions, JSON.stringify(dailyMissions));
+                
+                // ユーザープロフィール
+                const userProfile = {
+                    nickname: 'テストユーザー',
+                    targetScore: 800,
+                    examDate: new Date(Date.now() + 90 * 86400000).toISOString()
+                };
+                localStorage.setItem(STORAGE_KEYS.userProfile, JSON.stringify(userProfile));
+                
+                document.getElementById('dataCreationResult').innerHTML = 
+                    '<div class="success-message">' +
+                    '<strong>✅ テストデータ生成完了！</strong><br>' +
+                    `テスト完了: ${testCount}回<br>` +
+                    `間違えた問題: ${wrongCount}問<br>` +
+                    `学習日数: ${studyDays}日` +
+                    '</div>';
+                
+                console.log('✅ テストデータ生成完了');
+                
+            } catch (error) {
+                console.error('❌ テストデータ生成エラー:', error);
+                document.getElementById('dataCreationResult').innerHTML = 
+                    `<div class="error-message">❌ エラー: ${error.message}</div>`;
+            }
+        }
+        
+        // テストデータクリア
+        function clearTestData() {
+            if (confirm('テストデータを削除しますか？')) {
+                Object.values(STORAGE_KEYS).forEach(key => {
+                    localStorage.removeItem(key);
+                });
+                document.getElementById('dataCreationResult').innerHTML = 
+                    '<div class="success-message">🗑️ テストデータを削除しました</div>';
+                console.log('🗑️ テストデータ削除完了');
+            }
+        }
+        
+        // QRコード生成
+        async function generateQRCode() {
+            try {
+                console.log('📱 QRコード生成開始...');
+                
+                // データをエクスポート
+                const exportData = {
+                    version: '1.0.0',
+                    exportDate: new Date().toISOString(),
+                    exportTimestamp: Date.now(),
+                    data: {}
+                };
+                
+                Object.entries(STORAGE_KEYS).forEach(([key, storageKey]) => {
+                    const value = localStorage.getItem(storageKey);
+                    if (value) {
+                        try {
+                            exportData.data[storageKey] = JSON.parse(value);
+                        } catch (e) {
+                            exportData.data[storageKey] = value;
+                        }
+                    }
+                });
+                
+                const jsonString = JSON.stringify(exportData);
+                const originalSize = new Blob([jsonString]).size;
+                
+                console.log(`📊 元データサイズ: ${originalSize} バイト`);
+                
+                // LZ-String で圧縮
+                const compressed = LZString.compressToBase64(jsonString);
+                const compressedSize = new Blob([compressed]).size;
+                const compressionRate = ((1 - compressedSize / originalSize) * 100).toFixed(1);
+                
+                console.log(`📊 圧縮後サイズ: ${compressedSize} バイト (${compressionRate}%削減)`);
+                
+                // QRコード容量チェック
+                const QR_MAX_SIZE = 2953;
+                const isOverCapacity = compressedSize > QR_MAX_SIZE;
+                
+                // QRコード生成
+                const canvas = document.getElementById('qrCodeCanvas');
+                await QRCode.toCanvas(canvas, compressed, {
+                    width: 400,
+                    margin: 2,
+                    errorCorrectionLevel: 'M'
+                });
+                
+                canvas.style.display = 'block';
+                document.getElementById('downloadBtn').disabled = false;
+                
+                // 結果表示
+                let resultHTML = '<div class="stats">';
+                resultHTML += `
+                    <div class="stat-card">
+                        <div class="label">元データサイズ</div>
+                        <div class="value">${(originalSize / 1024).toFixed(2)} KB</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">圧縮後サイズ</div>
+                        <div class="value ${isOverCapacity ? 'error' : 'success'}">${(compressedSize / 1024).toFixed(2)} KB</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">圧縮率</div>
+                        <div class="value success">${compressionRate}%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">QR容量制限</div>
+                        <div class="value">${(QR_MAX_SIZE / 1024).toFixed(2)} KB</div>
+                    </div>
+                `;
+                resultHTML += '</div>';
+                
+                if (isOverCapacity) {
+                    resultHTML += `
+                        <div class="error-message">
+                            <strong>⚠️ 容量オーバー</strong><br>
+                            データサイズがQRコードの容量制限を超えています。<br>
+                            超過: ${((compressedSize - QR_MAX_SIZE) / 1024).toFixed(2)} KB<br>
+                            <br>
+                            <strong>解決策:</strong><br>
+                            • クリップボードコピー機能を使用<br>
+                            • JSONファイルダウンロードを使用<br>
+                            • 分割QRコード機能（今後実装予定）
+                        </div>
+                    `;
+                } else {
+                    resultHTML += `
+                        <div class="success-message">
+                            <strong>✅ QRコード生成成功！</strong><br>
+                            データはQRコードの容量内に収まっています。<br>
+                            余裕: ${((QR_MAX_SIZE - compressedSize) / 1024).toFixed(2)} KB
+                        </div>
+                    `;
+                }
+                
+                document.getElementById('qrResult').innerHTML = resultHTML;
+                
+                console.log('✅ QRコード生成完了');
+                
+            } catch (error) {
+                console.error('❌ QRコード生成エラー:', error);
+                document.getElementById('qrResult').innerHTML = 
+                    `<div class="error-message">❌ エラー: ${error.message}</div>`;
+            }
+        }
+        
+        // QRコードダウンロード
+        function downloadQRCode() {
+            try {
+                const canvas = document.getElementById('qrCodeCanvas');
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    const timestamp = new Date().toISOString().slice(0, 19).replace(/[-:]/g, '').replace('T', '_');
+                    link.download = `toeic_qrcode_test_${timestamp}.png`;
+                    link.href = url;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                    
+                    alert('✅ QRコード画像を保存しました！');
+                });
+            } catch (error) {
+                console.error('❌ ダウンロードエラー:', error);
+                alert('❌ ダウンロードに失敗しました: ' + error.message);
+            }
+        }
+        
+        // データサイズ分析
+        function analyzeDataSize() {
+            try {
+                console.log('🔍 データサイズ分析開始...');
+                
+                let totalSize = 0;
+                const breakdown = [];
+                
+                Object.entries(STORAGE_KEYS).forEach(([key, storageKey]) => {
+                    const value = localStorage.getItem(storageKey);
+                    if (value) {
+                        const size = new Blob([value]).size;
+                        totalSize += size;
+                        breakdown.push({
+                            name: key,
+                            storageKey: storageKey,
+                            size: size,
+                            sizeKB: (size / 1024).toFixed(2),
+                            percentage: 0 // 後で計算
+                        });
+                    }
+                });
+                
+                // パーセンテージ計算
+                breakdown.forEach(item => {
+                    item.percentage = ((item.size / totalSize) * 100).toFixed(1);
+                });
+                
+                // ソート（サイズ降順）
+                breakdown.sort((a, b) => b.size - a.size);
+                
+                // 結果表示
+                let resultHTML = '<div class="stats">';
+                resultHTML += `
+                    <div class="stat-card">
+                        <div class="label">総データサイズ</div>
+                        <div class="value">${(totalSize / 1024).toFixed(2)} KB</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">データ項目数</div>
+                        <div class="value">${breakdown.length}件</div>
+                    </div>
+                `;
+                resultHTML += '</div>';
+                
+                resultHTML += '<div class="result-box">';
+                resultHTML += '<h3>📊 データ内訳</h3>';
+                resultHTML += '<table style="width: 100%; border-collapse: collapse;">';
+                resultHTML += '<thead><tr style="background: #f3f4f6; text-align: left;"><th style="padding: 8px;">項目</th><th>サイズ</th><th>割合</th></tr></thead>';
+                resultHTML += '<tbody>';
+                
+                breakdown.forEach(item => {
+                    resultHTML += `
+                        <tr style="border-bottom: 1px solid #e5e7eb;">
+                            <td style="padding: 8px;">${item.name}</td>
+                            <td style="padding: 8px;">${item.sizeKB} KB</td>
+                            <td style="padding: 8px;">${item.percentage}%</td>
+                        </tr>
+                    `;
+                });
+                
+                resultHTML += '</tbody></table>';
+                resultHTML += '</div>';
+                
+                document.getElementById('sizeAnalysisResult').innerHTML = resultHTML;
+                
+                console.log('✅ データサイズ分析完了');
+                console.table(breakdown);
+                
+            } catch (error) {
+                console.error('❌ データサイズ分析エラー:', error);
+                document.getElementById('sizeAnalysisResult').innerHTML = 
+                    `<div class="error-message">❌ エラー: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>

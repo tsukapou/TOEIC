@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>リワードシステムテスト</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f5f7fa;
+            border-radius: 15px;
+        }
+        .test-section h2 {
+            color: #333;
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+        button {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .status {
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            margin-top: 1rem;
+            border-left: 4px solid #667eea;
+        }
+        .success {
+            border-left-color: #4caf50;
+        }
+        .error {
+            border-left-color: #f44336;
+        }
+        .info {
+            padding: 1rem;
+            background: #e3f2fd;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎁 リワードシステム動作テスト</h1>
+        
+        <div class="info">
+            <strong>📝 テスト手順:</strong><br>
+            1. ポイントを追加<br>
+            2. VIPリングを有効化<br>
+            3. リワードショップを開く<br>
+            4. リワードを購入してテスト
+        </div>
+        
+        <!-- ポイント管理 -->
+        <div class="test-section">
+            <h2>💰 ポイント管理</h2>
+            <button onclick="addTestPoints(100)">+100pt追加</button>
+            <button onclick="addTestPoints(500)">+500pt追加</button>
+            <button onclick="addTestPoints(1000)">+1000pt追加</button>
+            <button onclick="resetPoints()">リセット</button>
+            <div id="pointStatus" class="status">現在のポイント: 0pt</div>
+        </div>
+        
+        <!-- VIPステータス -->
+        <div class="test-section">
+            <h2>💍 VIPステータス</h2>
+            <button onclick="activateVIP()">VIPリング有効化</button>
+            <button onclick="deactivateVIP()">VIP解除</button>
+            <div id="vipStatus" class="status">VIPステータス: 未活性</div>
+        </div>
+        
+        <!-- 秘書設定 -->
+        <div class="test-section">
+            <h2>👥 秘書設定</h2>
+            <button onclick="setupTestSecretary('sakura')">さくらを選択</button>
+            <button onclick="setupTestSecretary('reina')">麗奈を選択</button>
+            <button onclick="setupTestSecretary('rio')">莉緒を選択</button>
+            <div id="secretaryStatus" class="status">現在の秘書: 未設定</div>
+        </div>
+        
+        <!-- リワードショップ -->
+        <div class="test-section">
+            <h2>🎁 リワードショップ</h2>
+            <button onclick="openRewardShop()">リワードショップを開く</button>
+            <div id="shopStatus" class="status">準備完了</div>
+        </div>
+        
+        <!-- ログ -->
+        <div class="test-section">
+            <h2>📋 テストログ</h2>
+            <div id="testLog" style="max-height: 300px; overflow-y: auto; font-size: 0.9rem; line-height: 1.6;">
+                <div style="color: #666;">ログがここに表示されます...</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 必須スクリプト -->
+    <script>
+        // ログ関数
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('testLog');
+            const time = new Date().toLocaleTimeString();
+            const colors = {
+                info: '#1976d2',
+                success: '#4caf50',
+                error: '#f44336',
+                warning: '#ff9800'
+            };
+            logDiv.innerHTML += `<div style="color: ${colors[type]}; margin-bottom: 0.5rem;">[${time}] ${message}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        // ポイント追加
+        function addTestPoints(amount) {
+            try {
+                // DailyMissionsデータを直接操作
+                const data = JSON.parse(localStorage.getItem('toeic_daily_missions') || '{"totalPoints": 0}');
+                data.totalPoints = (data.totalPoints || 0) + amount;
+                localStorage.setItem('toeic_daily_missions', JSON.stringify(data));
+                
+                updatePointStatus();
+                log(`✅ ${amount}ptを追加しました (合計: ${data.totalPoints}pt)`, 'success');
+            } catch (e) {
+                log(`❌ エラー: ${e.message}`, 'error');
+            }
+        }
+        
+        // ポイントリセット
+        function resetPoints() {
+            localStorage.setItem('toeic_daily_missions', JSON.stringify({totalPoints: 0}));
+            updatePointStatus();
+            log('🔄 ポイントをリセットしました', 'info');
+        }
+        
+        // ポイントステータス更新
+        function updatePointStatus() {
+            const data = JSON.parse(localStorage.getItem('toeic_daily_missions') || '{"totalPoints": 0}');
+            document.getElementById('pointStatus').textContent = `現在のポイント: ${data.totalPoints || 0}pt`;
+        }
+        
+        // VIP有効化
+        function activateVIP() {
+            const ringStatus = {
+                secretaryId: 'sakura',
+                secretaryName: 'さくら',
+                activated: true,
+                date: new Date().toLocaleDateString('ja-JP'),
+                timestamp: Date.now(),
+                bonuses: {
+                    pointBonus: 1.1,
+                    specialGreeting: true,
+                    vipMessages: true,
+                    specialAvatar: true,
+                    allExpressions: true
+                }
+            };
+            localStorage.setItem('secretary_promise_ring', JSON.stringify(ringStatus));
+            updateVIPStatus();
+            log('💍 VIPリングを有効化しました (ポイント+10%)', 'success');
+        }
+        
+        // VIP解除
+        function deactivateVIP() {
+            localStorage.removeItem('secretary_promise_ring');
+            updateVIPStatus();
+            log('🔓 VIPリングを解除しました', 'info');
+        }
+        
+        // VIPステータス更新
+        function updateVIPStatus() {
+            const ringStatus = JSON.parse(localStorage.getItem('secretary_promise_ring') || 'null');
+            if (ringStatus && ringStatus.activated) {
+                document.getElementById('vipStatus').innerHTML = `<strong>VIPステータス: 有効💍</strong><br>ボーナス: ポイント×${ringStatus.bonuses.pointBonus}`;
+                document.getElementById('vipStatus').classList.add('success');
+            } else {
+                document.getElementById('vipStatus').textContent = 'VIPステータス: 未活性';
+                document.getElementById('vipStatus').classList.remove('success');
+            }
+        }
+        
+        // 秘書設定
+        function setupTestSecretary(secretaryId) {
+            const secretaries = {
+                sakura: { id: 'sakura', name: 'さくら' },
+                reina: { id: 'reina', name: '麗奈' },
+                rio: { id: 'rio', name: '莉緒' }
+            };
+            
+            const sec = secretaries[secretaryId];
+            // SecretarySystemの模擬データ
+            const userInfo = {
+                nickname: 'テストユーザー',
+                targetScore: 850
+            };
+            localStorage.setItem('secretary_user_info', JSON.stringify(userInfo));
+            localStorage.setItem('current_secretary', secretaryId);
+            
+            updateSecretaryStatus();
+            log(`👤 秘書を${sec.name}に設定しました`, 'success');
+        }
+        
+        // 秘書ステータス更新
+        function updateSecretaryStatus() {
+            const userInfo = JSON.parse(localStorage.getItem('secretary_user_info') || '{}');
+            const currentSec = localStorage.getItem('current_secretary') || '未設定';
+            document.getElementById('secretaryStatus').innerHTML = `現在の秘書: <strong>${currentSec}</strong><br>ユーザー: ${userInfo.nickname || '未設定'} (目標: ${userInfo.targetScore || '未設定'}点)`;
+        }
+        
+        // リワードショップを開く
+        function openRewardShop() {
+            log('🎁 リワードショップを開きます...', 'info');
+            
+            // 実際のアプリではSecretaryRewards.showShop()を呼ぶ
+            // テスト環境では警告を表示
+            if (typeof SecretaryRewards !== 'undefined') {
+                SecretaryRewards.showShop();
+                log('✅ リワードショップが開きました', 'success');
+            } else {
+                alert('⚠️ このテストページはスタンドアローンです。\n\n実際のアプリ(index.html)で以下を確認してください:\n\n1. ホーム画面の「🎁 リワードショップ」ボタン\n2. ポイント表示バッジ\n3. リワード購入機能\n4. VIPボーナス適用');
+                log('⚠️ 実際のアプリ(index.html)でテストしてください', 'warning');
+            }
+        }
+        
+        // 初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePointStatus();
+            updateVIPStatus();
+            updateSecretaryStatus();
+            log('🚀 テストシステム起動完了', 'success');
+            log('📝 まず「+100pt追加」ボタンでポイントを追加してください', 'info');
+        });
+    </script>
+</body>
+</html>

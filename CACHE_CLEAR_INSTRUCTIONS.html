@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャッシュクリア手順</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f3f4f6;
+        }
+        .box {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .error-box {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+            color: #991b1b;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .success-box {
+            background: #d1fae5;
+            border: 2px solid #10b981;
+            color: #065f46;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #1f2937;
+        }
+        h2 {
+            color: #374151;
+            margin-top: 0;
+        }
+        .step {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .warning {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            color: #92400e;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        code {
+            background: #1f2937;
+            color: #10b981;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        kbd {
+            background: #374151;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 キャッシュクリア手順</h1>
+    
+    <div class="error-box">
+        <h2>❌ 発生しているエラー</h2>
+        <code>ReferenceError: loadTestHistory is not defined</code>
+        <p style="margin-top: 10px;">
+            このエラーは、ブラウザが古いバージョンの <code>app.js</code> をキャッシュしているために発生しています。
+        </p>
+    </div>
+    
+    <div class="warning">
+        <strong>⚠️ 重要</strong>: 通常のリロード（F5）では解決しません。<br>
+        必ず「スーパーリロード」を実行してください。
+    </div>
+    
+    <div class="box">
+        <h2>🚀 解決方法: スーパーリロード</h2>
+        
+        <h3>Windows / Linux</h3>
+        <div class="step">
+            <span class="step-number">1</span>
+            <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd> を同時に押す
+        </div>
+        
+        <p style="text-align: center; font-size: 1.5rem; margin: 20px 0;">または</p>
+        
+        <div class="step">
+            <span class="step-number">2</span>
+            <kbd>Ctrl</kbd> + <kbd>F5</kbd> を同時に押す
+        </div>
+        
+        <h3 style="margin-top: 30px;">Mac</h3>
+        <div class="step">
+            <span class="step-number">1</span>
+            <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd> を同時に押す
+        </div>
+        
+        <p style="text-align: center; font-size: 1.5rem; margin: 20px 0;">または</p>
+        
+        <div class="step">
+            <span class="step-number">2</span>
+            開発者ツールを開いた状態で（F12）、リロードボタンを長押し → 「キャッシュの消去とハード再読み込み」を選択
+        </div>
+    </div>
+    
+    <div class="box">
+        <h2>📋 完全な手順</h2>
+        
+        <div class="step">
+            <span class="step-number">1</span>
+            すべてのブラウザタブで <code>index.html</code> を閉じる
+        </div>
+        
+        <div class="step">
+            <span class="step-number">2</span>
+            ブラウザのキャッシュをクリア:
+            <ul style="margin-top: 10px;">
+                <li><strong>Chrome/Edge</strong>: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Delete</kbd> → 「キャッシュされた画像とファイル」にチェック → 「データを削除」</li>
+                <li><strong>Firefox</strong>: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Delete</kbd> → 「キャッシュ」にチェック → 「今すぐ消去」</li>
+            </ul>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">3</span>
+            ブラウザを完全に閉じる（すべてのウィンドウ）
+        </div>
+        
+        <div class="step">
+            <span class="step-number">4</span>
+            ブラウザを再起動
+        </div>
+        
+        <div class="step">
+            <span class="step-number">5</span>
+            <code>index.html</code> を開く
+        </div>
+        
+        <div class="step">
+            <span class="step-number">6</span>
+            <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> でスーパーリロード
+        </div>
+    </div>
+    
+    <div class="box">
+        <h2>🔍 エラーが解消されたか確認する方法</h2>
+        
+        <h3>方法1: コンソールで確認</h3>
+        <div class="step">
+            <span class="step-number">1</span>
+            <kbd>F12</kbd> を押して開発者ツールを開く
+        </div>
+        
+        <div class="step">
+            <span class="step-number">2</span>
+            <strong>Console</strong> タブを開く
+        </div>
+        
+        <div class="step">
+            <span class="step-number">3</span>
+            以下を入力して実行:
+            <pre style="background: #1f2937; color: #10b981; padding: 10px; border-radius: 4px; margin-top: 10px;">typeof loadTestHistory</pre>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">4</span>
+            結果が <code>"function"</code> なら成功 ✅<br>
+            結果が <code>"undefined"</code> なら失敗 ❌
+        </div>
+        
+        <h3 style="margin-top: 30px;">方法2: 実際に使ってみる</h3>
+        <button onclick="testFunction()">✅ loadTestHistory() をテスト</button>
+        <div id="result" style="margin-top: 15px;"></div>
+    </div>
+    
+    <div class="box">
+        <h2>🎯 それでも解決しない場合</h2>
+        
+        <h3>方法1: シークレットモード/プライベートブラウジング</h3>
+        <p>
+            <strong>Chrome/Edge</strong>: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd><br>
+            <strong>Firefox</strong>: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>
+        </p>
+        <p>シークレットモードで <code>index.html</code> を開いてテストしてください。</p>
+        
+        <h3 style="margin-top: 20px;">方法2: 別のブラウザを試す</h3>
+        <p>Chrome、Firefox、Edgeなど、別のブラウザで開いてみてください。</p>
+        
+        <h3 style="margin-top: 20px;">方法3: ファイルの確認</h3>
+        <div class="step">
+            <span class="step-number">1</span>
+            <code>js/app.js</code> を開く
+        </div>
+        <div class="step">
+            <span class="step-number">2</span>
+            <kbd>Ctrl</kbd>+<kbd>F</kbd> で検索
+        </div>
+        <div class="step">
+            <span class="step-number">3</span>
+            <code>function loadTestHistory</code> を検索
+        </div>
+        <div class="step">
+            <span class="step-number">4</span>
+            見つかれば ✅、見つからなければファイルが更新されていない ❌
+        </div>
+    </div>
+    
+    <div class="success-box" style="display: none;" id="successBox">
+        <h2>✅ 成功！</h2>
+        <p><code>loadTestHistory</code> 関数が正しく定義されています。</p>
+        <p><strong>次のステップ</strong>: <code>index.html</code> を開いてテストを受けてください。</p>
+    </div>
+
+    <script>
+        function testFunction() {
+            const resultDiv = document.getElementById('result');
+            const successBox = document.getElementById('successBox');
+            
+            resultDiv.innerHTML = '<p style="color: #6b7280;">テスト中...</p>';
+            
+            setTimeout(() => {
+                if (typeof loadTestHistory === 'function') {
+                    resultDiv.innerHTML = `
+                        <div style="background: #d1fae5; border: 2px solid #10b981; color: #065f46; padding: 15px; border-radius: 6px;">
+                            <strong>✅ 成功！</strong><br>
+                            <code>loadTestHistory</code> 関数は正しく定義されています。<br>
+                            型: <code>${typeof loadTestHistory}</code>
+                        </div>
+                    `;
+                    successBox.style.display = 'block';
+                } else {
+                    resultDiv.innerHTML = `
+                        <div style="background: #fee2e2; border: 2px solid #ef4444; color: #991b1b; padding: 15px; border-radius: 6px;">
+                            <strong>❌ 失敗</strong><br>
+                            <code>loadTestHistory</code> 関数が見つかりません。<br>
+                            型: <code>${typeof loadTestHistory}</code><br>
+                            <br>
+                            <strong>対処方法</strong>:
+                            <ol style="margin-top: 10px;">
+                                <li>ブラウザキャッシュをクリアしてください</li>
+                                <li><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> でスーパーリロード</li>
+                                <li>ブラウザを再起動してください</li>
+                            </ol>
+                        </div>
+                    `;
+                }
+            }, 500);
+        }
+        
+        // ページ読み込み時に自動チェック
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (typeof loadTestHistory === 'function') {
+                    document.getElementById('successBox').style.display = 'block';
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

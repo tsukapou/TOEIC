@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者設定 | TOEIC学習アプリ</title>
+    <script src="js/admin-auth-check.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .settings-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .settings-card h2 {
+            font-size: 24px;
+            color: #1f2937;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-danger {
+            width: 100%;
+            padding: 15px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+        
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+        
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .warning-box p {
+            color: #92400e;
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .info-box {
+            background: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .info-box p {
+            color: #1e40af;
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .success-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            display: none;
+            animation: slideIn 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .success-toast.show {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+        
+        .session-info {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .session-info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .session-info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .session-info-label {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .session-info-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙️ 管理者設定</h1>
+        <p class="subtitle">セキュリティとアクセス設定</p>
+        
+        <div id="successToast" class="success-toast">
+            ✅ 設定を更新しました！
+        </div>
+        
+        <!-- セッション情報 -->
+        <div class="settings-card">
+            <h2>🔐 セッション情報</h2>
+            <div class="session-info" id="sessionInfo">
+                <!-- JavaScriptで動的生成 -->
+            </div>
+            <button class="btn-danger" onclick="adminAuth.logout()">
+                🚪 ログアウト
+            </button>
+        </div>
+        
+        <!-- パスワード変更 -->
+        <div class="settings-card">
+            <h2>🔑 パスワード変更</h2>
+            
+            <div class="warning-box">
+                <p>⚠️ パスワードを変更すると、次回アクセス時に新しいパスワードが必要になります。</p>
+            </div>
+            
+            <form id="passwordForm" onsubmit="return handlePasswordChange(event)">
+                <div class="input-group">
+                    <label for="currentPassword">現在のパスワード</label>
+                    <input type="password" id="currentPassword" required autocomplete="off">
+                </div>
+                
+                <div class="input-group">
+                    <label for="newPassword">新しいパスワード</label>
+                    <input type="password" id="newPassword" required minlength="6" autocomplete="new-password">
+                </div>
+                
+                <div class="input-group">
+                    <label for="confirmPassword">新しいパスワード（確認）</label>
+                    <input type="password" id="confirmPassword" required minlength="6" autocomplete="new-password">
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    🔄 パスワードを変更
+                </button>
+            </form>
+        </div>
+        
+        <!-- アクセス制限設定 -->
+        <div class="settings-card">
+            <h2>🛡️ アクセス制限</h2>
+            
+            <div class="info-box">
+                <p>💡 現在の設定: 本アプリは個人利用を想定しています。<br>他のユーザーはデータを閲覧できません。</p>
+            </div>
+            
+            <div class="session-info">
+                <div class="session-info-item">
+                    <span class="session-info-label">データ保存場所</span>
+                    <span class="session-info-value">ブラウザローカル（localStorage）</span>
+                </div>
+                <div class="session-info-item">
+                    <span class="session-info-label">データ共有</span>
+                    <span class="session-info-value">なし（完全プライベート）</span>
+                </div>
+                <div class="session-info-item">
+                    <span class="session-info-label">セッション有効期限</span>
+                    <span class="session-info-value">1時間（自動延長）</span>
+                </div>
+            </div>
+        </div>
+        
+        <a href="admin-menu.html" class="back-link">← 管理者メニューに戻る</a>
+    </div>
+    
+    <script>
+        const ADMIN_PASSWORD_KEY = 'toeic_admin_password';
+        const SESSION_KEY = 'toeic_admin_session';
+        const DEFAULT_PASSWORD = 'admin2025';
+        
+        /**
+         * セッション情報を表示
+         */
+        function displaySessionInfo() {
+            const session = JSON.parse(localStorage.getItem(SESSION_KEY) || '{}');
+            const loginTime = session.loginTime ? new Date(session.loginTime).toLocaleString('ja-JP') : '不明';
+            const expiryTime = session.expiryTime ? new Date(session.expiryTime).toLocaleString('ja-JP') : '不明';
+            
+            const sessionInfo = document.getElementById('sessionInfo');
+            sessionInfo.innerHTML = `
+                <div class="session-info-item">
+                    <span class="session-info-label">ログイン日時</span>
+                    <span class="session-info-value">${loginTime}</span>
+                </div>
+                <div class="session-info-item">
+                    <span class="session-info-label">セッション期限</span>
+                    <span class="session-info-value">${expiryTime}</span>
+                </div>
+            `;
+        }
+        
+        /**
+         * 現在のパスワードを取得
+         */
+        function getCurrentPassword() {
+            return localStorage.getItem(ADMIN_PASSWORD_KEY) || DEFAULT_PASSWORD;
+        }
+        
+        /**
+         * パスワード変更処理
+         */
+        function handlePasswordChange(event) {
+            event.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // 現在のパスワードチェック
+            if (currentPassword !== getCurrentPassword()) {
+                alert('❌ 現在のパスワードが正しくありません');
+                return false;
+            }
+            
+            // 新しいパスワードの確認
+            if (newPassword !== confirmPassword) {
+                alert('❌ 新しいパスワードが一致しません');
+                return false;
+            }
+            
+            // パスワードの長さチェック
+            if (newPassword.length < 6) {
+                alert('❌ パスワードは6文字以上で設定してください');
+                return false;
+            }
+            
+            // パスワードを保存
+            localStorage.setItem(ADMIN_PASSWORD_KEY, newPassword);
+            
+            // フォームをリセット
+            document.getElementById('passwordForm').reset();
+            
+            // 成功通知
+            showSuccess();
+            
+            // 確認メッセージ
+            alert('✅ パスワードを変更しました。\n次回ログイン時は新しいパスワードを使用してください。');
+            
+            return false;
+        }
+        
+        /**
+         * 成功通知を表示
+         */
+        function showSuccess() {
+            const toast = document.getElementById('successToast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+        
+        // 初期化
+        window.addEventListener('DOMContentLoaded', () => {
+            displaySessionInfo();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マイスコアページ テスト</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            background: #f3f4f6;
+        }
+        .test-panel {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .log {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>📊 マイスコアページ 動作テスト</h1>
+    
+    <div class="test-panel">
+        <h2>🧪 テストシナリオ</h2>
+        <button onclick="scenario1()">1️⃣ テスト履歴が0件の場合</button>
+        <button onclick="scenario2()">2️⃣ テスト履歴が1件の場合</button>
+        <button onclick="scenario3()">3️⃣ テスト履歴が5件の場合</button>
+        <button onclick="scenario4()">4️⃣ テスト履歴が10件以上の場合</button>
+        <button onclick="clearData()">🗑️ データをクリア</button>
+    </div>
+    
+    <div class="test-panel">
+        <h2>📋 実行ログ</h2>
+        <div id="log" class="log">テストを実行してください...</div>
+    </div>
+    
+    <!-- スコア表示エリア -->
+    <div id="scoreDisplay" style="display: none;">
+        <div class="test-panel">
+            <h2>🏠 ホーム画面のスコア予測</h2>
+            <div id="latestScorePrediction" style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 15px; color: white;">
+                        <p style="font-size: 12px; opacity: 0.9; margin: 0 0 5px 0;">PART5予測</p>
+                        <p id="homePart5Score" style="font-size: 32px; font-weight: 700; margin: 0;">---</p>
+                        <p style="font-size: 12px; opacity: 0.8; margin: 5px 0 0 0;">/ 200点</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; padding: 15px; color: white;">
+                        <p style="font-size: 12px; opacity: 0.9; margin: 0 0 5px 0;">リーディング</p>
+                        <p id="homeReadingScore" style="font-size: 32px; font-weight: 700; margin: 0;">---</p>
+                        <p style="font-size: 12px; opacity: 0.8; margin: 5px 0 0 0;">/ 495点</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 12px; padding: 15px; color: white;">
+                        <p style="font-size: 12px; opacity: 0.9; margin: 0 0 5px 0;">総合予測</p>
+                        <p id="homeTotalScore" style="font-size: 24px; font-weight: 700; margin: 0;">---</p>
+                        <p style="font-size: 12px; opacity: 0.8; margin: 5px 0 0 0;">/ 990点</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: #f9fafb; border-radius: 8px;">
+                    <div>
+                        <span style="font-size: 14px; color: #6b7280;">レベル: </span>
+                        <span id="homeScoreLevel" style="font-size: 14px; font-weight: 600;">---</span>
+                    </div>
+                    <div id="homeScoreDate" style="font-size: 12px; color: #9ca3af;">---</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-panel">
+            <h2>📊 マイスコア画面</h2>
+            <div style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                <h3 style="margin-bottom: 15px;">最新のスコア予測</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 15px; color: white; text-align: center;">
+                        <p style="font-size: 12px; opacity: 0.9; margin: 0 0 5px 0;">PART5予測</p>
+                        <p id="myScorePart5" style="font-size: 40px; font-weight: 700; margin: 0;">---</p>
+                        <p style="font-size: 12px; opacity: 0.8; margin: 5px 0 0 0;">/ 200点</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; padding: 15px; color: white; text-align: center;">
+                        <p style="font-size: 12px; opacity: 0.9; margin: 0 0 5px 0;">リーディング</p>
+                        <p id="myScoreReading" style="font-size: 40px; font-weight: 700; margin: 0;">---</p>
+                        <p style="font-size: 12px; opacity: 0.8; margin: 5px 0 0 0;">/ 495点</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 12px; padding: 15px; color: white; text-align: center;">
+                        <p style="font-size: 12px; opacity: 0.9; margin: 0 0 5px 0;">総合予測</p>
+                        <p id="myScoreTotal" style="font-size: 32px; font-weight: 700; margin: 0;">---</p>
+                        <p style="font-size: 12px; opacity: 0.8; margin: 5px 0 0 0;">/ 990点</p>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px;">
+                    <div style="background: #f9fafb; border-radius: 8px; padding: 12px; text-align: center;">
+                        <p style="font-size: 12px; color: #6b7280; margin: 0 0 5px 0;">正答率</p>
+                        <p id="myScoreAccuracy" style="font-size: 24px; font-weight: 700; margin: 0;">---%</p>
+                    </div>
+                    <div style="background: #f9fafb; border-radius: 8px; padding: 12px; text-align: center;">
+                        <p style="font-size: 12px; color: #6b7280; margin: 0 0 5px 0;">レベル</p>
+                        <p id="myScoreLevel" style="font-size: 16px; font-weight: 700; margin: 0;">---</p>
+                    </div>
+                    <div style="background: #f9fafb; border-radius: 8px; padding: 12px; text-align: center;">
+                        <p style="font-size: 12px; color: #6b7280; margin: 0 0 5px 0;">前回テスト</p>
+                        <p id="myScoreDate" style="font-size: 14px; font-weight: 600; margin: 0;">---</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <h3 style="margin-bottom: 15px;">📈 スコア履歴グラフ</h3>
+                <canvas id="scoreHistoryChart" style="max-height: 300px;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'toeic_part5_scores';
+        let logElement;
+        
+        function log(message, type = 'info') {
+            if (!logElement) logElement = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️';
+            logElement.textContent += `[${timestamp}] ${icon} ${message}\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+        
+        function clearData() {
+            localStorage.removeItem(STORAGE_KEY);
+            log('LocalStorageをクリアしました', 'success');
+            document.getElementById('scoreDisplay').style.display = 'none';
+        }
+        
+        function loadTestHistory() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            return stored ? JSON.parse(stored) : [];
+        }
+        
+        function saveTestHistory(history) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+        }
+        
+        function predictTOEICScore(correctCount, totalQuestions) {
+            const accuracy = correctCount / totalQuestions;
+            
+            let predictedPart5Score;
+            if (accuracy >= 0.95) predictedPart5Score = 180;
+            else if (accuracy >= 0.90) predictedPart5Score = 170;
+            else if (accuracy >= 0.85) predictedPart5Score = 160;
+            else if (accuracy >= 0.80) predictedPart5Score = 150;
+            else if (accuracy >= 0.75) predictedPart5Score = 140;
+            else if (accuracy >= 0.70) predictedPart5Score = 130;
+            else if (accuracy >= 0.65) predictedPart5Score = 120;
+            else if (accuracy >= 0.60) predictedPart5Score = 110;
+            else if (accuracy >= 0.55) predictedPart5Score = 100;
+            else if (accuracy >= 0.50) predictedPart5Score = 90;
+            else if (accuracy >= 0.40) predictedPart5Score = 75;
+            else predictedPart5Score = Math.round(accuracy * 180);
+            
+            const estimatedReadingScore = Math.round(predictedPart5Score * 2.75);
+            const minTotalScore = Math.max(10, Math.round(estimatedReadingScore * 0.75));
+            const maxTotalScore = Math.min(990, Math.round(estimatedReadingScore * 1.25));
+            
+            let level;
+            if (estimatedReadingScore >= 450) level = 'Aレベル（ハイスコア）';
+            else if (estimatedReadingScore >= 400) level = 'Bレベル（上級）';
+            else if (estimatedReadingScore >= 350) level = 'Cレベル（中上級）';
+            else if (estimatedReadingScore >= 300) level = 'Dレベル（中級）';
+            else if (estimatedReadingScore >= 250) level = 'Eレベル（初中級）';
+            else level = 'Fレベル（基礎）';
+            
+            return {
+                part5Score: predictedPart5Score,
+                readingScore: estimatedReadingScore,
+                minTotalScore,
+                maxTotalScore,
+                level
+            };
+        }
+        
+        function updateHomeScorePrediction() {
+            const history = loadTestHistory();
+            
+            if (history.length === 0) {
+                log('テスト履歴が0件のため、ホーム画面にスコア予測は表示されません', 'warning');
+                return;
+            }
+            
+            const latestTest = history[history.length - 1];
+            const prediction = predictTOEICScore(latestTest.score, 30);
+            const date = new Date(latestTest.timestamp);
+            const dateStr = `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+            
+            document.getElementById('homePart5Score').textContent = prediction.part5Score;
+            document.getElementById('homeReadingScore').textContent = prediction.readingScore;
+            document.getElementById('homeTotalScore').textContent = `${prediction.minTotalScore}-${prediction.maxTotalScore}`;
+            document.getElementById('homeScoreLevel').textContent = prediction.level;
+            document.getElementById('homeScoreDate').textContent = `前回テスト: ${dateStr}`;
+            
+            log('✅ ホーム画面のスコア予測を更新しました', 'success');
+            log(`   PART5: ${prediction.part5Score}点, リーディング: ${prediction.readingScore}点`, 'info');
+        }
+        
+        function updateMyScoreDisplay(testResult) {
+            const prediction = predictTOEICScore(testResult.score, 30);
+            const percentage = Math.round((testResult.score / 30) * 100);
+            const date = new Date(testResult.timestamp);
+            const dateStr = `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+            
+            document.getElementById('myScorePart5').textContent = prediction.part5Score;
+            document.getElementById('myScoreReading').textContent = prediction.readingScore;
+            document.getElementById('myScoreTotal').textContent = `${prediction.minTotalScore}-${prediction.maxTotalScore}`;
+            document.getElementById('myScoreAccuracy').textContent = `${percentage}%`;
+            document.getElementById('myScoreLevel').textContent = prediction.level;
+            document.getElementById('myScoreDate').textContent = dateStr;
+            
+            log('✅ マイスコア画面を更新しました', 'success');
+            log(`   正答率: ${percentage}%, レベル: ${prediction.level}`, 'info');
+        }
+        
+        function renderScoreHistoryChart(history) {
+            const canvas = document.getElementById('scoreHistoryChart');
+            const ctx = canvas.getContext('2d');
+            
+            const recentHistory = history.slice(-10);
+            
+            const labels = recentHistory.map((test, index) => {
+                const date = new Date(test.timestamp);
+                return `${date.getMonth() + 1}/${date.getDate()}`;
+            });
+            
+            const part5Scores = recentHistory.map(test => {
+                const prediction = predictTOEICScore(test.score, 30);
+                return prediction.part5Score;
+            });
+            
+            const readingScores = recentHistory.map(test => {
+                const prediction = predictTOEICScore(test.score, 30);
+                return prediction.readingScore;
+            });
+            
+            if (window.scoreChart) {
+                window.scoreChart.destroy();
+            }
+            
+            window.scoreChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'PART5予測スコア',
+                            data: part5Scores,
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'リーディング予測',
+                            data: readingScores,
+                            borderColor: '#f093fb',
+                            backgroundColor: 'rgba(240, 147, 251, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'PART5スコア'
+                            },
+                            min: 0,
+                            max: 200
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'リーディング'
+                            },
+                            min: 0,
+                            max: 495,
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            log(`✅ スコア履歴グラフを描画しました（${recentHistory.length}件）`, 'success');
+        }
+        
+        function generateTestData(count) {
+            const history = [];
+            const now = Date.now();
+            
+            for (let i = 0; i < count; i++) {
+                // ランダムなスコア（徐々に上昇するトレンド）
+                const baseScore = 15 + Math.floor(i * 1.5);
+                const score = Math.min(30, baseScore + Math.floor(Math.random() * 5));
+                
+                history.push({
+                    testNumber: i + 1,
+                    score: score,
+                    timestamp: now - (count - i) * 24 * 60 * 60 * 1000, // 1日ずつ前
+                    totalTime: Math.floor(Math.random() * 600) + 300
+                });
+            }
+            
+            return history;
+        }
+        
+        function scenario1() {
+            log('🧪 シナリオ1: テスト履歴が0件', 'info');
+            clearData();
+            
+            updateHomeScorePrediction();
+            
+            log('📊 結果: スコア予測は表示されません', 'info');
+            document.getElementById('scoreDisplay').style.display = 'none';
+        }
+        
+        function scenario2() {
+            log('🧪 シナリオ2: テスト履歴が1件', 'info');
+            const history = generateTestData(1);
+            saveTestHistory(history);
+            log(`✅ テストデータを1件生成しました`, 'success');
+            
+            updateHomeScorePrediction();
+            const latestTest = history[history.length - 1];
+            updateMyScoreDisplay(latestTest);
+            renderScoreHistoryChart(history);
+            
+            document.getElementById('scoreDisplay').style.display = 'block';
+        }
+        
+        function scenario3() {
+            log('🧪 シナリオ3: テスト履歴が5件', 'info');
+            const history = generateTestData(5);
+            saveTestHistory(history);
+            log(`✅ テストデータを5件生成しました`, 'success');
+            
+            updateHomeScorePrediction();
+            const latestTest = history[history.length - 1];
+            updateMyScoreDisplay(latestTest);
+            renderScoreHistoryChart(history);
+            
+            document.getElementById('scoreDisplay').style.display = 'block';
+        }
+        
+        function scenario4() {
+            log('🧪 シナリオ4: テスト履歴が15件（グラフは最新10件のみ表示）', 'info');
+            const history = generateTestData(15);
+            saveTestHistory(history);
+            log(`✅ テストデータを15件生成しました`, 'success');
+            log(`   グラフには最新10件のみ表示されます`, 'info');
+            
+            updateHomeScorePrediction();
+            const latestTest = history[history.length - 1];
+            updateMyScoreDisplay(latestTest);
+            renderScoreHistoryChart(history);
+            
+            document.getElementById('scoreDisplay').style.display = 'block';
+        }
+        
+        log('テストページが読み込まれました', 'success');
+        log('上部のボタンからテストシナリオを選択してください', 'info');
+    </script>
+</body>
+</html>

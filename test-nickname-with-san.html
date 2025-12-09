@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ニックネーム「さん」付きテスト</title>
+    <link rel="stylesheet" href="css/personalized-dashboard.css">
+    <style>
+        .test-result {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1rem auto;
+            max-width: 600px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        .test-case {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 0.5rem;
+            border-left: 4px solid #3b82f6;
+        }
+        .test-case h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1f2937;
+        }
+        .test-case code {
+            background: #e5e7eb;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+        }
+        .result {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+        }
+        .result.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .result.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body style="background: #f3f4f6; padding: 2rem;">
+    <h1 style="text-align: center; color: #1f2937; margin-bottom: 2rem;">🎯 ニックネーム「さん」付きテスト</h1>
+    
+    <!-- テストケース結果 -->
+    <div class="test-result">
+        <h3 style="margin-bottom: 1.5rem; color: #1f2937;">📋 テストケース</h3>
+        
+        <div class="test-case">
+            <h4>ケース1: 「さん」なしのニックネーム</h4>
+            <p>入力: <code>nickname: "ツカサ"</code></p>
+            <p>期待結果: <code>"ツカサさん"</code></p>
+            <div id="result1" class="result"></div>
+        </div>
+        
+        <div class="test-case">
+            <h4>ケース2: 「さん」付きのニックネーム</h4>
+            <p>入力: <code>nickname: "太郎さん"</code></p>
+            <p>期待結果: <code>"太郎さん"</code> （重複しない）</p>
+            <div id="result2" class="result"></div>
+        </div>
+        
+        <div class="test-case">
+            <h4>ケース3: 英語名のニックネーム</h4>
+            <p>入力: <code>nickname: "Tom"</code></p>
+            <p>期待結果: <code>"Tomさん"</code></p>
+            <div id="result3" class="result"></div>
+        </div>
+        
+        <div class="test-case">
+            <h4>ケース4: ニックネーム未登録</h4>
+            <p>入力: <code>userProfile なし</code></p>
+            <p>期待結果: <code>"学習者さん"</code></p>
+            <div id="result4" class="result"></div>
+        </div>
+    </div>
+    
+    <!-- ダッシュボード表示エリア -->
+    <div id="personalizedDashboard"></div>
+    
+    <!-- スクリプト -->
+    <script src="js/personalized-learning-nav.js"></script>
+    <script src="js/personalized-dashboard.js"></script>
+    
+    <script>
+        console.log('=== ニックネーム「さん」付きテスト開始 ===');
+        
+        function testCase(caseNum, nickname, expected) {
+            console.log(`\n--- テストケース${caseNum} ---`);
+            console.log(`入力: ${nickname ? `"${nickname}"` : 'なし'}`);
+            console.log(`期待: "${expected}"`);
+            
+            // LocalStorageをクリア
+            localStorage.removeItem('userProfile');
+            localStorage.removeItem('personalizedProfile');
+            
+            // ニックネームを設定（ケース4以外）
+            if (nickname) {
+                const userProfile = {
+                    nickname: nickname,
+                    targetScore: 800,
+                    purposes: ['自己成長'],
+                    registeredAt: new Date().toISOString()
+                };
+                localStorage.setItem('userProfile', JSON.stringify(userProfile));
+            }
+            
+            // プロフィールを取得
+            const profile = PersonalizedLearningNav.getUserProfile();
+            const actual = profile.name;
+            
+            console.log(`結果: "${actual}"`);
+            
+            // 結果判定
+            const success = actual === expected;
+            const resultDiv = document.getElementById(`result${caseNum}`);
+            
+            if (success) {
+                console.log('✅ 成功');
+                resultDiv.className = 'result success';
+                resultDiv.innerHTML = `✅ 成功: <code>"${actual}"</code>`;
+            } else {
+                console.log(`❌ 失敗: 期待="${expected}", 実際="${actual}"`);
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `❌ 失敗: 期待=<code>"${expected}"</code>, 実際=<code>"${actual}"</code>`;
+            }
+            
+            return success;
+        }
+        
+        // テスト実行
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded - テスト開始');
+            
+            let allPassed = true;
+            
+            // ケース1: 「さん」なし
+            allPassed &= testCase(1, "ツカサ", "ツカサさん");
+            
+            // ケース2: 「さん」付き
+            allPassed &= testCase(2, "太郎さん", "太郎さん");
+            
+            // ケース3: 英語名
+            allPassed &= testCase(3, "Tom", "Tomさん");
+            
+            // ケース4: 未登録
+            allPassed &= testCase(4, null, "学習者さん");
+            
+            // 最終結果
+            console.log('\n=== テスト結果 ===');
+            if (allPassed) {
+                console.log('✅ 全テストパス！');
+            } else {
+                console.log('❌ 一部テスト失敗');
+            }
+            
+            // ダッシュボードを描画（ケース1のニックネームで）
+            localStorage.removeItem('userProfile');
+            localStorage.removeItem('personalizedProfile');
+            localStorage.setItem('userProfile', JSON.stringify({
+                nickname: "ツカサ",
+                targetScore: 800
+            }));
+            
+            PersonalizedLearningNav.init();
+            PersonalizedDashboard.render();
+            
+            console.log('\n=== ダッシュボード描画完了 ===');
+            console.log('ヘッダーを確認してください: "ツカサさん専用ダッシュボード" と表示されるはず');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オンボーディング完全テスト | 4ステップフロー</title>
+    
+    <!-- 必要なCSSを読み込み -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/onboarding.css">
+    <link rel="stylesheet" href="css/toast-notification.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* テスト用の追加スタイル */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .test-control-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            z-index: 100000;
+            max-width: 350px;
+        }
+
+        .test-control-panel h3 {
+            margin: 0 0 16px 0;
+            color: #1e293b;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-section {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .control-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .control-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .control-button {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+        }
+
+        .control-button:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-button.primary {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+        }
+
+        .control-button.success {
+            background: #10b981;
+            color: white;
+        }
+
+        .control-button.warning {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .control-button.danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .control-button.secondary {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-display {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin-top: 8px;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .status-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .status-key {
+            color: #64748b;
+        }
+
+        .status-value {
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .status-value.success {
+            color: #10b981;
+        }
+
+        .status-value.error {
+            color: #ef4444;
+        }
+
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: #1e40af;
+            margin-top: 12px;
+        }
+
+        .test-log {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 12px;
+            max-width: 400px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            z-index: 100000;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .test-log h4 {
+            margin: 0 0 8px 0;
+            color: #fbbf24;
+            font-size: 0.875rem;
+        }
+
+        .log-item {
+            padding: 4px 0;
+            border-bottom: 1px solid #334155;
+        }
+
+        .log-item:last-child {
+            border-bottom: none;
+        }
+
+        .log-item.info {
+            color: #3b82f6;
+        }
+
+        .log-item.success {
+            color: #10b981;
+        }
+
+        .log-item.error {
+            color: #ef4444;
+        }
+
+        .log-item.warning {
+            color: #fbbf24;
+        }
+
+        /* Mock Secretary Room */
+        .mock-secretary-room {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 48px;
+            border-radius: 24px;
+            text-align: center;
+            z-index: 99999;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .mock-secretary-room.active {
+            display: block;
+            animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .mock-secretary-room h2 {
+            color: #1e293b;
+            margin: 0 0 16px 0;
+            font-size: 2rem;
+        }
+
+        .mock-secretary-room p {
+            color: #64748b;
+            margin: 0 0 24px 0;
+            font-size: 1.125rem;
+        }
+
+        .toggle-panel {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100001;
+        }
+
+        .toggle-button {
+            background: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s;
+        }
+
+        .toggle-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .control-panel-hidden .test-control-panel {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- トグルボタン -->
+    <div class="toggle-panel">
+        <button class="toggle-button" onclick="toggleControlPanel()">
+            <span id="toggleIcon">🎛️</span> コントロールパネル
+        </button>
+    </div>
+
+    <!-- コントロールパネル -->
+    <div class="test-control-panel" id="controlPanel">
+        <h3>🧪 テストコントロール</h3>
+
+        <!-- ステップ操作 -->
+        <div class="control-section">
+            <div class="control-label">📍 ステップ操作</div>
+            <button class="control-button primary" onclick="startFromStep1()">
+                Step 1から開始
+            </button>
+            <button class="control-button primary" onclick="startFromStep2()">
+                Step 2から開始（診断）
+            </button>
+            <button class="control-button primary" onclick="startFromStep3()">
+                Step 3から開始（推奨）
+            </button>
+            <button class="control-button primary" onclick="startFromStep4()">
+                Step 4から開始（秘書の部屋）
+            </button>
+        </div>
+
+        <!-- リセット操作 -->
+        <div class="control-section">
+            <div class="control-label">🔄 リセット操作</div>
+            <button class="control-button warning" onclick="resetOnboarding()">
+                オンボーディングをリセット
+            </button>
+            <button class="control-button danger" onclick="clearAllData()">
+                全データ削除
+            </button>
+        </div>
+
+        <!-- 状態表示 -->
+        <div class="control-section">
+            <div class="control-label">📊 現在の状態</div>
+            <div class="status-display">
+                <div class="status-item">
+                    <span class="status-key">完了フラグ:</span>
+                    <span class="status-value" id="completedStatus">確認中...</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-key">現在のステップ:</span>
+                    <span class="status-value" id="currentStepStatus">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 情報 -->
+        <div class="info-box">
+            💡 各ステップボタンをクリックすると、そのステップから開始できます。
+        </div>
+    </div>
+
+    <!-- テストログ -->
+    <div class="test-log" id="testLog">
+        <h4>📝 テストログ</h4>
+        <div id="logContent"></div>
+    </div>
+
+    <!-- Mock: 秘書の部屋 -->
+    <div class="mock-secretary-room" id="mockSecretaryRoom">
+        <h2>🏢 秘書の部屋</h2>
+        <p>✅ 画面遷移成功！</p>
+        <p>実際の秘書の部屋画面がここに表示されます</p>
+        <button class="control-button secondary" onclick="closeMockRoom()">閉じる</button>
+    </div>
+
+    <!-- 必要なJSを読み込み -->
+    <script src="js/toast-notification.js"></script>
+    <script src="js/onboarding-system.js"></script>
+
+    <script>
+        // ログ関数
+        function log(message, type = 'info') {
+            const logContent = document.getElementById('logContent');
+            const logItem = document.createElement('div');
+            logItem.className = `log-item ${type}`;
+            const timestamp = new Date().toLocaleTimeString('ja-JP');
+            logItem.textContent = `[${timestamp}] ${message}`;
+            logContent.appendChild(logItem);
+            
+            // 自動スクロール
+            const testLog = document.getElementById('testLog');
+            testLog.scrollTop = testLog.scrollHeight;
+            
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        // 状態を更新
+        function updateStatus() {
+            const completed = localStorage.getItem('toeic_onboarding_completed');
+            const completedEl = document.getElementById('completedStatus');
+            
+            if (completed === 'true') {
+                completedEl.textContent = '完了済み';
+                completedEl.className = 'status-value error';
+            } else {
+                completedEl.textContent = '未完了';
+                completedEl.className = 'status-value success';
+            }
+
+            if (window.OnboardingSystem && window.OnboardingSystem.state) {
+                const currentStep = window.OnboardingSystem.state.currentStep;
+                document.getElementById('currentStepStatus').textContent = 
+                    currentStep !== undefined ? `Step ${currentStep + 1}` : '-';
+            }
+        }
+
+        // Step 1から開始
+        function startFromStep1() {
+            log('🚀 Step 1から開始...', 'info');
+            localStorage.removeItem('toeic_onboarding_completed');
+            
+            if (window.OnboardingSystem) {
+                OnboardingSystem.state.currentStep = 0;
+                OnboardingSystem.startOnboarding();
+                log('✅ Step 1（ようこそ画面）を表示', 'success');
+            }
+            updateStatus();
+        }
+
+        // Step 2から開始
+        function startFromStep2() {
+            log('🚀 Step 2から開始...', 'info');
+            localStorage.removeItem('toeic_onboarding_completed');
+            
+            if (window.OnboardingSystem) {
+                OnboardingSystem.state.currentStep = 1;
+                OnboardingSystem.state.diagnosticAnswers = [];
+                OnboardingSystem.showDiagnosticTest();
+                log('✅ Step 2（レベル診断テスト）を表示', 'success');
+            }
+            updateStatus();
+        }
+
+        // Step 3から開始
+        function startFromStep3() {
+            log('🚀 Step 3から開始...', 'info');
+            localStorage.removeItem('toeic_onboarding_completed');
+            
+            if (window.OnboardingSystem) {
+                OnboardingSystem.state.currentStep = 2;
+                OnboardingSystem.state.diagnosticAnswers = [
+                    {questionId: 'diag_1', selectedOption: 'A', isCorrect: true},
+                    {questionId: 'diag_2', selectedOption: 'A', isCorrect: true},
+                    {questionId: 'diag_3', selectedOption: 'B', isCorrect: true}
+                ];
+                OnboardingSystem.calculateUserLevel();
+                OnboardingSystem.showRecommendation();
+                log('✅ Step 3（おすすめプラン）を表示', 'success');
+            }
+            updateStatus();
+        }
+
+        // Step 4から開始
+        function startFromStep4() {
+            log('🚀 Step 4から開始...', 'info');
+            localStorage.removeItem('toeic_onboarding_completed');
+            
+            if (window.OnboardingSystem) {
+                OnboardingSystem.state.currentStep = 3;
+                OnboardingSystem.state.diagnosticAnswers = [
+                    {questionId: 'diag_1', selectedOption: 'A', isCorrect: true},
+                    {questionId: 'diag_2', selectedOption: 'A', isCorrect: true},
+                    {questionId: 'diag_3', selectedOption: 'B', isCorrect: true}
+                ];
+                OnboardingSystem.calculateUserLevel();
+                OnboardingSystem.showSecretarySelection();
+                log('✅ Step 4（秘書の部屋への誘導）を表示', 'success');
+                log('📝 確認項目:', 'info');
+                log('  • 🏢 アイコン', 'info');
+                log('  • 「秘書の部屋へようこそ！」タイトル', 'info');
+                log('  • 「23人の個性豊かな秘書」文言', 'info');
+                log('  • 3つのプレビュー（👥💬🎁）', 'info');
+                log('  • 黄色のCTAボックス（💡）', 'info');
+                log('  • 「秘書の部屋へ 🚀」ボタン', 'info');
+                log('  • 「後で選ぶ」ボタン', 'info');
+            }
+            updateStatus();
+        }
+
+        // オンボーディングをリセット
+        function resetOnboarding() {
+            log('🔄 オンボーディングをリセット中...', 'warning');
+            
+            // オンボーディング画面を削除
+            const overlay = document.getElementById('onboardingOverlay');
+            if (overlay) {
+                overlay.remove();
+                log('✅ オンボーディング画面を削除', 'success');
+            }
+            
+            // 完了フラグを削除
+            localStorage.removeItem('toeic_onboarding_completed');
+            log('✅ 完了フラグを削除', 'success');
+            
+            // モック画面を非表示
+            closeMockRoom();
+            
+            updateStatus();
+        }
+
+        // 全データ削除
+        function clearAllData() {
+            if (confirm('⚠️ 全データを削除しますか？\n（localStorage の全データが削除されます）')) {
+                log('🗑️ 全データを削除中...', 'danger');
+                localStorage.clear();
+                log('✅ 全データを削除しました', 'success');
+                
+                // オンボーディング画面を削除
+                const overlay = document.getElementById('onboardingOverlay');
+                if (overlay) {
+                    overlay.remove();
+                }
+                
+                closeMockRoom();
+                updateStatus();
+            }
+        }
+
+        // コントロールパネルをトグル
+        function toggleControlPanel() {
+            document.body.classList.toggle('control-panel-hidden');
+            const icon = document.getElementById('toggleIcon');
+            icon.textContent = document.body.classList.contains('control-panel-hidden') ? '🎛️' : '✖️';
+        }
+
+        // Mock: 秘書の部屋を表示
+        window.showSecretaryRoom = function() {
+            log('🏢 showSecretaryRoom() が呼び出されました', 'success');
+            log('✅ 秘書の部屋へ画面遷移（モック）', 'success');
+            
+            const mockRoom = document.getElementById('mockSecretaryRoom');
+            mockRoom.classList.add('active');
+            
+            if (window.ToastNotification) {
+                ToastNotification.show('秘書の部屋へようこそ！お気に入りの秘書を選びましょう 🏢', 'info', 4000);
+            }
+        };
+
+        // Mock: showScreen (フォールバック)
+        window.showScreen = function(screenName) {
+            log(`📺 showScreen('${screenName}') が呼び出されました`, 'info');
+            
+            if (screenName === 'secretary-room') {
+                window.showSecretaryRoom();
+            } else if (screenName === 'home') {
+                log('🏠 ホーム画面へ遷移（モック）', 'success');
+                closeMockRoom();
+            }
+        };
+
+        // モック画面を閉じる
+        function closeMockRoom() {
+            const mockRoom = document.getElementById('mockSecretaryRoom');
+            mockRoom.classList.remove('active');
+            log('🔄 モック秘書の部屋を閉じました', 'info');
+        }
+
+        // ページロード時の初期化
+        window.addEventListener('DOMContentLoaded', () => {
+            log('✅ テストページ読み込み完了', 'success');
+            log('📝 左側のコントロールパネルからテストを開始してください', 'info');
+            updateStatus();
+            
+            // 5秒ごとに状態を更新
+            setInterval(updateStatus, 5000);
+        });
+
+        // OnboardingSystem の関数をフック（ログ出力用）
+        if (window.OnboardingSystem) {
+            // goToSecretaryRoom のフック
+            const originalGoToSecretaryRoom = OnboardingSystem.goToSecretaryRoom;
+            OnboardingSystem.goToSecretaryRoom = function() {
+                log('🖱️ 「秘書の部屋へ 🚀」ボタンがクリックされました', 'success');
+                log('🔄 goToSecretaryRoom() 実行中...', 'info');
+                originalGoToSecretaryRoom.call(this);
+            };
+
+            // skipSecretarySelection のフック
+            const originalSkipSecretarySelection = OnboardingSystem.skipSecretarySelection;
+            OnboardingSystem.skipSecretarySelection = function() {
+                log('🖱️ 「後で選ぶ」ボタンがクリックされました', 'warning');
+                log('🔄 skipSecretarySelection() 実行中...', 'info');
+                originalSkipSecretarySelection.call(this);
+                log('✅ ホーム画面へ遷移（完了）', 'success');
+            };
+
+            // nextStep のフック
+            const originalNextStep = OnboardingSystem.nextStep;
+            OnboardingSystem.nextStep = function() {
+                log(`➡️ 次のステップへ（Step ${this.state.currentStep + 2}）`, 'info');
+                originalNextStep.call(this);
+                updateStatus();
+            };
+        }
+    </script>
+</body>
+</html>

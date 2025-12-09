@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>グリーティングチーム選択統合テスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', sans-serif;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        .test-section {
+            background: #f9fafb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+        .test-section h2 {
+            color: #667eea;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .test-result {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border: 1px solid #e5e7eb;
+        }
+        .test-result.success {
+            border-left: 4px solid #10b981;
+            background: #ecfdf5;
+        }
+        .test-result.error {
+            border-left: 4px solid #ef4444;
+            background: #fef2f2;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+        .greeting-display {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #f59e0b;
+        }
+        .secretary-avatar {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .secretary-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-align: center;
+            color: #1f2937;
+        }
+        .secretary-message {
+            text-align: center;
+            color: #6b7280;
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+        code {
+            background: #f3f4f6;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌅 グリーティングチーム選択統合テスト</h1>
+        
+        <div class="test-section">
+            <h2>📋 テストシナリオ</h2>
+            <ol style="padding-left: 1.5rem; line-height: 2;">
+                <li>秘書システムの初期化確認</li>
+                <li>グリーティングチーム選択システムの初期化確認</li>
+                <li>デフォルトグリーティングチーム(3人)の確認</li>
+                <li>チーム選択・削除のトグル操作テスト</li>
+                <li>最大3人制限のテスト</li>
+                <li>選択された秘書だけが挨拶することを確認</li>
+            </ol>
+        </div>
+        
+        <div class="test-section">
+            <h2>🧪 テスト結果</h2>
+            <div id="testResults"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🎬 グリーティング実行テスト</h2>
+            <button class="btn" onclick="simulateGreeting()">🌅 挨拶をシミュレート</button>
+            <button class="btn" onclick="openSecretaryPanel()">🏠 秘書の部屋を開く</button>
+            <button class="btn" onclick="resetTeam()">🔄 チームをリセット</button>
+            <div id="greetingDisplay"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>💾 現在の状態</h2>
+            <div id="currentState"></div>
+        </div>
+    </div>
+
+    <!-- 必要なJSファイルを読み込み -->
+    <script src="js/secretary-team.js"></script>
+    <script src="js/greeting-team-selector.js"></script>
+    <script src="js/secretary-greetings.js"></script>
+    <script src="js/secretary-panel.js"></script>
+
+    <script>
+        const testResults = document.getElementById('testResults');
+        const greetingDisplay = document.getElementById('greetingDisplay');
+        const currentState = document.getElementById('currentState');
+
+        // テスト結果を表示
+        function addTestResult(title, success, message) {
+            const result = document.createElement('div');
+            result.className = `test-result ${success ? 'success' : 'error'}`;
+            result.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 1.5rem;">${success ? '✅' : '❌'}</span>
+                    <div style="flex: 1;">
+                        <strong>${title}</strong>
+                        <div style="color: #6b7280; margin-top: 0.25rem;">${message}</div>
+                    </div>
+                </div>
+            `;
+            testResults.appendChild(result);
+        }
+
+        // 現在の状態を表示
+        function updateCurrentState() {
+            if (typeof GreetingTeamSelector === 'undefined') {
+                currentState.innerHTML = '<p style="color: #ef4444;">⚠️ GreetingTeamSelector が読み込まれていません</p>';
+                return;
+            }
+
+            const team = GreetingTeamSelector.getGreetingTeam();
+            const teamSecretaries = GreetingTeamSelector.getGreetingTeamSecretaries();
+            const stats = GreetingTeamSelector.getTeamStats();
+
+            currentState.innerHTML = `
+                <div style="display: grid; gap: 1rem;">
+                    <div>
+                        <strong>グリーティングチーム (${team.length}/3人):</strong>
+                        <div style="margin-top: 0.5rem;">
+                            ${team.length === 0 ? '<code>なし</code>' : team.map(id => `<code>${id}</code>`).join(', ')}
+                        </div>
+                    </div>
+                    <div>
+                        <strong>秘書情報:</strong>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; margin-top: 0.5rem;">
+                            ${teamSecretaries.map(s => `
+                                <div style="background: white; border: 2px solid #e5e7eb; border-radius: 0.5rem; padding: 0.75rem; text-align: center;">
+                                    <div style="font-size: 2rem; margin-bottom: 0.25rem;">${s.avatar || '👤'}</div>
+                                    <div style="font-weight: 600; font-size: 0.875rem;">${s.name}</div>
+                                    <div style="font-size: 0.75rem; color: #6b7280;">${s.type || '秘書'}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div>
+                        <strong>統計情報:</strong>
+                        <pre style="background: #f3f4f6; padding: 1rem; border-radius: 0.5rem; margin-top: 0.5rem; overflow-x: auto;">${JSON.stringify(stats, null, 2)}</pre>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 挨拶をシミュレート
+        function simulateGreeting() {
+            if (typeof GreetingTeamSelector === 'undefined') {
+                alert('GreetingTeamSelector が読み込まれていません');
+                return;
+            }
+
+            const teamSecretaries = GreetingTeamSelector.getGreetingTeamSecretaries();
+            
+            if (teamSecretaries.length === 0) {
+                greetingDisplay.innerHTML = `
+                    <div class="greeting-display" style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">😴</div>
+                        <p style="color: #6b7280;">まだグリーティングチームが設定されていません</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // グリーティング表示
+            greetingDisplay.innerHTML = '<h3 style="margin-bottom: 1rem; color: #1f2937;">🌅 起動時の挨拶</h3>';
+            
+            teamSecretaries.forEach((secretary, index) => {
+                setTimeout(() => {
+                    const greeting = SecretaryGreetings ? 
+                        SecretaryGreetings.getStartupGreeting(secretary.id) : 
+                        { message: '頑張りましょう!' };
+                    
+                    const div = document.createElement('div');
+                    div.className = 'greeting-display';
+                    div.innerHTML = `
+                        <div class="secretary-avatar">${secretary.avatar || '👤'}</div>
+                        <div class="secretary-name">${secretary.name}</div>
+                        <div class="secretary-message">${greeting.message || '頑張りましょう!'}</div>
+                    `;
+                    div.style.animation = 'slideIn 0.5s ease';
+                    greetingDisplay.appendChild(div);
+                }, index * 1000);
+            });
+        }
+
+        // 秘書の部屋を開く
+        function openSecretaryPanel() {
+            if (typeof showSecretaryPanel === 'function') {
+                showSecretaryPanel();
+            } else {
+                alert('秘書パネルが読み込まれていません');
+            }
+        }
+
+        // チームをリセット
+        function resetTeam() {
+            if (typeof GreetingTeamSelector === 'undefined') {
+                alert('GreetingTeamSelector が読み込まれていません');
+                return;
+            }
+
+            // デフォルトにリセット
+            GreetingTeamSelector.saveGreetingTeam(['sakura', 'reina', 'yui']);
+            updateCurrentState();
+            addTestResult('リセット完了', true, 'グリーティングチームをデフォルト(さくら、れいな、ゆい)にリセットしました');
+        }
+
+        // テスト実行
+        function runTests() {
+            console.log('🧪 グリーティングチーム選択統合テスト開始');
+
+            // Test 1: SecretaryTeam初期化確認
+            if (typeof SecretaryTeam !== 'undefined') {
+                const allSecretaries = SecretaryTeam.getAllSecretaries();
+                addTestResult(
+                    'Test 1: 秘書システム初期化',
+                    allSecretaries.length > 0,
+                    `${allSecretaries.length}人の秘書が登録されています`
+                );
+            } else {
+                addTestResult('Test 1: 秘書システム初期化', false, 'SecretaryTeamが読み込まれていません');
+            }
+
+            // Test 2: GreetingTeamSelector初期化確認
+            if (typeof GreetingTeamSelector !== 'undefined') {
+                addTestResult(
+                    'Test 2: グリーティングチーム選択システム初期化',
+                    true,
+                    'GreetingTeamSelectorが正常に読み込まれました'
+                );
+
+                // Test 3: デフォルトチーム確認
+                const team = GreetingTeamSelector.getGreetingTeam();
+                addTestResult(
+                    'Test 3: デフォルトグリーティングチーム',
+                    team.length === 3,
+                    `現在${team.length}人が選択されています: ${team.join(', ')}`
+                );
+
+                // Test 4: トグル操作テスト
+                const testId = 'mio';
+                const beforeToggle = team.includes(testId);
+                GreetingTeamSelector.toggleGreetingTeam(testId);
+                const afterToggle = GreetingTeamSelector.getGreetingTeam().includes(testId);
+                const toggleSuccess = beforeToggle !== afterToggle;
+                
+                addTestResult(
+                    'Test 4: トグル操作',
+                    toggleSuccess,
+                    `${testId}の選択状態が正しく切り替わりました (${beforeToggle} → ${afterToggle})`
+                );
+
+                // 元に戻す
+                GreetingTeamSelector.toggleGreetingTeam(testId);
+
+                // Test 5: 最大3人制限テスト
+                const fullTeam = ['sakura', 'reina', 'yui'];
+                GreetingTeamSelector.saveGreetingTeam(fullTeam);
+                const addResult = GreetingTeamSelector.addToGreetingTeam('mio');
+                addTestResult(
+                    'Test 5: 最大3人制限',
+                    addResult === false,
+                    '最大3人制限が正しく機能しています'
+                );
+
+                // Test 6: 選択された秘書の取得
+                const teamSecretaries = GreetingTeamSelector.getGreetingTeamSecretaries();
+                addTestResult(
+                    'Test 6: 秘書情報取得',
+                    teamSecretaries.length === fullTeam.length,
+                    `${teamSecretaries.length}人の秘書情報を正常に取得しました`
+                );
+
+            } else {
+                addTestResult('Test 2: グリーティングチーム選択システム初期化', false, 'GreetingTeamSelectorが読み込まれていません');
+            }
+
+            // 現在の状態を表示
+            updateCurrentState();
+        }
+
+        // ページ読み込み時にテスト実行
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(runTests, 500);
+        });
+
+        // スライドインアニメーション
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

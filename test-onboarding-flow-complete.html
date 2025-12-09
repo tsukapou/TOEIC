@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オンボーディング完全フローテスト</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #1e293b;
+            color: #e2e8f0;
+        }
+
+        .test-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .test-header h1 {
+            margin: 0 0 16px 0;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .test-header p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.125rem;
+        }
+
+        .test-section {
+            background: #334155;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .test-section h2 {
+            margin: 0 0 16px 0;
+            color: #fbbf24;
+            font-size: 1.5rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #1e293b;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .status-icon {
+            font-size: 1.5rem;
+        }
+
+        .status-text {
+            flex: 1;
+        }
+
+        .status-label {
+            font-weight: 600;
+            color: #3b82f6;
+            font-size: 0.875rem;
+        }
+
+        .status-value {
+            color: #e2e8f0;
+            font-size: 1rem;
+        }
+
+        .action-button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-right: 12px;
+            margin-bottom: 12px;
+        }
+
+        .action-button.primary {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+        }
+
+        .action-button.secondary {
+            background: #475569;
+            color: #e2e8f0;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .code-block {
+            background: #0f172a;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            margin-top: 12px;
+        }
+
+        .success {
+            color: #10b981;
+        }
+
+        .error {
+            color: #ef4444;
+        }
+
+        .warning {
+            color: #fbbf24;
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 3px solid #475569;
+            border-radius: 12px;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1>🧪 オンボーディング完全フローテスト</h1>
+        <p>Step 1 → Step 2 → Step 3 → Step 4（秘書の部屋へ誘導）</p>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 テスト状態</h2>
+        
+        <div class="status-item">
+            <span class="status-icon">📝</span>
+            <div class="status-text">
+                <div class="status-label">localStorage 状態</div>
+                <div class="status-value" id="localStorageStatus">確認中...</div>
+            </div>
+        </div>
+
+        <div class="status-item">
+            <span class="status-icon">🎓</span>
+            <div class="status-text">
+                <div class="status-label">オンボーディング完了フラグ</div>
+                <div class="status-value" id="onboardingStatus">確認中...</div>
+            </div>
+        </div>
+
+        <div class="status-item">
+            <span class="status-icon">🏢</span>
+            <div class="status-text">
+                <div class="status-label">Step 4 変更内容</div>
+                <div class="status-value">秘書選択（旧）→ 秘書の部屋へ誘導（新）</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🎬 テストアクション</h2>
+        
+        <button class="action-button primary" onclick="clearAndReload()">
+            🔄 localStorage クリア + リロード
+        </button>
+        
+        <button class="action-button secondary" onclick="checkStatus()">
+            📊 状態確認
+        </button>
+
+        <button class="action-button secondary" onclick="openIndexPage()">
+            🚀 index.html を開く
+        </button>
+
+        <div class="code-block">
+            <div class="success">✅ 期待される動作:</div>
+            <div>1. ページロード後、500ms後にオンボーディング自動起動</div>
+            <div>2. Step 1 → Step 2 → Step 3 → Step 4 の順に進行</div>
+            <div>3. <span class="warning">Step 4で「🏢 秘書の部屋へようこそ！」と表示</span></div>
+            <div>4. プレビュー3項目（👥💬🎁）が表示される</div>
+            <div>5. 黄色のCTAボックス（💡）が表示される</div>
+            <div>6. 「秘書の部屋へ 🚀」ボタンクリック → 秘書の部屋へ遷移</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🖥️ 実装コード確認</h2>
+        
+        <div class="status-item">
+            <span class="status-icon">📄</span>
+            <div class="status-text">
+                <div class="status-label">js/onboarding-system.js</div>
+                <div class="status-value">showSecretarySelection() 関数を全面刷新</div>
+            </div>
+        </div>
+
+        <div class="status-item">
+            <span class="status-icon">🎨</span>
+            <div class="status-text">
+                <div class="status-label">css/onboarding.css</div>
+                <div class="status-value">secretary-room-preview, preview-feature, secretary-cta-box スタイル追加</div>
+            </div>
+        </div>
+
+        <div class="code-block">
+            <div class="warning">🔍 確認ポイント:</div>
+            <div>• Step 4のタイトルが「秘書の部屋へようこそ！」</div>
+            <div>• アイコンが 🏢（建物）</div>
+            <div>• 「23人の個性豊かな秘書」という文言</div>
+            <div>• goToSecretaryRoom() 関数の呼び出し</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 チェックリスト</h2>
+        
+        <div class="status-item">
+            <input type="checkbox" id="check1" style="width: 20px; height: 20px;">
+            <div class="status-text">
+                <div class="status-value">Step 4で「🏢 秘書の部屋へようこそ！」タイトル表示</div>
+            </div>
+        </div>
+
+        <div class="status-item">
+            <input type="checkbox" id="check2" style="width: 20px; height: 20px;">
+            <div class="status-text">
+                <div class="status-value">3つのプレビュー機能（👥💬🎁）が表示される</div>
+            </div>
+        </div>
+
+        <div class="status-item">
+            <input type="checkbox" id="check3" style="width: 20px; height: 20px;">
+            <div class="status-text">
+                <div class="status-value">黄色のCTAボックス（💡 最初は3人...）が表示</div>
+            </div>
+        </div>
+
+        <div class="status-item">
+            <input type="checkbox" id="check4" style="width: 20px; height: 20px;">
+            <div class="status-text">
+                <div class="status-value">「秘書の部屋へ 🚀」ボタンが表示される</div>
+            </div>
+        </div>
+
+        <div class="status-item">
+            <input type="checkbox" id="check5" style="width: 20px; height: 20px;">
+            <div class="status-text">
+                <div class="status-value">「後で選ぶ」ボタンが表示される</div>
+            </div>
+        </div>
+
+        <div class="status-item">
+            <input type="checkbox" id="check6" style="width: 20px; height: 20px;">
+            <div class="status-text">
+                <div class="status-value">ボタンクリック時に正しく動作する</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 状態確認
+        function checkStatus() {
+            const onboardingCompleted = localStorage.getItem('toeic_onboarding_completed');
+            
+            document.getElementById('localStorageStatus').innerHTML = 
+                localStorage.length > 0 
+                    ? `<span class="success">${localStorage.length} 件のデータ</span>` 
+                    : '<span class="error">空</span>';
+            
+            document.getElementById('onboardingStatus').innerHTML = 
+                onboardingCompleted === 'true' 
+                    ? '<span class="warning">完了済み（初回表示されません）</span>' 
+                    : '<span class="success">未完了（初回表示されます）</span>';
+            
+            console.log('📊 状態確認完了');
+        }
+
+        // localStorage クリア + リロード
+        function clearAndReload() {
+            if (confirm('localStorage をクリアしてページをリロードしますか？\n（初回訪問状態になります）')) {
+                localStorage.clear();
+                console.log('🗑️ localStorage クリア完了');
+                location.reload();
+            }
+        }
+
+        // index.html を開く
+        function openIndexPage() {
+            window.open('index.html', '_blank');
+        }
+
+        // 初期化
+        window.addEventListener('DOMContentLoaded', () => {
+            checkStatus();
+            console.log('✅ テストページ初期化完了');
+        });
+
+        // 5秒ごとに状態を更新
+        setInterval(checkStatus, 5000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+/**
+ * 🎯 ホーム画面改善 - 3段階情報階層デザイン
+ * 
+ * 【設計思想】
+ * 第1階層: メインCTA - 今すぐ始めるアクション（最優先）
+ * 第2階層: 重要指標 - 一目で分かる進捗（3つのカード）
+ * 第3階層: 詳細情報 - 折りたたみ可能（必要な時だけ）
+ */
+
+/* ==================== 第1階層: メインCTA ==================== */
+
+.primary-action-zone {
+  margin: 2rem 0;
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 3rem 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.hero-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 70px rgba(102, 126, 234, 0.4);
+}
+
+.action-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  position: relative;
+  z-index: 1;
+  line-height: 1.2;
+}
+
+.action-description {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  margin: 0 0 2rem 0;
+  position: relative;
+  z-index: 1;
+  line-height: 1.5;
+}
+
+.primary-cta-button {
+  background: white;
+  color: #667eea;
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding: 1.5rem 3rem;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.primary-cta-button:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  background: #f8f9ff;
+}
+
+.primary-cta-button:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.button-icon {
+  font-size: 1.5rem;
+  animation: bounce 2s infinite;
+}
+
+.button-text {
+  font-size: 1.25rem;
+}
+
+.button-detail {
+  display: block;
+  font-size: 0.875rem;
+  opacity: 0.8;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+/* ==================== 第2階層: 重要指標サマリー ==================== */
+
+.stats-summary-zone {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.stat-card {
+  background: white;
+  padding: 2rem 1.5rem;
+  border-radius: 1.25rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  border-color: #667eea;
+}
+
+.stat-card:hover::before {
+  transform: scaleX(1);
+}
+
+.stat-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  animation: float 3s ease-in-out infinite;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0.5rem 0;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+.stat-sublabel {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin-top: 0.25rem;
+}
+
+/* ==================== 第3階層: 詳細情報（折りたたみ） ==================== */
+
+.details-zone {
+  margin: 3rem 0 2rem;
+  animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+.collapsible-section {
+  background: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.collapsible-section:hover {
+  border-color: #d1d5db;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.collapsible-section summary {
+  font-weight: 700;
+  font-size: 1.125rem;
+  cursor: pointer;
+  padding: 1.5rem;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: #1f2937;
+  background: white;
+  user-select: none;
+  transition: all 0.2s;
+}
+
+.collapsible-section summary:hover {
+  background: #f9fafb;
+  color: #667eea;
+}
+
+.collapsible-section summary::after {
+  content: '▼';
+  font-size: 0.875rem;
+  transition: transform 0.3s;
+  color: #9ca3af;
+}
+
+.collapsible-section[open] summary::after {
+  transform: rotate(180deg);
+  color: #667eea;
+}
+
+.collapsible-section[open] summary {
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 0;
+}
+
+.collapsible-content {
+  padding: 1.5rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+/* ==================== アニメーション ==================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 5000px;
+  }
+}
+
+/* ==================== レスポンシブデザイン ==================== */
+
+@media (max-width: 768px) {
+  .action-title {
+    font-size: 1.75rem;
+  }
+  
+  .action-description {
+    font-size: 1rem;
+  }
+  
+  .primary-cta-button {
+    font-size: 1.1rem;
+    padding: 1.25rem 2rem;
+    width: 100%;
+  }
+  
+  .button-text {
+    font-size: 1.1rem;
+  }
+  
+  .stats-summary-zone {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .stat-card {
+    padding: 1.5rem 1rem;
+  }
+  
+  .stat-icon {
+    font-size: 2.5rem;
+  }
+  
+  .stat-value {
+    font-size: 2rem;
+  }
+  
+  .stat-label {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .action-title {
+    font-size: 1.5rem;
+  }
+  
+  .primary-cta-button {
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+  }
+}
+
+/* ==================== アクセシビリティ ==================== */
+
+.primary-cta-button:focus {
+  outline: 4px solid rgba(102, 126, 234, 0.5);
+  outline-offset: 4px;
+}
+
+.stat-card:focus-within {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+.collapsible-section summary:focus {
+  outline: 2px solid #667eea;
+  outline-offset: -2px;
+}
+
+/* ==================== ダークモード対応 ==================== */
+
+@media (prefers-color-scheme: dark) {
+  .stat-card {
+    background: #1f2937;
+    border-color: #374151;
+  }
+  
+  .stat-label {
+    color: #d1d5db;
+  }
+  
+  .stat-sublabel {
+    color: #9ca3af;
+  }
+  
+  .collapsible-section {
+    background: #111827;
+    border-color: #374151;
+  }
+  
+  .collapsible-section summary {
+    background: #1f2937;
+    color: #f9fafb;
+  }
+  
+  .collapsible-section summary:hover {
+    background: #374151;
+  }
+}
+
+/* ==================== プリント対応 ==================== */
+
+@media print {
+  .primary-action-zone,
+  .stats-summary-zone {
+    break-inside: avoid;
+  }
+  
+  .collapsible-section[open] {
+    break-before: page;
+  }
+  
+  .primary-cta-button {
+    display: none;
+  }
+}
+
+/* ==================== セクション区切り線 ==================== */
+
+.section-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #e5e7eb 50%, transparent 100%);
+  margin: 3rem 0;
+}
+
+/* ==================== バッジ・ラベル ==================== */
+
+.priority-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  animation: slideInRight 0.5s ease-out;
+}
+
+.priority-badge::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ==================== ヘルパークラス ==================== */
+
+.text-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.shadow-lift {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.shadow-lift:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}

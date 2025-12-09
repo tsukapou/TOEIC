@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>りおのグリーティングテスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .time-slot {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .time-slot h2 {
+            color: #f5576c;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .greeting-card {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe5e9 100%);
+            border-left: 4px solid #f5576c;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .greeting-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .greeting-text {
+            color: #1f2937;
+            line-height: 1.8;
+        }
+        .current-time {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .current-time h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .current-greeting {
+            background: white;
+            color: #1f2937;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            font-size: 1.125rem;
+            line-height: 1.8;
+        }
+        .test-button {
+            padding: 1rem 2rem;
+            background: #f5576c;
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.3s;
+        }
+        .test-button:hover {
+            background: #e04056;
+            transform: translateY(-2px);
+        }
+        .stats {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        .stats h3 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ りおのグリーティングテスト</h1>
+        
+        <div class="current-time">
+            <h2 id="currentTimeDisplay">読み込み中...</h2>
+            <div style="margin-bottom: 1rem;">
+                <button class="test-button" onclick="testCurrentGreeting()">🔄 現在の挨拶を取得</button>
+                <button class="test-button" onclick="testRandomGreeting()">🎲 ランダム挨拶</button>
+            </div>
+            <div class="current-greeting" id="currentGreeting">ボタンをクリックして挨拶を表示</div>
+        </div>
+        
+        <div class="stats">
+            <h3>📊 グリーティング統計</h3>
+            <div id="stats"></div>
+        </div>
+        
+        <h2 style="color: white; margin: 2rem 0 1rem 0; text-align: center;">📋 全グリーティングパターン (40パターン)</h2>
+        
+        <div id="greetingsContainer"></div>
+    </div>
+
+    <script src="js/secretary-greetings.js"></script>
+    
+    <script>
+        function updateCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+            
+            const timeOfDay = SecretaryGreetings.getTimeOfDay();
+            const timeLabels = {
+                'earlyMorning': '早朝 (5-9時)',
+                'morning': '午前 (10-11時)',
+                'noon': '昼 (12-13時)',
+                'afternoon': '午後 (14-16時)',
+                'evening': '夕方 (17-18時)',
+                'night': '夜 (19-21時)',
+                'lateNight': '深夜 (22-23時)',
+                'midnight': '真夜中 (0-4時)'
+            };
+            
+            document.getElementById('currentTimeDisplay').textContent = 
+                `現在時刻: ${timeString} (${timeLabels[timeOfDay]})`;
+        }
+        
+        function testCurrentGreeting() {
+            const greeting = SecretaryGreetings.getStartupGreeting('rio');
+            document.getElementById('currentGreeting').innerHTML = greeting.message;
+            
+            console.log('🌅 現在の挨拶:', greeting);
+            updateStats();
+        }
+        
+        function testRandomGreeting() {
+            // ランダムに挨拶を取得（複数回実行して異なるパターンを確認）
+            const greeting = SecretaryGreetings.getStartupGreeting('rio');
+            document.getElementById('currentGreeting').innerHTML = greeting.message;
+            
+            console.log('🎲 ランダム挨拶:', greeting);
+        }
+        
+        function updateStats() {
+            const messages = SecretaryGreetings.greetingMessages.rio;
+            let totalPatterns = 0;
+            let statsHTML = '';
+            
+            for (const [timeSlot, patterns] of Object.entries(messages)) {
+                totalPatterns += patterns.length;
+                
+                const timeLabels = {
+                    'earlyMorning': '早朝',
+                    'morning': '午前',
+                    'noon': '昼',
+                    'afternoon': '午後',
+                    'evening': '夕方',
+                    'night': '夜',
+                    'lateNight': '深夜',
+                    'midnight': '真夜中'
+                };
+                
+                statsHTML += `
+                    <div class="stat-item">
+                        <span><strong>${timeLabels[timeSlot]}</strong></span>
+                        <span>${patterns.length}パターン</span>
+                    </div>
+                `;
+            }
+            
+            statsHTML += `
+                <div class="stat-item" style="background: #f3f4f6; margin-top: 0.5rem; padding: 1rem; border-radius: 0.5rem;">
+                    <span><strong>合計</strong></span>
+                    <span style="color: #f5576c; font-size: 1.25rem; font-weight: 700;">${totalPatterns}パターン</span>
+                </div>
+            `;
+            
+            document.getElementById('stats').innerHTML = statsHTML;
+        }
+        
+        function displayAllGreetings() {
+            const messages = SecretaryGreetings.greetingMessages.rio;
+            const container = document.getElementById('greetingsContainer');
+            
+            const timeLabels = {
+                'earlyMorning': '🌅 早朝 (5-9時)',
+                'morning': '☀️ 午前 (10-11時)',
+                'noon': '🌞 昼 (12-13時)',
+                'afternoon': '☀️ 午後 (14-16時)',
+                'evening': '🌅 夕方 (17-18時)',
+                'night': '🌙 夜 (19-21時)',
+                'lateNight': '🌙 深夜 (22-23時)',
+                'midnight': '🌑 真夜中 (0-4時)'
+            };
+            
+            let html = '';
+            
+            for (const [timeSlot, patterns] of Object.entries(messages)) {
+                html += `
+                    <div class="time-slot">
+                        <h2>${timeLabels[timeSlot]} (${patterns.length}パターン)</h2>
+                `;
+                
+                patterns.forEach((greeting, index) => {
+                    html += `
+                        <div class="greeting-card" onclick="selectGreeting('${greeting.replace(/'/g, "\\'")}')">
+                            <strong>パターン${index + 1}:</strong>
+                            <div class="greeting-text">${greeting}</div>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        function selectGreeting(greeting) {
+            document.getElementById('currentGreeting').innerHTML = greeting;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // 初期化
+        window.addEventListener('DOMContentLoaded', () => {
+            updateCurrentTime();
+            displayAllGreetings();
+            updateStats();
+            
+            // 1分ごとに時刻を更新
+            setInterval(updateCurrentTime, 60000);
+        });
+    </script>
+</body>
+</html>

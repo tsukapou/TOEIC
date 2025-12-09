@@ -1,0 +1,95 @@
+/**
+ * 🎨 復習センターと専用プランの視覚的区別強化
+ * 
+ * ユーザーが2つの機能を明確に区別できるようにする
+ */
+
+/* ==================== 復習センター（オレンジ系） ==================== */
+#unifiedReviewHub {
+  /* オレンジ系のグラデーション */
+  background: linear-gradient(135deg, #fff5f0 0%, #ffffff 100%);
+  border-left: 4px solid #ff6b35 !important;
+  border-radius: 1rem;
+  padding: 0;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.15);
+  transition: all 0.3s ease;
+}
+
+#unifiedReviewHub:hover {
+  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.25);
+  transform: translateY(-2px);
+}
+
+/* 復習センターのヘッダー */
+#unifiedReviewHub > div:first-child {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%) !important;
+  border-left: 4px solid #ff6b35 !important;
+}
+
+/* ==================== 専用プラン（青系） ==================== */
+#personalizedDashboard {
+  /* 青系のグラデーション */
+  background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+  border-left: 4px solid #4a90e2 !important;
+  border-radius: 1rem;
+  padding: 0;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.15);
+  transition: all 0.3s ease;
+}
+
+#personalizedDashboard:hover {
+  box-shadow: 0 6px 16px rgba(74, 144, 226, 0.25);
+  transform: translateY(-2px);
+}
+
+/* 専用プランのヘッダー */
+.personalized-dashboard {
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%) !important;
+  border-left: 4px solid #4a90e2 !important;
+}
+
+/* ==================== 説明テキストのスタイル ==================== */
+.feature-description {
+  background: rgba(74, 144, 226, 0.1);
+  border-left: 3px solid #4a90e2;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+.feature-description ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-description li {
+  margin-bottom: 0.5rem;
+  color: #2d3748;
+}
+
+.feature-description p {
+  margin: 0.75rem 0 0 0;
+  font-size: 0.85rem;
+  color: #4a5568;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+/* ==================== レスポンシブ調整 ==================== */
+@media (max-width: 768px) {
+  #unifiedReviewHub,
+  #personalizedDashboard {
+    margin-bottom: 1.5rem;
+  }
+  
+  .feature-description {
+    font-size: 0.85rem;
+    padding: 0.75rem;
+  }
+}

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スコア表示位置確認</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            background: #f3f4f6;
+        }
+        .info-box {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .highlight {
+            background: #fef3c7;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .step {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📍 スコア表示エリアの位置確認</h1>
+    
+    <div class="info-box">
+        <h2>🎯 スコア予測が表示される2つの場所</h2>
+        
+        <h3>1️⃣ ホーム画面（index.html）</h3>
+        <div class="step">
+            <span class="step-number">①</span>
+            <strong>ユーザープロフィールカード</strong> の直後
+        </div>
+        <div class="step">
+            <span class="step-number">↓</span>
+            <span class="highlight">📊 最新のスコア予測</span> セクション（ここに表示！）
+        </div>
+        <div class="step">
+            <span class="step-number">②</span>
+            <strong>実践テスト（30問 × 5回）</strong> の直前
+        </div>
+        
+        <p style="margin-top: 20px; padding: 15px; background: #fef3c7; border-radius: 6px;">
+            ⚠️ <strong>注意</strong>: テスト履歴が1件以上ある場合のみ表示されます。<br>
+            初回起動時やテストを受ける前は表示されません。
+        </p>
+        
+        <h3 style="margin-top: 30px;">2️⃣ マイスコア画面</h3>
+        <div class="step">
+            <span class="step-number">①</span>
+            ホーム画面のスコア予測セクションで <span class="highlight">📈 詳細を見る</span> ボタンをクリック
+        </div>
+        <div class="step">
+            <span class="step-number">↓</span>
+            マイスコア画面に遷移 → 詳細なスコア・グラフ・履歴が表示
+        </div>
+    </div>
+    
+    <div class="info-box">
+        <h2>🧪 表示テスト方法</h2>
+        
+        <h3>方法1: テストデータを手動作成</h3>
+        <button onclick="createTestData()">📝 テストデータを作成</button>
+        <button onclick="openIndexPage()">🏠 index.htmlを開く</button>
+        
+        <p style="margin-top: 15px; color: #6b7280; font-size: 14px;">
+            「テストデータを作成」ボタンを押すと、LocalStorageに仮のテスト履歴が保存されます。<br>
+            その後「index.htmlを開く」ボタンでホーム画面を確認してください。
+        </p>
+        
+        <h3 style="margin-top: 30px;">方法2: 実際にテストを受ける</h3>
+        <div class="step">
+            <span class="step-number">1</span>
+            index.htmlを開く
+        </div>
+        <div class="step">
+            <span class="step-number">2</span>
+            「Test 1」ボタンをクリックしてテストを開始
+        </div>
+        <div class="step">
+            <span class="step-number">3</span>
+            30問すべて回答してテストを終了
+        </div>
+        <div class="step">
+            <span class="step-number">4</span>
+            「ホームに戻る」ボタンでホーム画面へ
+        </div>
+        <div class="step">
+            <span class="step-number">✅</span>
+            ユーザープロフィールカードの下に <span class="highlight">📊 最新のスコア予測</span> が表示される
+        </div>
+    </div>
+    
+    <div class="info-box">
+        <h2>📍 正確な表示位置（HTMLの行番号）</h2>
+        
+        <h3>index.html</h3>
+        <ul style="line-height: 1.8;">
+            <li><strong>行202-265</strong>: ユーザープロフィールカード</li>
+            <li><strong>行268-310</strong>: <span class="highlight">最新のスコア予測セクション</span> ← ここです！</li>
+            <li><strong>行313-320</strong>: 実践テスト領域</li>
+        </ul>
+        
+        <p style="margin-top: 15px; padding: 12px; background: #e0f2fe; border-radius: 6px;">
+            💡 <strong>ヒント</strong>: ブラウザの開発者ツール（F12）で<br>
+            <code style="background: white; padding: 2px 6px; border-radius: 3px;">document.getElementById('latestScorePrediction')</code><br>
+            を実行すると、要素が存在するか確認できます。
+        </p>
+    </div>
+    
+    <div class="info-box" style="background: #fef3c7;">
+        <h2>⚠️ 表示されない場合のチェックリスト</h2>
+        <ol style="line-height: 2;">
+            <li>✅ テスト履歴が1件以上あるか？（LocalStorageに <code>toeic_part5_scores</code> が存在するか）</li>
+            <li>✅ ブラウザのキャッシュをクリアしたか？（Ctrl+Shift+R / Cmd+Shift+R）</li>
+            <li>✅ JavaScriptのエラーがないか？（F12で確認）</li>
+            <li>✅ <code>updateHomeScorePrediction()</code> 関数が実行されているか？</li>
+        </ol>
+    </div>
+    
+    <div id="status" style="display: none; background: #d1fae5; border: 2px solid #10b981; border-radius: 8px; padding: 20px; margin-top: 20px; text-align: center;">
+        <h3 style="color: #065f46; margin: 0;">✅ テストデータを作成しました！</h3>
+        <p style="color: #047857; margin: 10px 0 0 0;">index.htmlを開いてスコア予測セクションを確認してください。</p>
+    </div>
+
+    <script>
+        function createTestData() {
+            // テスト履歴データを作成
+            const testHistory = [
+                {
+                    testNumber: 1,
+                    score: 24,
+                    timestamp: Date.now() - 2 * 24 * 60 * 60 * 1000, // 2日前
+                    totalTime: 450
+                },
+                {
+                    testNumber: 2,
+                    score: 26,
+                    timestamp: Date.now() - 1 * 24 * 60 * 60 * 1000, // 1日前
+                    totalTime: 420
+                },
+                {
+                    testNumber: 3,
+                    score: 28,
+                    timestamp: Date.now(), // 今日
+                    totalTime: 380
+                }
+            ];
+            
+            // LocalStorageに保存
+            localStorage.setItem('toeic_part5_scores', JSON.stringify(testHistory));
+            
+            // 成功メッセージを表示
+            document.getElementById('status').style.display = 'block';
+            
+            console.log('✅ テストデータを作成しました:');
+            console.log(testHistory);
+        }
+        
+        function openIndexPage() {
+            window.open('index.html', '_blank');
+        }
+        
+        // ページ読み込み時にLocalStorageを確認
+        window.onload = function() {
+            const stored = localStorage.getItem('toeic_part5_scores');
+            if (stored) {
+                const history = JSON.parse(stored);
+                console.log('📊 現在のテスト履歴:', history.length, '件');
+                console.log(history);
+            } else {
+                console.log('❌ テスト履歴がありません');
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>秘書パネル自動オープンテスト</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            padding: 2rem;
+            background: #f3f4f6;
+        }
+        .status {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .status h3 {
+            margin: 0 0 0.5rem 0;
+            color: #1f2937;
+        }
+        .status.success {
+            border-left: 4px solid #10b981;
+        }
+        .status.error {
+            border-left: 4px solid #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 秘書パネル自動オープンテスト</h1>
+    <div id="statusContainer"></div>
+
+    <script src="js/secretary-team.js"></script>
+    <script src="js/greeting-team-selector.js"></script>
+    <script src="js/secretary-panel.js"></script>
+    
+    <script>
+        const statusContainer = document.getElementById('statusContainer');
+        
+        function addStatus(title, success, message) {
+            const div = document.createElement('div');
+            div.className = `status ${success ? 'success' : 'error'}`;
+            div.innerHTML = `
+                <h3>${success ? '✅' : '❌'} ${title}</h3>
+                <p style="margin: 0; color: #6b7280;">${message}</p>
+            `;
+            statusContainer.appendChild(div);
+            console.log(`${success ? '✅' : '❌'} ${title}: ${message}`);
+        }
+        
+        // Test 1: モジュール読み込み確認
+        setTimeout(() => {
+            addStatus(
+                'SecretaryTeam初期化',
+                typeof SecretaryTeam !== 'undefined',
+                typeof SecretaryTeam !== 'undefined' ? 'モジュールが正常に読み込まれました' : 'モジュールが読み込まれませんでした'
+            );
+            
+            addStatus(
+                'GreetingTeamSelector初期化',
+                typeof GreetingTeamSelector !== 'undefined',
+                typeof GreetingTeamSelector !== 'undefined' ? 'モジュールが正常に読み込まれました' : 'モジュールが読み込まれませんでした'
+            );
+            
+            // Test 2: 解除済み秘書確認
+            if (typeof SecretaryTeam !== 'undefined') {
+                const unlocked = SecretaryTeam.getUnlockedSecretaries();
+                addStatus(
+                    '解除済み秘書取得',
+                    unlocked.length > 0,
+                    `${unlocked.length}人の秘書が解除済みです: ${unlocked.join(', ')}`
+                );
+                
+                // Test 3: 秘書オブジェクト変換確認
+                const secretaryObjects = unlocked.map(id => {
+                    const sec = SecretaryTeam.secretaries[id];
+                    return sec ? {id: sec.id, name: sec.name} : null;
+                }).filter(s => s !== null);
+                
+                addStatus(
+                    '秘書オブジェクト変換',
+                    secretaryObjects.length === unlocked.length,
+                    `${secretaryObjects.length}人の秘書情報を取得: ${secretaryObjects.map(s => s.name).join(', ')}`
+                );
+                
+                console.log('📊 秘書オブジェクト詳細:', secretaryObjects);
+            }
+            
+            // Test 4: グリーティングチーム確認
+            if (typeof GreetingTeamSelector !== 'undefined') {
+                const team = GreetingTeamSelector.getGreetingTeam();
+                addStatus(
+                    'グリーティングチーム取得',
+                    true,
+                    `現在${team.length}人が選択されています: ${team.length > 0 ? team.join(', ') : '未選択'}`
+                );
+            }
+            
+            // Test 5: 秘書パネルを自動オープン
+            setTimeout(() => {
+                if (typeof showSecretaryPanel === 'function') {
+                    console.log('🚀 秘書パネルを開きます...');
+                    addStatus(
+                        '秘書パネル表示',
+                        true,
+                        '秘書パネルを自動的に開きました'
+                    );
+                    
+                    try {
+                        showSecretaryPanel();
+                        
+                        // パネルが開いたことを確認
+                        setTimeout(() => {
+                            const modal = document.getElementById('secretaryPanelModal');
+                            addStatus(
+                                '秘書パネルHTML生成',
+                                modal !== null,
+                                modal ? 'パネルが正常に表示されました' : 'パネルが表示されませんでした'
+                            );
+                            
+                            if (modal) {
+                                // 挨拶担当タブを自動的に開く
+                                setTimeout(() => {
+                                    console.log('🌅 挨拶担当タブを開きます...');
+                                    if (typeof showSecretaryPanelTab === 'function') {
+                                        showSecretaryPanelTab('greeting');
+                                        
+                                        setTimeout(() => {
+                                            const greetingContent = document.getElementById('panelContent-greeting');
+                                            addStatus(
+                                                '挨拶担当タブ表示',
+                                                greetingContent && greetingContent.style.display === 'block',
+                                                greetingContent ? '挨拶担当タブが正常に表示されました' : '挨拶担当タブが表示されませんでした'
+                                            );
+                                            
+                                            if (greetingContent) {
+                                                console.log('📋 挨拶担当タブのHTML:', greetingContent.innerHTML.substring(0, 500) + '...');
+                                            }
+                                        }, 500);
+                                    }
+                                }, 1000);
+                            }
+                        }, 500);
+                    } catch (error) {
+                        console.error('❌ エラー:', error);
+                        addStatus(
+                            '秘書パネル表示',
+                            false,
+                            `エラーが発生しました: ${error.message}`
+                        );
+                    }
+                } else {
+                    addStatus(
+                        '秘書パネル表示',
+                        false,
+                        'showSecretaryPanel関数が見つかりません'
+                    );
+                }
+            }, 1000);
+            
+        }, 500);
+    </script>
+</body>
+</html>

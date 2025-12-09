@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOEIC PART5 完全問題集 | 全450問</title>
+    <!-- 🎖️ UCDA認証対応デザインシステム（最優先読み込み）-->
+    <link rel="stylesheet" href="css/ucda-compliant-design.css">
+    <link rel="stylesheet" href="css/ucda-screens.css">
+    
+    <!-- 🎨 Premium Design System（補完）-->
+    <link rel="stylesheet" href="css/premium-design-system.css">
+    <link rel="stylesheet" href="css/home-premium.css">
+    <link rel="stylesheet" href="css/test-premium.css">
+    <link rel="stylesheet" href="css/result-premium.css">
+    
+    <!-- 既存スタイルシート -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/secretary.css">
+    <link rel="stylesheet" href="css/secretary-rewards.css">
+    <link rel="stylesheet" href="css/secretary-daily.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/compact-design.css">
+    <link rel="stylesheet" href="css/personalized-dashboard.css">
+    <link rel="stylesheet" href="css/feature-distinction.css">
+    <link rel="stylesheet" href="css/data-backup.css">
+    <link rel="stylesheet" href="css/home-improvement.css">
+    <link rel="stylesheet" href="css/toast-notification.css">
+    <link rel="stylesheet" href="css/analytics-dashboard.css">
+    <link rel="stylesheet" href="css/adaptive-learning.css">
+    <link rel="stylesheet" href="css/onboarding.css">
+    <link rel="stylesheet" href="css/monetization-system.css">
+    <link rel="stylesheet" href="css/social-features.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
+    
+    <!-- 🔥 Critical Performance Scripts（最優先読み込み）-->
+    <script>
+        // Image Fallback を最速で初期化（インライン）
+        const ImageFallbackInline = {
+            fallbackImages: {
+                secretary: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23f0f4f8'/%3E%3Ccircle cx='100' cy='80' r='35' fill='%23cbd5e0'/%3E%3Cpath d='M60 140 Q100 120 140 140 L140 200 L60 200 Z' fill='%23cbd5e0'/%3E%3Ctext x='100' y='170' font-family='Arial' font-size='14' fill='%23718096' text-anchor='middle'%3E秘書%3C/text%3E%3C/svg%3E`,
+                default: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23e2e8f0'/%3E%3Ctext x='100' y='100' font-family='Arial' font-size='16' fill='%23a0aec0' text-anchor='middle' dominant-baseline='middle'%3E画像を読み込めません%3C/text%3E%3C/svg%3E`
+            },
+            init: function() {
+                window.addEventListener('error', (e) => {
+                    if (e.target && e.target.tagName === 'IMG' && !e.target.src.startsWith('data:')) {
+                        const isSecretary = e.target.classList.contains('secretary-avatar') || e.target.classList.contains('secretary-image');
+                        e.target.src = this.fallbackImages[isSecretary ? 'secretary' : 'default'];
+                        e.preventDefault();
+                    }
+                }, true);
+            }
+        };
+        ImageFallbackInline.init();
+    </script>
+</head>
+<body>
+    <!-- 🚀 ローディングプログレスバー -->
+    <div id="lazyLoadProgressContainer" style="position: fixed; top: 0; left: 0; right: 0; height: 4px; background: #e5e7eb; z-index: 999999; display: block; transition: opacity 0.3s ease;">
+        <div id="lazyLoadProgress" style="height: 100%; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); width: 0%; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);"></div>
+    </div>
+    
+    <!-- ユーザー登録モーダル -->
+    <div id="userRegistrationModal" role="dialog" aria-modal="true" aria-labelledby="registrationModalTitle" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 100000; display: none; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(5px);">
+        <div role="document" style="background: white; border-radius: 1.5rem; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 3rem 2rem; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);">
+            <!-- ヘッダー -->
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;" aria-hidden="true">👤</div>
+                <h2 id="registrationModalTitle" style="font-size: 2rem; color: #1f2937; margin-bottom: 0.5rem;">ようこそ！</h2>
+                <p style="color: #6b7280; font-size: 1rem;">あなたの学習をサポートします</p>
+            </div>
+
+            <!-- 登録フォーム -->
+            <form id="userRegistrationForm" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <!-- ニックネーム -->
+                <div>
+                    <label for="userNickname" style="display: block; color: #374151; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.95rem;">
+                        ニックネーム <span style="color: #ef4444;">*</span>
+                    </label>
+                    <input type="text" id="userNickname" required maxlength="20" placeholder="例：ツカサ" aria-required="true" aria-label="ニックネームを入力"
+                        style="width: 100%; padding: 0.875rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; font-size: 1rem; transition: all 0.2s; outline: none;"
+                        onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59, 130, 246, 0.1)'"
+                        onblur="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'">
+                    <p style="font-size: 0.85rem; color: #6b7280; margin-top: 0.5rem;">秘書があなたを呼ぶ名前です</p>
+                </div>
+
+                <!-- 目標TOEICスコア -->
+                <div>
+                    <label for="userTargetScore" style="display: block; color: #374151; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.95rem;">
+                        目標TOEICスコア <span style="color: #ef4444;">*</span>
+                    </label>
+                    <select id="userTargetScore" required aria-required="true" aria-label="目標TOEICスコアを選択"
+                        style="width: 100%; padding: 0.875rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; font-size: 1rem; background: white; cursor: pointer; transition: all 0.2s; outline: none;"
+                        onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59, 130, 246, 0.1)'"
+                        onblur="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'">
+                        <option value="">選択してください</option>
+                        <option value="500">500点</option>
+                        <option value="600">600点</option>
+                        <option value="700">700点</option>
+                        <option value="800">800点</option>
+                        <option value="900">900点</option>
+                        <option value="990">990点（満点）</option>
+                    </select>
+                    <p style="font-size: 0.85rem; color: #6b7280; margin-top: 0.5rem;">あなたの目指すスコアを選んでください</p>
+                </div>
+
+                <!-- 学習の目的 -->
+                <div>
+                    <label style="display: block; color: #374151; font-weight: 600; margin-bottom: 0.75rem; font-size: 0.95rem;">
+                        学習の目的 <span style="color: #6b7280; font-weight: 400;">（複数選択可）</span>
+                    </label>
+                    <div style="display: grid; gap: 0.75rem;">
+                        <label style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s;"
+                            onmouseover="this.style.borderColor='#d1d5db'" onmouseout="if(!this.querySelector('input').checked) this.style.borderColor='#e5e7eb'"
+                            onclick="this.style.borderColor=this.querySelector('input').checked?'#3b82f6':'#e5e7eb'; this.style.background=this.querySelector('input').checked?'#eff6ff':'white'">
+                            <input type="checkbox" name="purpose" value="promotion" style="width: 18px; height: 18px; cursor: pointer;">
+                            <span style="font-size: 0.95rem; color: #374151;">昇進・昇格のため</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s;"
+                            onmouseover="this.style.borderColor='#d1d5db'" onmouseout="if(!this.querySelector('input').checked) this.style.borderColor='#e5e7eb'"
+                            onclick="this.style.borderColor=this.querySelector('input').checked?'#3b82f6':'#e5e7eb'; this.style.background=this.querySelector('input').checked?'#eff6ff':'white'">
+                            <input type="checkbox" name="purpose" value="job" style="width: 18px; height: 18px; cursor: pointer;">
+                            <span style="font-size: 0.95rem; color: #374151;">就職・転職活動</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s;"
+                            onmouseover="this.style.borderColor='#d1d5db'" onmouseout="if(!this.querySelector('input').checked) this.style.borderColor='#e5e7eb'"
+                            onclick="this.style.borderColor=this.querySelector('input').checked?'#3b82f6':'#e5e7eb'; this.style.background=this.querySelector('input').checked?'#eff6ff':'white'">
+                            <input type="checkbox" name="purpose" value="study_abroad" style="width: 18px; height: 18px; cursor: pointer;">
+                            <span style="font-size: 0.95rem; color: #374151;">留学準備</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s;"
+                            onmouseover="this.style.borderColor='#d1d5db'" onmouseout="if(!this.querySelector('input').checked) this.style.borderColor='#e5e7eb'"
+                            onclick="this.style.borderColor=this.querySelector('input').checked?'#3b82f6':'#e5e7eb'; this.style.background=this.querySelector('input').checked?'#eff6ff':'white'">
+                            <input type="checkbox" name="purpose" value="work" style="width: 18px; height: 18px; cursor: pointer;">
+                            <span style="font-size: 0.95rem; color: #374151;">仕事で英語が必要</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s;"
+                            onmouseover="this.style.borderColor='#d1d5db'" onmouseout="if(!this.querySelector('input').checked) this.style.borderColor='#e5e7eb'"
+                            onclick="this.style.borderColor=this.querySelector('input').checked?'#3b82f6':'#e5e7eb'; this.style.background=this.querySelector('input').checked?'#eff6ff':'white'">
+                            <input type="checkbox" name="purpose" value="self_growth" style="width: 18px; height: 18px; cursor: pointer;">
+                            <span style="font-size: 0.95rem; color: #374151;">自己成長</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s;"
+                            onmouseover="this.style.borderColor='#d1d5db'" onmouseout="if(!this.querySelector('input').checked) this.style.borderColor='#e5e7eb'"
+                            onclick="this.style.borderColor=this.querySelector('input').checked?'#3b82f6':'#e5e7eb'; this.style.background=this.querySelector('input').checked?'#eff6ff':'white'">
+                            <input type="checkbox" name="purpose" value="hobby" style="width: 18px; height: 18px; cursor: pointer;">
+                            <span style="font-size: 0.95rem; color: #374151;">趣味・教養</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 試験日（任意） -->
+                <div>
+                    <label style="display: block; color: #374151; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.95rem;">
+                        次回TOEIC試験日 <span style="color: #6b7280; font-weight: 400;">（任意）</span>
+                    </label>
+                    <input type="date" id="userExamDate"
+                        style="width: 100%; padding: 0.875rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; font-size: 1rem; transition: all 0.2s; outline: none;"
+                        onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59, 130, 246, 0.1)'"
+                        onblur="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'">
+                    <p style="font-size: 0.85rem; color: #6b7280; margin-top: 0.5rem;">試験日までカウントダウンします</p>
+                </div>
+
+                <!-- ボタン -->
+                <button type="submit"
+                    style="width: 100%; padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 0.75rem; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); margin-top: 0.5rem;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 20px 25px -5px rgb(0 0 0 / 0.15)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 15px -3px rgb(0 0 0 / 0.1)'">
+                    🚀 学習を始める
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- トップ画面 -->
+    <div id="homeScreen" class="screen active" role="main" aria-label="ホーム画面">
+        <!-- データ引継ぎボタン（画面左上） -->
+        <button id="dataTransferBtn" onclick="showDataSyncPanel()" aria-label="データ引継ぎ・バックアップ" onmouseover="this.style.background='rgba(37, 99, 235, 0.95)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 15px -3px rgb(0 0 0 / 0.2)'" onmouseout="this.style.background='rgba(59, 130, 246, 0.9)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgb(0 0 0 / 0.1)'">
+            🔄 データ引継ぎ
+        </button>
+        
+        <div class="container">
+            <header class="app-header" role="banner">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <h1 class="app-title" role="heading" aria-level="1">TOEIC PART5<br>実践問題集</h1>
+                        <p class="app-subtitle">全450問 | 30問×5回 | 🎲 完全ランダム出題</p>
+                        <p class="app-description" style="color: white; opacity: 0.9; margin-top: 1rem; font-size: 1rem;">
+                            全レベルの問題から毎回ランダムに30問出題！本番と同じ形式で実力測定
+                        </p>
+                    </div>
+                    
+                    <!-- 秘書の部屋 + リワードショップ（横一列固定版） -->
+                    <div style="display: flex; gap: 0.75rem; align-items: center; justify-content: flex-end;">
+                        <!-- 秘書の部屋ボタン -->
+                        <button onclick="showSecretaryPanel()" aria-label="秘書の部屋を開く" style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            padding: 0.625rem 1rem;
+                            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+                            color: white;
+                            border: none;
+                            border-radius: 9999px;
+                            font-size: 0.9rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.15);
+                            transition: all 0.3s ease;
+                            white-space: nowrap;
+                        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px -2px rgb(0 0 0 / 0.25)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgb(0 0 0 / 0.15)'">
+                            <span style="font-size: 1.25rem;">🏠</span>
+                            <span>秘書の部屋</span>
+                        </button>
+                        
+                        <!-- リワードショップボタン -->
+                        <button onclick="SecretaryRewards.showShop()" aria-label="リワードショップを開く" style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            padding: 0.625rem 1rem;
+                            background: linear-gradient(135deg, #ffd700 0%, #ff6b9d 100%);
+                            color: white;
+                            border: none;
+                            border-radius: 9999px;
+                            font-size: 0.9rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.15);
+                            transition: all 0.3s ease;
+                            white-space: nowrap;
+                        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px -2px rgb(0 0 0 / 0.25)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgb(0 0 0 / 0.15)'">
+                            <span style="font-size: 1.25rem;">🎁</span>
+                            <span>ショップ</span>
+                            <span id="currentPointsBadge" style="padding: 0.25rem 0.5rem; background: rgba(255,255,255,0.35); border-radius: 9999px; font-size: 0.75rem; font-weight: 700; backdrop-filter: blur(4px);">0pt</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ユーザープロフィール表示 -->
+            <div id="userProfileCard" role="region" aria-labelledby="profileNickname" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); color: white; display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="flex: 1;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                            <span style="font-size: 2rem;">👤</span>
+                            <h3 id="profileNickname" style="font-size: 1.5rem; font-weight: 700;">ツカサさん</h3>
+                        </div>
+                        <div id="profilePurpose" style="opacity: 0.9; font-size: 0.9rem; margin-bottom: 0.75rem;">学習目的：自己成長</div>
+                    </div>
+                    <button onclick="showProfileEdit()" aria-label="プロフィールを編集" style="padding: 0.5rem 1rem; background: rgba(255,255,255,0.2); color: white; border: 1px solid white; border-radius: 0.5rem; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; backdrop-filter: blur(10px);" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+                        ✏️ 編集
+                    </button>
+                </div>
+                
+                <!-- 目標スコア進捗 -->
+                <div style="background: rgba(255,255,255,0.15); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1rem; backdrop-filter: blur(10px);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span style="font-size: 0.875rem; opacity: 0.9;">目標スコア</span>
+                        <span id="profileTargetScore" style="font-size: 1.25rem; font-weight: 700;">800点</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.875rem; opacity: 0.8; margin-bottom: 0.5rem;">
+                        <span>現在の予測スコア</span>
+                        <span id="profileCurrentScore">---</span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.3); border-radius: 9999px; height: 8px; overflow: hidden;">
+                        <div id="profileProgressBar" style="background: white; height: 100%; width: 0%; transition: width 0.5s ease; box-shadow: 0 0 10px rgba(255,255,255,0.5);"></div>
+                    </div>
+                    <div id="profileProgressText" style="font-size: 0.85rem; opacity: 0.9; margin-top: 0.5rem; text-align: center;">学習を開始してスコアを予測します</div>
+                </div>
+
+                <!-- 試験日カウントダウン -->
+                <div id="examCountdown" style="background: rgba(255,255,255,0.15); border-radius: 0.75rem; padding: 1rem; backdrop-filter: blur(10px); display: none;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span style="font-size: 1.25rem;">📅</span>
+                        <span style="font-size: 0.875rem; opacity: 0.9;">次回TOEIC試験日</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                        <div id="examDate" style="font-size: 1rem; font-weight: 600;">2026年3月15日</div>
+                        <div id="examDaysLeft" style="font-size: 1.5rem; font-weight: 700;">あと97日</div>
+                    </div>
+                </div>
+                
+                <!-- Phase A: 秘書との絆レベル表示（NEW!） -->
+                <div id="bondLevelDisplay" style="background: rgba(255,255,255,0.15); border-radius: 0.75rem; padding: 1rem; margin-top: 1rem; backdrop-filter: blur(10px); display: none;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.25rem;">💕</span>
+                            <span style="font-size: 0.875rem; opacity: 0.9;">絆レベル</span>
+                        </div>
+                        <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+                            <span id="bondLevel" style="font-size: 1.5rem; font-weight: 700;">1</span>
+                            <span style="font-size: 0.875rem; opacity: 0.8;">/∞</span>
+                        </div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.3); border-radius: 9999px; height: 6px; overflow: hidden; margin-bottom: 0.5rem;">
+                        <div id="bondExpBar" style="background: white; height: 100%; width: 0%; transition: width 0.5s ease; box-shadow: 0 0 10px rgba(255,255,255,0.5);"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; opacity: 0.8;">
+                        <span id="bondExpText">経験値: 0 / 100</span>
+                        <span id="secretaryName">sakura</span>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- 🔒 データバックアップカード (NEW!) -->
+            <div class="data-backup-card">
+                <h3>💾 データバックアップ</h3>
+                <p>学習データを安全に保護しましょう。ブラウザのキャッシュクリアからデータを守ります。</p>
+                
+                <div class="backup-buttons">
+                    <button class="export-btn" onclick="DataBackup.exportAllData()" aria-label="学習データをエクスポート">
+                        📥 データをエクスポート
+                    </button>
+                    <label class="import-btn" aria-label="学習データをインポート">
+                        📤 データをインポート
+                        <input type="file" accept=".json" onchange="DataBackup.importData(this.files[0])" aria-label="JSONファイルを選択">
+                    </label>
+                </div>
+                
+                <div id="lastBackupStatus" class="backup-status backup-status-danger">
+                    🔴 バックアップ未実施（今すぐバックアップを推奨）
+                </div>
+            </div>
+
+            <!-- 🎯 Phase 1階層: メインCTA（最優先アクション） -->
+            <section class="primary-action-zone">
+                <div class="hero-card">
+                    <h2 class="action-title">📚 今日のおすすめ</h2>
+                    <p class="action-description">AIがあなたの学習状況から、今やるべきことを自動で提案</p>
+                    <button class="primary-cta-button" onclick="executeNextAction()" aria-label="今日のおすすめ学習を開始">
+                        <span class="button-icon">🚀</span>
+                        <div style="text-align: left;">
+                            <span class="button-text">今すぐ始める</span>
+                            <span class="button-detail">約10分 • 30問</span>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 📊 Phase 2階層: 学習状況サマリー（一目で分かる進捗） -->
+            <section class="stats-summary-zone">
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-value" id="summaryStreak">0</div>
+                    <div class="stat-label">連続学習日数</div>
+                    <div class="stat-sublabel">継続が力になる</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-value" id="summaryScore">500</div>
+                    <div class="stat-label">予測スコア</div>
+                    <div class="stat-sublabel">TOEIC換算点</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="summaryAccuracy">--%</div>
+                    <div class="stat-label">今週の正答率</div>
+                    <div class="stat-sublabel">最近7日間</div>
+                </div>
+            </section>
+
+            <!-- 🔍 Phase 3階層: 詳細情報（折りたたみ可能） -->
+            <section class="details-zone">
+                <details class="collapsible-section" id="detailedStatsSection">
+                    <summary>
+                        <span style="display: flex; align-items: center; gap: 0.75rem;">
+                            <span style="font-size: 1.5rem;">📊</span>
+                            <span>詳細な学習データを見る</span>
+                        </span>
+                    </summary>
+                    <div class="collapsible-content">
+                        <!-- ここに既存の詳細データを配置 -->
+                        <div id="detailedContentArea">
+                            <!-- 動的にコンテンツが挿入される -->
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <!-- 最新スコア予測（メインシステム） -->
+            <div id="latestScorePrediction" style="background: white; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.25rem; font-weight: 700; color: #1f2937; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.5rem;">📊</span>
+                        最新のスコア予測
+                    </h3>
+                    <button onclick="showMyScorePage()" style="padding: 0.5rem 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 8px rgba(102, 126, 234, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(102, 126, 234, 0.3)'">
+                        📈 詳細を見る
+                    </button>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                    <!-- PART5予測スコア -->
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 0.75rem; padding: 1rem; color: white; box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);">
+                        <p style="font-size: 0.75rem; opacity: 0.9; margin: 0 0 0.25rem 0;">PART5予測</p>
+                        <p id="homePart5Score" style="font-size: 2rem; font-weight: 700; margin: 0;">---</p>
+                        <p style="font-size: 0.75rem; opacity: 0.8; margin: 0.25rem 0 0 0;">/ 200点</p>
+                    </div>
+                    
+                    <!-- リーディング予測 -->
+                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 0.75rem; padding: 1rem; color: white; box-shadow: 0 2px 4px rgba(240, 147, 251, 0.3);">
+                        <p style="font-size: 0.75rem; opacity: 0.9; margin: 0 0 0.25rem 0;">リーディング</p>
+                        <p id="homeReadingScore" style="font-size: 2rem; font-weight: 700; margin: 0;">---</p>
+                        <p style="font-size: 0.75rem; opacity: 0.8; margin: 0.25rem 0 0 0;">/ 495点</p>
+                    </div>
+                    
+                    <!-- 総合予測スコア -->
+                    <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 0.75rem; padding: 1rem; color: white; box-shadow: 0 2px 4px rgba(79, 172, 254, 0.3);">
+                        <p style="font-size: 0.75rem; opacity: 0.9; margin: 0 0 0.25rem 0;">総合予測</p>
+                        <p id="homeTotalScore" style="font-size: 1.5rem; font-weight: 700; margin: 0;">---</p>
+                        <p style="font-size: 0.75rem; opacity: 0.8; margin: 0.25rem 0 0 0;">/ 990点</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: #f9fafb; border-radius: 0.5rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.25rem;">🏆</span>
+                        <span style="font-size: 0.875rem; color: #6b7280;">レベル:</span>
+                        <span id="homeScoreLevel" style="font-size: 0.875rem; font-weight: 600; color: #1f2937;">---</span>
+                    </div>
+                    <div style="font-size: 0.75rem; color: #9ca3af;" id="homeScoreDate">前回テスト: ---</div>
+                </div>
+            </div>
+
+            <!-- 実践テスト領域（プロフィールの直後に配置） -->
+            <div class="test-selection" style="margin-bottom: 1.5rem;">
+                <h2 style="color: white; margin-bottom: 1rem; text-align: center; font-size: 1.5rem;">📝 実践テスト（30問 × 5回）</h2>
+                
+                <div class="sets-grid" id="testSetsGrid">
+                    <!-- Test sets will be dynamically generated -->
+                </div>
+            </div>
+
+            <div class="total-progress" style="margin-bottom: 1.5rem;">
+                <h3>学習の進捗</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="totalProgress" style="width: 0%"></div>
+                </div>
+                <p class="progress-text" id="totalProgressText">0 / 150問完了（5回分）</p>
+            </div>
+
+            <!-- 秘書の部屋とリワードショップのボタンはヘッダーに移動しました -->
+
+            <!-- Phase C: おすすめの学習（改善版） -->
+            <div id="nextActionCard" class="next-action-card" style="background: white; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.1); position: relative; overflow: hidden;">
+                <!-- 優先度バッジ -->
+                <div id="priorityBadge" style="position: absolute; top: 0.75rem; right: 0.75rem; padding: 0.375rem 0.875rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 0.375rem; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+                    <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: white; animation: pulse 2s infinite;"></span>
+                    <span id="nextActionPriorityText">推奨</span>
+                </div>
+                
+                <div style="position: relative; z-index: 1;">
+                    <!-- ヘッダー -->
+                    <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 0.75rem; flex-shrink: 0; box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);">
+                            <span id="nextActionIcon" style="font-size: 2rem; filter: brightness(0) invert(1);">🎯</span>
+                        </div>
+                        <div style="flex: 1; padding-top: 0.25rem;">
+                            <h3 style="font-size: 1.25rem; margin: 0 0 0.375rem 0; font-weight: 700; color: #1f2937;">おすすめの学習</h3>
+                            <p style="color: #6b7280; font-size: 0.875rem; margin: 0; line-height: 1.5;">あなたの学習状況から、今やるべきことを自動で提案します</p>
+                        </div>
+                    </div>
+                    
+                    <!-- アクション提案カード -->
+                    <div id="nextActionContent" style="background: #f9fafb; border: 2px dashed #d1d5db; border-radius: 0.75rem; padding: 1.75rem; margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                            <span id="nextActionEmoji" style="font-size: 2rem;">📝</span>
+                            <h4 id="nextActionTitle" style="font-size: 1.25rem; margin: 0; font-weight: 700; color: #1f2937;">テストを受ける</h4>
+                        </div>
+                        <p id="nextActionDescription" style="color: #4b5563; font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6;">新しい問題にチャレンジして実力を伸ばしましょう！</p>
+                        <button id="nextActionButton" onclick="executeNextAction()" style="width: 100%; padding: 1rem 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: 700; font-size: 1.05rem; border: none; cursor: pointer; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 15px -3px rgb(0 0 0 / 0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgb(0 0 0 / 0.1)'">
+                            <span id="nextActionButtonText">今すぐ始める →</span>
+                        </button>
+                    </div>
+                    
+                    <!-- 説明テキスト -->
+                    <div style="display: flex; align-items: start; gap: 0.75rem; padding: 1rem; background: #eff6ff; border-radius: 0.5rem; border-left: 3px solid #3b82f6;">
+                        <span style="font-size: 1.25rem;">💡</span>
+                        <p style="color: #1e40af; font-size: 0.9rem; margin: 0; line-height: 1.6;">
+                            <strong style="display: block; margin-bottom: 0.25rem;">このカードについて</strong>
+                            復習が必要な問題や、試験日までの進捗状況をもとに、今最も効果的な学習を自動で選んで提案します。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 学習ストリーク表示 -->
+            <div id="streakCard" class="streak-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); color: white;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                            <span style="font-size: 2.5rem;">🔥</span>
+                            <div>
+                                <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">学習ストリーク</h3>
+                                <p id="streakStatus" style="opacity: 0.9; font-size: 0.9rem;">読み込み中...</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                            <div>
+                                <div style="font-size: 0.875rem; opacity: 0.8; margin-bottom: 0.25rem;">現在</div>
+                                <div style="font-size: 2rem; font-weight: 700;" id="currentStreak">0日</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.875rem; opacity: 0.8; margin-bottom: 0.25rem;">最長</div>
+                                <div style="font-size: 2rem; font-weight: 700;" id="longestStreak">0日</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.875rem; opacity: 0.8; margin-bottom: 0.25rem;">合計</div>
+                                <div style="font-size: 2rem; font-weight: 700;" id="totalStudyDays">0日</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.875rem; opacity: 0.8; margin-bottom: 0.25rem;">総学習時間</div>
+                                <div style="font-size: 2rem; font-weight: 700;" id="totalStudyTime">0分</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- バックアップ復元モーダル -->
+            <div id="restoreModal" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 1rem;" onclick="if(event.target === this) closeRestoreModal();">
+                <div style="background: white; border-radius: 1rem; max-width: 600px; width: 100%; padding: 2rem; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);" onclick="event.stopPropagation();">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <h2 style="font-size: 2rem; color: #1f2937;">📤 データ復元</h2>
+                        <button onclick="closeRestoreModal()" style="width: 40px; height: 40px; border-radius: 50%; background: #f3f4f6; border: none; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">×</button>
+                    </div>
+                    
+                    <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                        <p style="color: #92400e; font-size: 0.9rem; margin: 0;">
+                            ⚠️ データ復元を行うと、現在の学習データが上書きされます。必要に応じて事前にバックアップを作成してください。
+                        </p>
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; color: #374151; font-weight: 600; margin-bottom: 0.5rem;">
+                            復元モード
+                        </label>
+                        <select id="restoreMode" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; font-size: 1rem; background: white;">
+                            <option value="overwrite">上書き（既存データを完全に置換）</option>
+                            <option value="merge">マージ（既存データを保護、新規データのみ追加）</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; color: #374151; font-weight: 600; margin-bottom: 0.5rem;">
+                            バックアップファイルを選択
+                        </label>
+                        <input type="file" id="restoreFileInput" accept=".json" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; font-size: 1rem; cursor: pointer;">
+                    </div>
+                    
+                    <div style="display: flex; gap: 1rem;">
+                        <button onclick="performRestore()" style="flex: 1; padding: 0.875rem; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; font-weight: 700; font-size: 1rem; border: none; cursor: pointer; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                            復元実行
+                        </button>
+                        <button onclick="closeRestoreModal()" style="flex: 1; padding: 0.875rem; background: #f3f4f6; color: #374151; font-weight: 600; font-size: 1rem; border: none; cursor: pointer; border-radius: 0.5rem; transition: all 0.2s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
+                            キャンセル
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-stats-overview" style="background: white; border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);">
+                <h2 style="margin-bottom: 1rem; color: #1f2937;">📊 あなたの学習状況</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                    <div class="stat-box">
+                        <div class="stat-label">完了テスト</div>
+                        <div class="stat-value" id="completedTests">0 / 5</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">平均正答率</div>
+                        <div class="stat-value" id="averageScore">--%</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">予測スコア</div>
+                        <div class="stat-value" id="predictedScore">---</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">総学習問題数</div>
+                        <div class="stat-value" id="totalStudied">0問</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- デイリーミッション -->
+            <div id="dailyMissionsCard" class="daily-missions-card" style="background: white; border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h3 style="font-size: 1.25rem; color: #1f2937; margin-bottom: 0.375rem;">🎯 デイリーミッション</h3>
+                        <p style="color: #6b7280; font-size: 0.875rem;">
+                            達成: <span id="missionsCompleted" style="font-weight: 700; color: #3b82f6;">0/6</span> | 
+                            獲得ポイント: <span id="missionsPoints" style="font-weight: 700; color: #f59e0b;">0pt</span>
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 0.75rem;">
+                        <button onclick="toggleMissionsPanel()" style="padding: 0.625rem 1.25rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.1); font-size: 0.95rem;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 6px -1px rgb(0 0 0 / 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px -1px rgb(0 0 0 / 0.1)';">
+                            詳細を見る
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- ミッション一覧（簡易版） -->
+                <div id="missionsQuickView" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                    <!-- Missions will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- デイリーミッション詳細パネル -->
+            <div id="missionsDetailPanel" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 1rem;" onclick="if(event.target === this) toggleMissionsPanel();">
+                <div style="background: white; border-radius: 1rem; max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 2rem; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);" onclick="event.stopPropagation();">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <h2 style="font-size: 2rem; color: #1f2937;">🎯 デイリーミッション</h2>
+                        <button onclick="toggleMissionsPanel()" style="width: 40px; height: 40px; border-radius: 50%; background: #f3f4f6; border: none; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">×</button>
+                    </div>
+                    
+                    <!-- 統計情報 -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                            <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">今日の達成率</div>
+                            <div style="font-size: 2rem; font-weight: 700;" id="missionCompletionRate">0%</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                            <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">今日のポイント</div>
+                            <div style="font-size: 2rem; font-weight: 700;" id="missionTodayPoints">0pt</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                            <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">累計ポイント</div>
+                            <div style="font-size: 2rem; font-weight: 700;" id="missionTotalPoints">0pt</div>
+                        </div>
+                    </div>
+                    
+                    <!-- ミッション詳細リスト -->
+                    <div id="missionsDetailList" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <!-- Detailed missions will be dynamically generated -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 復習が必要な問題（記憶定着）（Phase 1改善） -->
+            <div id="unifiedReviewHub" class="unified-review-hub" style="display: none;">
+                <div style="background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); border-radius: 1rem; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); color: white; border-left: 4px solid #ff6b35;">
+                    <div style="margin-bottom: 1rem;">
+                        <h3 style="font-size: 1.75rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                            📚 復習が必要な問題（記憶定着）
+                        </h3>
+                        <p style="opacity: 0.95; font-size: 0.9rem; margin-bottom: 1rem; background: rgba(255, 255, 255, 0.15); padding: 0.75rem; border-radius: 0.5rem;">
+                            間違えた問題を<strong>記憶科学</strong>に基づいて効率的に復習
+                        </p>
+                    </div>
+                    
+                    <div style="background: rgba(255, 255, 255, 0.2); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1rem;">
+                        <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; line-height: 1.8;">
+                            <li style="margin-bottom: 0.5rem;"><strong>🔥 緊急</strong>: 期限切れの問題（忘れる前に復習！）</li>
+                            <li style="margin-bottom: 0.5rem;"><strong>⚠️ 重要</strong>: 今日が復習期限の問題</li>
+                            <li><strong>📌 推奨</strong>: 苦手カテゴリの問題</li>
+                        </ul>
+                    </div>
+                    
+                    <p style="opacity: 0.9; font-size: 0.85rem; margin-bottom: 1.5rem; background: rgba(255, 255, 255, 0.15); padding: 0.75rem; border-radius: 0.5rem; border-left: 3px solid rgba(255, 255, 255, 0.5);">
+                        💡 <strong>使い方</strong>: 間違えた問題が10問以上溜まったら優先的に復習しましょう
+                    </p>
+
+                    <!-- 緊急 -->
+                    <div id="urgentSection" style="display: none; background: rgba(255, 255, 255, 0.15); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem; border-left: 4px solid #ef4444;">
+                        <div style="display: flex; align-items: start; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 200px;">
+                                <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    🔥 緊急（<span id="urgentCount">0</span>問）
+                                </h4>
+                                <p style="opacity: 0.9; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                    期限切れ・超高リスク - 今すぐ復習が必要！
+                                </p>
+                                <div id="urgentReasons" style="font-size: 0.85rem; opacity: 0.85; margin-top: 0.5rem;">
+                                    <!-- 理由が表示されます -->
+                                </div>
+                            </div>
+                            <button class="btn" style="background: #ef4444; color: white; font-weight: 700; padding: 0.875rem 1.75rem; font-size: 1rem; border: none; cursor: pointer; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2); transition: all 0.2s; white-space: nowrap;" onclick="startUnifiedReview('urgent')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                今すぐ復習 →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 重要 -->
+                    <div id="importantSection" style="display: none; background: rgba(255, 255, 255, 0.15); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem; border-left: 4px solid #f59e0b;">
+                        <div style="display: flex; align-items: start; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 200px;">
+                                <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    ⚠️ 重要（<span id="importantCount">0</span>問）
+                                </h4>
+                                <p style="opacity: 0.9; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                    今日の復習期限 - 早めの復習を推奨
+                                </p>
+                                <div id="importantReasons" style="font-size: 0.85rem; opacity: 0.85; margin-top: 0.5rem;">
+                                    <!-- 理由が表示されます -->
+                                </div>
+                            </div>
+                            <button class="btn" style="background: #f59e0b; color: white; font-weight: 700; padding: 0.875rem 1.75rem; font-size: 1rem; border: none; cursor: pointer; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2); transition: all 0.2s; white-space: nowrap;" onclick="startUnifiedReview('important')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                開始 →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 推奨 -->
+                    <div id="recommendedSection" style="display: none; background: rgba(255, 255, 255, 0.15); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem; border-left: 4px solid #3b82f6;">
+                        <div style="display: flex; align-items: start; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 200px;">
+                                <h4 style="font-size: 1.3rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    📌 推奨（<span id="recommendedCount">0</span>問）
+                                </h4>
+                                <p style="opacity: 0.9; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                    苦手カテゴリ集中特訓 - 余裕があれば取り組もう
+                                </p>
+                                <div id="recommendedReasons" style="font-size: 0.85rem; opacity: 0.85; margin-top: 0.5rem;">
+                                    <!-- 理由が表示されます -->
+                                </div>
+                            </div>
+                            <button class="btn" style="background: #3b82f6; color: white; font-weight: 700; padding: 0.875rem 1.75rem; font-size: 1rem; border: none; cursor: pointer; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2); transition: all 0.2s; white-space: nowrap;" onclick="startUnifiedReview('recommended')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                開始 →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 全ての間違いを見る -->
+                    <div style="text-align: center; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                        <button class="btn" style="background: rgba(255,255,255,0.2); color: white; font-weight: 600; padding: 0.75rem 1.5rem; font-size: 0.95rem; border: none; cursor: pointer; border-radius: 0.5rem; transition: all 0.2s;" onclick="showMistakeNotebook()" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+                            📔 全ての間違いを見る
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ★★★ ツカサさん専用ダッシュボード（Phase 1: 超パーソナライズド学習ナビゲーション） ★★★ -->
+            <div id="personalizedDashboard" style="margin-bottom: 2rem;">
+                <!-- コンテンツは personalized-dashboard.js によって動的に生成されます -->
+            </div>
+
+            <!-- 成長ダッシュボード（Phase 1改善） -->
+            <div id="growthDashboard" class="growth-dashboard" style="display: none;">
+                <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); color: white;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                        📈 あなたの成長
+                    </h3>
+
+                    <!-- 目標スコア進捗 -->
+                    <div style="background: rgba(255, 255, 255, 0.15); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+                            <div>
+                                <p style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 0.25rem;">目標スコア</p>
+                                <p style="font-size: 1.5rem; font-weight: 700; margin: 0;" id="dashboardTargetScore">800点</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 0.25rem;">現在の予測</p>
+                                <p style="font-size: 1.5rem; font-weight: 700; margin: 0;" id="dashboardCurrentScore">650点</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 0.25rem;">残り</p>
+                                <p style="font-size: 1.5rem; font-weight: 700; margin: 0;" id="dashboardRemainingScore">150点</p>
+                            </div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.2); height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 0.5rem;">
+                            <div id="dashboardProgressBar" style="background: white; height: 100%; width: 81%; transition: width 0.3s;"></div>
+                        </div>
+                        <p style="font-size: 0.85rem; opacity: 0.85; text-align: right;" id="dashboardProgressText">81%達成</p>
+                    </div>
+
+                    <!-- マスター進捗 -->
+                    <div style="background: rgba(255, 255, 255, 0.15); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.75rem;">📚 マスター進捗</h4>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                            <p style="font-size: 0.95rem; opacity: 0.9;">全450問中</p>
+                            <p style="font-size: 1.3rem; font-weight: 700;" id="dashboardMasteredCount">120問マスター</p>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.2); height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 0.75rem;">
+                            <div id="dashboardMasteryBar" style="background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%); height: 100%; width: 27%; transition: width 0.3s;"></div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem; font-size: 0.85rem;">
+                            <div>👑 完全マスター: <strong id="dashboardPerfect">45</strong></div>
+                            <div>⭐ エキスパート: <strong id="dashboardExpert">35</strong></div>
+                            <div>🎯 上級: <strong id="dashboardAdvanced">40</strong></div>
+                        </div>
+                    </div>
+
+                    <!-- カテゴリ別習熟度 -->
+                    <div style="background: rgba(255, 255, 255, 0.15); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.75rem;">📊 カテゴリ別習熟度</h4>
+                        <div id="categoryProficiencyList" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <!-- カテゴリ別習熟度が表示されます -->
+                        </div>
+                    </div>
+                    
+                    <!-- 🧠 適応型分散復習 統計 (Phase 2 NEW!) -->
+                    <div id="adaptiveSRStats" style="background: rgba(255, 255, 255, 0.15); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                            🧠 記憶力分析 <span style="font-size: 0.7rem; background: rgba(16, 185, 129, 0.8); padding: 0.2rem 0.5rem; border-radius: 0.25rem; font-weight: 600;">NEW</span>
+                        </h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; margin-bottom: 1rem;">
+                            <div>
+                                <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 0.25rem;">記憶力レベル</p>
+                                <p style="font-size: 1.3rem; font-weight: 700;" id="memoryLevel">標準</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 0.25rem;">記憶力係数</p>
+                                <p style="font-size: 1.3rem; font-weight: 700;" id="memoryCoefficient">1.00</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 0.25rem;">復習成功率</p>
+                                <p style="font-size: 1.3rem; font-weight: 700;" id="adaptiveSRSuccessRate">0%</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 0.25rem;">今日の復習</p>
+                                <p style="font-size: 1.3rem; font-weight: 700;" id="adaptiveSRTodayReviews">0問</p>
+                            </div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.15); border-radius: 0.5rem; padding: 0.75rem; font-size: 0.85rem; opacity: 0.9;">
+                            <p style="margin-bottom: 0.5rem;"><strong>📅 あなた専用の復習間隔:</strong></p>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 0.5rem; text-align: center;">
+                                <div>初回: <strong id="interval0">1日</strong></div>
+                                <div>2回: <strong id="interval1">3日</strong></div>
+                                <div>3回: <strong id="interval2">7日</strong></div>
+                                <div>4回: <strong id="interval3">14日</strong></div>
+                                <div>5回: <strong id="interval4">30日</strong></div>
+                                <div>6回: <strong id="interval5">60日</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 学習推奨 -->
+                    <div style="background: rgba(255, 255, 255, 0.15); border-radius: 0.75rem; padding: 1.25rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.75rem;">💡 次にすべきこと</h4>
+                        <div id="recommendationsList">
+                            <!-- 推奨アクションが表示されます -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 旧復習カード（非表示） -->
+            <div id="todayReviewCard" style="display: none;"></div>
+            <div id="reviewModeCard" style="display: none;"></div>
+            <div id="weaknessTrainingCard" style="display: none;"></div>
+            <div id="mistakeNotebookCard" style="display: none;"></div>
+
+            <!-- 詳細学習レポートカード（標準機能） -->
+            <div id="detailedReportCard" class="detailed-report-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 1rem; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); color: white;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">📊 詳細学習レポート</h3>
+                        <p style="opacity: 0.9; font-size: 0.95rem;">
+                            弱点分析・学習推奨・総合レポートを確認できます
+                        </p>
+                    </div>
+                    <button onclick="showWeaknessAnalysis()" style="padding: 1rem 2rem; background: white; color: #667eea; font-weight: 700; font-size: 1.1rem; border: none; cursor: pointer; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); transition: all 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        レポートを見る →
+                    </button>
+                </div>
+            </div>
+
+            <!-- 弱点分析カード -->
+            <div id="weaknessAnalysisCard" class="weakness-analysis-card" style="background: white; border-radius: 1rem; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <div>
+                        <h3 style="font-size: 1.5rem; color: #1f2937; margin-bottom: 0.5rem;">📊 弱点分析レポート</h3>
+                        <p style="color: #6b7280; font-size: 0.95rem;">
+                            全体正答率: <span id="weaknessOverallAccuracy" style="font-weight: 700; color: #3b82f6;">--%</span> | 
+                            分析問題数: <span id="weaknessTotal Questions" style="font-weight: 700; color: #6b7280;">0問</span>
+                        </p>
+                    </div>
+                    <button onclick="showWeaknessAnalysis()" style="padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 8px -1px rgb(0 0 0 / 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgb(0 0 0 / 0.1)';">
+                        詳細を見る
+                    </button>
+                </div>
+                
+                <!-- カテゴリ別正答率（簡易版） -->
+                <div id="weaknessQuickView" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem;">
+                    <!-- Categories will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- 学習インサイト総合パネル（拡張版） -->
+            <div id="weaknessDetailPanel" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 1rem; overflow-y: auto;" onclick="if(event.target === this) toggleWeaknessPanel();">
+                <div style="background: white; border-radius: 1rem; max-width: 1200px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 2rem; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);" onclick="event.stopPropagation();">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <h2 style="font-size: 2rem; color: #1f2937;">📊 詳細学習レポート</h2>
+                        <button onclick="toggleWeaknessPanel()" style="width: 40px; height: 40px; border-radius: 50%; background: #f3f4f6; border: none; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">×</button>
+                    </div>
+                    
+                    <!-- タブナビゲーション -->
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 2px solid #e5e7eb; overflow-x: auto;">
+                        <button onclick="switchInsightTab('score')" id="tab-score" class="insight-tab active" style="padding: 0.75rem 1.5rem; background: none; border: none; border-bottom: 3px solid #667eea; color: #667eea; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                            📈 スコア推移
+                        </button>
+                        <button onclick="switchInsightTab('growth')" id="tab-growth" class="insight-tab" style="padding: 0.75rem 1.5rem; background: none; border: none; border-bottom: 3px solid transparent; color: #6b7280; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                            🌱 成長トラッキング
+                        </button>
+                        <button onclick="switchInsightTab('errors')" id="tab-errors" class="insight-tab" style="padding: 0.75rem 1.5rem; background: none; border: none; border-bottom: 3px solid transparent; color: #6b7280; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                            🎯 間違いパターン
+                        </button>
+                        <button onclick="switchInsightTab('level')" id="tab-level" class="insight-tab" style="padding: 0.75rem 1.5rem; background: none; border: none; border-bottom: 3px solid transparent; color: #6b7280; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                            🏆 レベル判定
+                        </button>
+                    </div>
+                    
+                    <!-- タブコンテンツ: スコア推移 -->
+                    <div id="insight-score" class="insight-content" style="display: block;">
+                        <!-- レベル＆ランキングサマリー -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                            <div id="levelCard" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                                <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">現在のレベル</div>
+                                <div style="font-size: 2rem; font-weight: 700;" id="currentLevelName">-</div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                                <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">平均予測スコア</div>
+                                <div style="font-size: 2rem; font-weight: 700;" id="avgPredictedScore">0点</div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                                <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">ベストスコア</div>
+                                <div style="font-size: 2rem; font-weight: 700;" id="bestScore">0点</div>
+                            </div>
+                            <div id="trendCard" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                                <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">スコア変化</div>
+                                <div style="font-size: 2rem; font-weight: 700;" id="scoreTrend">--</div>
+                            </div>
+                        </div>
+                        
+                        <!-- スコア推移グラフ -->
+                        <div style="background: #f9fafb; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem;">
+                            <h3 style="margin-bottom: 1rem; color: #1f2937;">📈 予測スコアの推移</h3>
+                            <canvas id="scoreProgressChart" style="max-height: 350px;"></canvas>
+                        </div>
+                        
+                        <!-- 正答率推移グラフ -->
+                        <div style="background: #f9fafb; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem;">
+                            <h3 style="margin-bottom: 1rem; color: #1f2937;">📊 正答率の推移</h3>
+                            <canvas id="accuracyProgressChart" style="max-height: 300px;"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- タブコンテンツ: 成長トラッキング -->
+                    <div id="insight-growth" class="insight-content" style="display: none;">
+                        <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem; color: white;">
+                            <h3 style="margin: 0; font-size: 1.25rem; margin-bottom: 0.5rem;">🌱 カテゴリ別成長レポート</h3>
+                            <p style="margin: 0; opacity: 0.9;">最初の10問と最近の10問を比較して、あなたの成長を可視化</p>
+                        </div>
+                        
+                        <!-- トップ3改善カテゴリ -->
+                        <div id="topImprovements" style="margin-bottom: 2rem;">
+                            <!-- 動的に生成 -->
+                        </div>
+                        
+                        <!-- 全カテゴリの成長リスト -->
+                        <div id="categoryGrowthList" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <!-- 動的に生成 -->
+                        </div>
+                    </div>
+                    
+                    <!-- タブコンテンツ: 間違いパターン -->
+                    <div id="insight-errors" class="insight-content" style="display: none;">
+                        <div style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem; color: white;">
+                            <h3 style="margin: 0; font-size: 1.25rem; margin-bottom: 0.5rem;">🎯 間違えやすいパターン分析</h3>
+                            <p style="margin: 0; opacity: 0.9;">繰り返しミスと弱点カテゴリを特定して効率的に復習</p>
+                        </div>
+                        
+                        <!-- エラー統計 -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                            <div style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                                <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">総エラー数</div>
+                                <div style="font-size: 2rem; font-weight: 700;" id="totalErrors">0件</div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                                <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">繰り返しミス</div>
+                                <div style="font-size: 2rem; font-weight: 700;" id="repeatMistakes">0件</div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                                <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">最難関カテゴリ</div>
+                                <div style="font-size: 1.25rem; font-weight: 700;" id="mostDifficult">-</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 繰り返しミストップ5 -->
+                        <div id="repeatMistakesList" style="margin-bottom: 2rem;">
+                            <!-- 動的に生成 -->
+                        </div>
+                        
+                        <!-- カテゴリ別エラーランキング -->
+                        <div id="categoryErrorRanking" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <!-- 動的に生成 -->
+                        </div>
+                    </div>
+                    
+                    <!-- タブコンテンツ: レベル判定 -->
+                    <div id="insight-level" class="insight-content" style="display: none;">
+                        <div id="levelDetailCard" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem; color: white; text-align: center;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;" id="levelIcon">🏆</div>
+                            <h2 style="margin: 0; font-size: 2.5rem; margin-bottom: 0.5rem;" id="levelName">上級</h2>
+                            <p style="margin: 0; font-size: 1.25rem; opacity: 0.9; margin-bottom: 1rem;" id="levelDescription">エキスパートレベル</p>
+                            <div style="font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem;" id="currentScore">750点</div>
+                            <div style="font-size: 1rem; opacity: 0.9;" id="scoreRange">600-799点</div>
+                        </div>
+                        
+                        <!-- レベル進捗バー -->
+                        <div style="background: white; border: 2px solid #e5e7eb; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600; color: #1f2937;">レベル内進捗</span>
+                                <span style="font-weight: 700; color: #667eea;" id="levelProgressPercent">0%</span>
+                            </div>
+                            <div style="background: #e5e7eb; height: 24px; border-radius: 12px; overflow: hidden;">
+                                <div id="levelProgressBar" style="background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); height: 100%; width: 0%; transition: width 0.5s ease;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- 次のレベル情報 -->
+                        <div id="nextLevelInfo" style="background: #f9fafb; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem;">
+                            <!-- 動的に生成 -->
+                        </div>
+                        
+                        <!-- ランキング位置 -->
+                        <div id="rankingPosition" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); border-radius: 0.75rem; padding: 1.5rem; color: white; text-align: center;">
+                            <!-- 動的に生成 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 旧弱点分析セクション（下部に残す） -->
+                    
+                    <!-- 全体統計 -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                            <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">全体正答率</div>
+                            <div style="font-size: 2rem; font-weight: 700;" id="weaknessDetailAccuracy">0%</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                            <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">分析問題数</div>
+                            <div style="font-size: 2rem; font-weight: 700;" id="weaknessDetailTotal">0問</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                            <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">弱点カテゴリ</div>
+                            <div style="font-size: 2rem; font-weight: 700;" id="weaknessDetailWeak">0個</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 0.75rem; padding: 1.5rem; color: white;">
+                            <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">得意カテゴリ</div>
+                            <div style="font-size: 2rem; font-weight: 700;" id="weaknessDetailStrong">0個</div>
+                        </div>
+                    </div>
+                    
+                    <!-- チャート -->
+                    <div style="background: #f9fafb; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem;">
+                        <h3 style="margin-bottom: 1rem; color: #1f2937;">📈 カテゴリ別正答率</h3>
+                        <canvas id="weaknessChart" style="max-height: 300px;"></canvas>
+                    </div>
+                    
+                    <!-- 学習推奨 -->
+                    <div id="weaknessRecommendations" style="margin-bottom: 2rem;">
+                        <!-- Recommendations will be dynamically generated -->
+                    </div>
+                    
+                    <!-- カテゴリ詳細リスト -->
+                    <div id="weaknessCategoryList" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <!-- Category details will be dynamically generated -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase C-2: 自動バックアップカード（コンパクト版）（NEW!） -->
+            <div id="backupCard" class="backup-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); color: white;">
+                <!-- タイトルと情報（中央揃え） -->
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔐</div>
+                    <h3 style="font-size: 1.125rem; margin: 0 0 0.5rem 0; font-weight: 700;">データバックアップ</h3>
+                    <p style="opacity: 0.9; font-size: 0.875rem; margin: 0;">
+                        <span id="lastBackupDate">未実施</span> | <span id="backupDataSize">0 KB</span>
+                    </p>
+                </div>
+                
+                <!-- ボタン（中央揃え） -->
+                <div style="display: flex; gap: 0.75rem; justify-content: center; align-items: center;">
+                    <button id="backupButton" onclick="performBackup()" style="padding: 0.625rem 1.5rem; background: white; color: #10b981; font-weight: 600; font-size: 0.9rem; border: none; cursor: pointer; border-radius: 0.5rem; box-shadow: 0 2px 4px rgb(0 0 0 / 0.1); transition: all 0.2s; white-space: nowrap; display: flex; align-items: center; gap: 0.5rem;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 8px rgb(0 0 0 / 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgb(0 0 0 / 0.1)';">
+                        <span style="font-size: 1.125rem;">📥</span>
+                        <span>バックアップ作成</span>
+                    </button>
+                    <button onclick="showRestoreModal()" style="padding: 0.625rem 1.5rem; background: rgba(255,255,255,0.2); color: white; font-weight: 600; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.4); cursor: pointer; border-radius: 0.5rem; transition: all 0.2s; white-space: nowrap; display: flex; align-items: center; gap: 0.5rem; backdrop-filter: blur(10px);" onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.transform='translateY(0)'">
+                        <span style="font-size: 1.125rem;">📤</span>
+                        <span>データ復元</span>
+                    </button>
+                </div>
+                
+                <div id="backupStatus" style="opacity: 0.9; font-size: 0.875rem; margin-top: 1rem; text-align: center; display: none;">大切な学習データを守ります</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 問題画面 -->
+    <div id="questionScreen" class="screen" role="main" aria-label="問題画面">
+        <div class="container">
+            <div class="question-header" role="navigation" aria-label="問題ナビゲーション">
+                <button class="btn-back" onclick="showHome()" aria-label="ホームに戻る">← ホームに戻る</button>
+                <div class="question-progress" role="status" aria-live="polite">
+                    🎲 <span id="questionNumber">1</span> / 30
+                </div>
+                <div class="timer" id="timer" role="timer" aria-live="off" aria-label="経過時間">00:00</div>
+                <!-- 🔧 デバッグ用裏技ボタン -->
+                <button class="btn-debug" onclick="debugAutoComplete()" title="デバッグ用：自動完了" aria-label="デバッグ用自動完了ボタン" style="background: #ef4444; color: white; padding: 0.5rem 1rem; border: none; border-radius: 0.5rem; cursor: pointer; font-size: 0.9rem; margin-left: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                    🔧 自動完了
+                </button>
+            </div>
+
+            <div class="question-card" role="article" aria-labelledby="questionText">
+                <div class="question-text" id="questionText" role="heading" aria-level="2">
+                    <!-- Question will be inserted here -->
+                </div>
+
+                <div class="options-container" id="optionsContainer" role="radiogroup" aria-label="回答選択肢">
+                    <!-- Options will be inserted here -->
+                </div>
+
+                <div class="explanation-box hidden" id="explanationBox" role="region" aria-labelledby="explanationTitle">
+                    <h4 id="explanationTitle">📖 解説</h4>
+                    <div class="explanation-content" id="explanationContent">
+                        <!-- Explanation will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-navigation" role="navigation" aria-label="問題ナビゲーションボタン">
+                <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" disabled aria-label="前の問題へ">
+                    前の問題
+                </button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled aria-label="次の問題へ">
+                    次の問題
+                </button>
+                <button class="btn btn-success hidden" id="finishBtn" onclick="finishTest()" aria-label="テストを終了する">
+                    テスト終了
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 結果画面 -->
+    <div id="resultScreen" class="screen" role="main" aria-label="結果画面">
+        <div class="container">
+            <div class="result-header" role="region" aria-labelledby="resultTitle">
+                <h2 id="resultTitle">テスト結果</h2>
+                <div class="result-score" role="region" aria-label="スコア表示">
+                    <div class="score-circle">
+                        <span class="score-percentage" id="scorePercentage" aria-live="polite">0</span>
+                        <span class="score-label">%</span>
+                    </div>
+                    <div class="score-details">
+                        <p class="score-text"><span id="correctCount">0</span> / 30 問正解</p>
+                        <p class="score-time">所要時間: <span id="totalTime">00:00</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-analysis">
+                <h3>📊 分析結果</h3>
+                <div class="analysis-grid" id="analysisGrid">
+                    <!-- Analysis will be inserted here -->
+                </div>
+            </div>
+
+            <div class="wrong-questions" id="wrongQuestionsSection">
+                <h3>❌ 間違えた問題</h3>
+                <div class="wrong-questions-list" id="wrongQuestionsList">
+                    <!-- Wrong questions will be listed here -->
+                </div>
+            </div>
+
+            <div class="result-actions">
+                <button class="btn btn-secondary" onclick="reviewWrongQuestions()">
+                    間違えた問題を復習
+                </button>
+                <button class="btn btn-primary" onclick="startTest(AppState.currentTestNumber)">
+                    もう一度挑戦
+                </button>
+                <button class="btn btn-success" onclick="showHome()">
+                    ホームに戻る
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 復習モード画面 -->
+    <div id="reviewModeScreen" class="screen" role="main" aria-label="復習モード画面">
+        <div class="container">
+            <div class="review-mode-header" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; color: white; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);">
+                <button class="btn-back" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);" onclick="showHome()">← ホームに戻る</button>
+                <h2 style="font-size: 2rem; margin: 1rem 0 0.5rem 0;">📚 復習モード</h2>
+                <p style="opacity: 0.9; font-size: 1.1rem;">間違えた問題を効率的に復習しましょう</p>
+            </div>
+
+            <!-- 復習統計 -->
+            <div class="review-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                <div class="stat-box" style="background: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+                    <div class="stat-label" style="color: #6b7280; font-size: 0.875rem; margin-bottom: 0.5rem;">復習が必要</div>
+                    <div class="stat-value" style="font-size: 2rem; font-weight: 700; color: #ff6b6b;" id="reviewStatsNeedReview">0問</div>
+                </div>
+                <div class="stat-box" style="background: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+                    <div class="stat-label" style="color: #6b7280; font-size: 0.875rem; margin-bottom: 0.5rem;">完全マスター</div>
+                    <div class="stat-value" style="font-size: 2rem; font-weight: 700; color: #10b981;" id="reviewStatsMastered">0問</div>
+                </div>
+                <div class="stat-box" style="background: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+                    <div class="stat-label" style="color: #6b7280; font-size: 0.875rem; margin-bottom: 0.5rem;">平均間違い回数</div>
+                    <div class="stat-value" style="font-size: 2rem; font-weight: 700; color: #f59e0b;" id="reviewStatsAvgWrong">0.0回</div>
+                </div>
+            </div>
+
+            <!-- カテゴリ別フィルター -->
+            <div class="review-filters" style="background: white; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+                <h3 style="margin-bottom: 1rem; color: #1f2937;">🔍 カテゴリ別にフィルター</h3>
+                <div id="categoryFilters" style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                    <button class="filter-btn active" data-category="all" style="padding: 0.5rem 1rem; border-radius: 0.5rem; border: 2px solid #3b82f6; background: #3b82f6; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s;" onclick="filterReviewQuestions('all')">
+                        すべて
+                    </button>
+                    <!-- Category buttons will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- 復習問題リスト -->
+            <div class="review-questions-container" style="background: white; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3 style="color: #1f2937;">📝 復習問題リスト</h3>
+                    <button class="btn btn-primary" onclick="startReviewTest()" id="startReviewBtn" 
+                            style="padding: 0.75rem 1.5rem; font-size: 1.125rem; font-weight: 600; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); transition: all 0.2s;"
+                            onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 15px -3px rgb(0 0 0 / 0.1)';"
+                            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 6px -1px rgb(0 0 0 / 0.1)';">
+                        🚀 復習テストを開始
+                    </button>
+                </div>
+                <div id="reviewQuestionsList" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- Review questions will be dynamically generated -->
+                </div>
+                <div id="noReviewQuestions" style="text-align: center; padding: 3rem; color: #6b7280; display: none;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 1rem; padding: 2.5rem; color: white; margin-bottom: 2rem;">
+                        <p style="font-size: 2rem; margin-bottom: 1rem;">📚 復習問題がまだありません</p>
+                        <p style="font-size: 1.125rem; opacity: 0.95; line-height: 1.6;">まずはテストを解いて、間違えた問題を記録しましょう！<br>復習システムが自動的に弱点を管理します。</p>
+                    </div>
+                    <div style="background: white; border: 2px solid #e5e7eb; border-radius: 0.75rem; padding: 2rem; text-align: left; max-width: 500px; margin: 0 auto;">
+                        <h4 style="color: #1f2937; margin-bottom: 1rem; font-size: 1.125rem;">💡 復習システムの使い方</h4>
+                        <ol style="color: #4b5563; line-height: 2; padding-left: 1.5rem;">
+                            <li>ホーム画面から「TEST 1」～「TEST 20」を選択</li>
+                            <li>テストを解いて、間違えた問題を記録</li>
+                            <li>間違えた問題が自動的に復習リストに追加</li>
+                            <li>「復習テストを開始」で効率的に復習！</li>
+                        </ol>
+                    </div>
+                    <button class="btn btn-primary" onclick="showHome()" style="margin-top: 2rem; padding: 1rem 2rem; font-size: 1.125rem;">
+                        🏠 ホームに戻ってテストを開始
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 苦手問題集中特訓モード画面 -->
+    <div id="weaknessTrainingScreen" class="screen" role="main" aria-label="苦手問題集中特訓画面">
+        <div class="container">
+            <!-- ヘッダー -->
+            <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; color: white; text-align: center;">
+                <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">🎯 苦手問題集中特訓モード</h2>
+                <p style="opacity: 0.95; font-size: 1.1rem; margin-bottom: 1rem;">あなたの弱点カテゴリを集中的にトレーニング！</p>
+                <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700;" id="weaknessTrainingCurrentQ">0</div>
+                        <div style="opacity: 0.9; font-size: 0.9rem;">現在の問題</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700;" id="weaknessTrainingTotalQ">30</div>
+                        <div style="opacity: 0.9; font-size: 0.9rem;">全問題数</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700; color: #fcd34d;" id="weaknessTrainingMastered">0</div>
+                        <div style="opacity: 0.9; font-size: 0.9rem;">習熟したカテゴリ</div>
+                    </div>
+                </div>
+                <div class="timer" style="font-size: 1.5rem; margin-top: 1rem; font-weight: 700;" id="weaknessTrainingTimer">00:00</div>
+            </div>
+
+            <!-- 現在トレーニング中のカテゴリ表示 -->
+            <div id="currentTrainingCategory" style="background: white; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem; text-align: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+                <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 0.5rem;">現在トレーニング中</p>
+                <h3 style="font-size: 1.75rem; color: #1f2937; margin-bottom: 0.5rem;" id="trainingCategoryName">---</h3>
+                <div style="display: flex; justify-content: center; gap: 1.5rem; margin-top: 1rem;">
+                    <div>
+                        <span style="color: #6b7280; font-size: 0.85rem;">このカテゴリの進捗</span>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #3b82f6;" id="categoryCorrectCount">0/0</div>
+                    </div>
+                    <div>
+                        <span style="color: #6b7280; font-size: 0.85rem;">連続正解数</span>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #10b981;" id="consecutiveCorrect">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問題表示エリア -->
+            <div class="question-card">
+                <div class="question-text" id="weaknessTrainingQuestionText">
+                    <!-- Question will be inserted here -->
+                </div>
+
+                <div class="options-container" id="weaknessTrainingOptionsContainer">
+                    <!-- Options will be inserted here -->
+                </div>
+
+                <div class="explanation-box hidden" id="weaknessTrainingExplanationBox">
+                    <h4>📖 解説</h4>
+                    <div class="explanation-content" id="weaknessTrainingExplanationContent">
+                        <!-- Explanation will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ナビゲーション -->
+            <div class="question-navigation">
+                <button class="btn btn-secondary" id="weaknessPrevBtn" onclick="previousWeaknessTrainingQuestion()" disabled>
+                    前の問題
+                </button>
+                <button class="btn btn-primary" id="weaknessNextBtn" onclick="nextWeaknessTrainingQuestion()" disabled>
+                    次の問題
+                </button>
+                <button class="btn btn-success hidden" id="weaknessFinishBtn" onclick="finishWeaknessTrainingTest()">
+                    特訓終了
+                </button>
+            </div>
+
+            <!-- 途中終了ボタン -->
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <button class="btn btn-secondary" onclick="if(confirm('特訓を中断してホームに戻りますか？')) { showHome(); }">
+                    ホームに戻る
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- マイスコア画面 -->
+    <div id="myScoreScreen" class="screen" role="main" aria-label="マイスコア画面">
+        <div class="container">
+            <!-- ヘッダー -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; color: white; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);">
+                <button class="btn-back" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);" onclick="showHome()">← ホームに戻る</button>
+                <h2 style="font-size: 2rem; margin: 1rem 0 0.5rem 0;">📊 マイスコア</h2>
+                <p style="opacity: 0.9; font-size: 1.1rem;">あなたのTOEICスコア予測と学習履歴</p>
+            </div>
+
+            <!-- 最新スコア予測（大きく表示） -->
+            <div style="background: white; border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+                <h3 style="font-size: 1.5rem; font-weight: 700; color: #1f2937; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 1.75rem;">🎯</span>
+                    最新のスコア予測
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <!-- PART5予測スコア -->
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 1rem; padding: 1.5rem; color: white; box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3); text-align: center;">
+                        <p style="font-size: 0.875rem; opacity: 0.9; margin: 0 0 0.5rem 0;">PART5予測スコア</p>
+                        <p id="myScorePart5" style="font-size: 3rem; font-weight: 700; margin: 0; line-height: 1;">---</p>
+                        <p style="font-size: 0.875rem; opacity: 0.8; margin: 0.5rem 0 0 0;">/ 200点満点</p>
+                    </div>
+                    
+                    <!-- リーディング予測 -->
+                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 1rem; padding: 1.5rem; color: white; box-shadow: 0 4px 6px rgba(240, 147, 251, 0.3); text-align: center;">
+                        <p style="font-size: 0.875rem; opacity: 0.9; margin: 0 0 0.5rem 0;">リーディング予測</p>
+                        <p id="myScoreReading" style="font-size: 3rem; font-weight: 700; margin: 0; line-height: 1;">---</p>
+                        <p style="font-size: 0.875rem; opacity: 0.8; margin: 0.5rem 0 0 0;">/ 495点満点</p>
+                    </div>
+                    
+                    <!-- 総合予測スコア -->
+                    <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 1rem; padding: 1.5rem; color: white; box-shadow: 0 4px 6px rgba(79, 172, 254, 0.3); text-align: center;">
+                        <p style="font-size: 0.875rem; opacity: 0.9; margin: 0 0 0.5rem 0;">総合予測スコア</p>
+                        <p id="myScoreTotal" style="font-size: 2.5rem; font-weight: 700; margin: 0; line-height: 1;">---</p>
+                        <p style="font-size: 0.875rem; opacity: 0.8; margin: 0.5rem 0 0 0;">/ 990点満点</p>
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                    <div style="background: #f9fafb; border-radius: 0.75rem; padding: 1rem; text-align: center;">
+                        <p style="font-size: 0.875rem; color: #6b7280; margin: 0 0 0.5rem 0;">正答率</p>
+                        <p id="myScoreAccuracy" style="font-size: 2rem; font-weight: 700; color: #1f2937; margin: 0;">---%</p>
+                    </div>
+                    <div style="background: #f9fafb; border-radius: 0.75rem; padding: 1rem; text-align: center;">
+                        <p style="font-size: 0.875rem; color: #6b7280; margin: 0 0 0.5rem 0;">レベル</p>
+                        <p id="myScoreLevel" style="font-size: 1.25rem; font-weight: 700; color: #1f2937; margin: 0;">---</p>
+                    </div>
+                    <div style="background: #f9fafb; border-radius: 0.75rem; padding: 1rem; text-align: center;">
+                        <p style="font-size: 0.875rem; color: #6b7280; margin: 0 0 0.5rem 0;">前回テスト</p>
+                        <p id="myScoreDate" style="font-size: 1rem; font-weight: 600; color: #1f2937; margin: 0;">---</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- スコア履歴グラフ -->
+            <div style="background: white; border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+                <h3 style="font-size: 1.5rem; font-weight: 700; color: #1f2937; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 1.75rem;">📈</span>
+                    スコア推移グラフ
+                </h3>
+                <canvas id="scoreHistoryChart" style="max-height: 400px;"></canvas>
+                <div id="noScoreHistory" style="text-align: center; padding: 3rem; color: #6b7280; display: none;">
+                    <p style="font-size: 1.5rem; margin-bottom: 0.5rem;">📊</p>
+                    <p>まだテスト履歴がありません</p>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">テストを受けるとスコアの推移が表示されます</p>
+                </div>
+            </div>
+
+            <!-- 🧠 学習分析ダッシュボード -->
+            <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; color: white;">
+                <h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 2rem;">🧠</span>
+                    学習分析ダッシュボード
+                </h3>
+                <p style="opacity: 0.9; margin-bottom: 0;">あなたの学習パターンを詳しく分析します</p>
+            </div>
+
+            <!-- 時間帯別パフォーマンス -->
+            <div class="chart-container">
+                <div class="chart-wrapper">
+                    <canvas id="timePerformanceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- カテゴリ別ヒートマップ -->
+            <div class="chart-container">
+                <div class="chart-wrapper">
+                    <canvas id="categoryHeatmap"></canvas>
+                </div>
+            </div>
+
+            <!-- 30日間トレンド -->
+            <div class="chart-container">
+                <div class="chart-wrapper">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 学習習慣サマリー -->
+            <div class="chart-container">
+                <h3 style="font-size: 1.5rem; font-weight: 700; color: #1f2937; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 1.75rem;">📊</span>
+                    学習習慣サマリー
+                </h3>
+                <div id="learningHabitsContainer"></div>
+            </div>
+
+            <!-- AIレコメンデーション -->
+            <div class="chart-container">
+                <h3 style="font-size: 1.5rem; font-weight: 700; color: #1f2937; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 1.75rem;">💡</span>
+                    あなたへのおすすめ
+                </h3>
+                <div id="recommendationsContainer"></div>
+            </div>
+
+            <!-- テスト履歴リスト -->
+            <div style="background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+                <h3 style="font-size: 1.5rem; font-weight: 700; color: #1f2937; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 1.75rem;">📋</span>
+                    テスト履歴
+                </h3>
+                <div id="scoreHistoryList" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- 履歴がここに動的に挿入されます -->
+                </div>
+                <div id="noScoreHistoryList" style="text-align: center; padding: 3rem; color: #6b7280; display: none;">
+                    <p style="font-size: 1.5rem; margin-bottom: 0.5rem;">📝</p>
+                    <p>まだテスト履歴がありません</p>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">ホームに戻ってテストを受けましょう！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 間違いノート画面 -->
+    <div id="mistakeNotebookScreen" class="screen" role="main" aria-label="間違いノート画面">
+        <div class="container">
+            <!-- ヘッダー -->
+            <div style="background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; color: white;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">📔 間違いノート</h2>
+                        <p style="opacity: 0.95; font-size: 1.1rem;">間違えた問題を自動整理して復習効率アップ！</p>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 0.75rem 1.5rem; font-size: 1rem; cursor: pointer; border-radius: 0.5rem; backdrop-filter: blur(10px);" onclick="printMistakeNotebook()">
+                            🖨️ 印刷
+                        </button>
+                        <button class="btn" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 0.75rem 1.5rem; font-size: 1rem; cursor: pointer; border-radius: 0.5rem; backdrop-filter: blur(10px);" onclick="downloadMistakeNotebook()">
+                            💾 ダウンロード
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 統計情報 -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: 700;" id="mistakeNotebookTotalQuestions">0</div>
+                        <div style="opacity: 0.9; font-size: 0.875rem;">総問題数</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: 700;" id="mistakeNotebookTotalMistakes">0</div>
+                        <div style="opacity: 0.9; font-size: 0.875rem;">総間違い回数</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: 700;" id="mistakeNotebookAvgMistakes">0.0</div>
+                        <div style="opacity: 0.9; font-size: 0.875rem;">平均間違い回数</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: 700;" id="mistakeNotebookCategories">0</div>
+                        <div style="opacity: 0.9; font-size: 0.875rem;">カテゴリ数</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- フィルター・ソート -->
+            <div style="background: white; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+                        <label style="font-weight: 600; color: #4b5563;">🔍 フィルター:</label>
+                        <select id="mistakeNotebookCategoryFilter" style="padding: 0.5rem 1rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; font-size: 0.95rem; cursor: pointer;" onchange="applyMistakeNotebookFilters()">
+                            <option value="all">すべてのカテゴリ</option>
+                            <!-- カテゴリはJSで動的に追加 -->
+                        </select>
+                        
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="mistakeNotebookUnmasteredOnly" onchange="applyMistakeNotebookFilters()" style="margin-right: 0.5rem;">
+                            <span style="font-size: 0.95rem; color: #4b5563;">未習熟のみ</span>
+                        </label>
+                    </div>
+                    
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <label style="font-weight: 600; color: #4b5563;">📊 並び替え:</label>
+                        <select id="mistakeNotebookSort" style="padding: 0.5rem 1rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; font-size: 0.95rem; cursor: pointer;" onchange="applyMistakeNotebookSort()">
+                            <option value="date_desc">新しい順</option>
+                            <option value="count_desc">間違い回数が多い順</option>
+                            <option value="category">カテゴリ別</option>
+                            <option value="date_asc">古い順</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 間違いノート本体 -->
+            <div id="mistakeNotebookContent" style="margin-bottom: 2rem;">
+                <!-- ノートエントリーが表示されます -->
+            </div>
+
+            <!-- 戻るボタン -->
+            <div style="text-align: center;">
+                <button class="btn btn-secondary" onclick="showHome()" style="padding: 1rem 3rem;">
+                    ホームに戻る
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- データ同期パネル（簡易版） -->
+    <div id="dataSyncPanel" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 1rem;" onclick="if(event.target === this) toggleDataSyncPanel();">
+        <div style="background: white; border-radius: 1rem; max-width: 550px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 2rem; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);" onclick="event.stopPropagation();">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.75rem; color: #1f2937;">🔄 簡単データ引継ぎ</h2>
+                <button onclick="toggleDataSyncPanel()" style="width: 40px; height: 40px; border-radius: 50%; background: #f3f4f6; border: none; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">×</button>
+            </div>
+            
+            <p style="color: #6b7280; margin-bottom: 2rem; font-size: 0.95rem;">
+                コピー&ペーストで簡単にデータを引き継げます！
+            </p>
+            
+            <!-- クリップボードコピーセクション（推奨） -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1rem; color: white;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                    <h3 style="font-size: 1.25rem; margin: 0;">📋 この端末から</h3>
+                    <span style="background: rgba(255,255,255,0.3); padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 700;">推奨</span>
+                </div>
+                <p style="opacity: 0.9; margin-bottom: 1rem; font-size: 0.9rem;">
+                    ワンクリックでデータをコピー！
+                </p>
+                <button onclick="copyToClipboardSimple()" style="width: 100%; padding: 1rem; background: white; color: #667eea; border: none; border-radius: 0.5rem; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-size: 1.05rem;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.1)'">
+                    📋 データをコピー
+                </button>
+                <p style="opacity: 0.8; margin-top: 0.75rem; font-size: 0.85rem; text-align: center;">
+                    ↓ LINEやメールで自分に送信
+                </p>
+            </div>
+            
+            <!-- クリップボードペーストセクション -->
+            <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; color: white;">
+                <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">📥 他の端末へ</h3>
+                <p style="opacity: 0.9; margin-bottom: 1rem; font-size: 0.9rem;">
+                    コピーしたデータを貼り付け
+                </p>
+                <textarea id="pasteDataArea" placeholder="ここに Ctrl+V (Cmd+V) で貼り付け&#13;&#10;（コピーしたテキストデータ）" style="width: 100%; min-height: 100px; padding: 0.75rem; border: 2px dashed rgba(255,255,255,0.5); border-radius: 0.5rem; background: rgba(255,255,255,0.2); color: white; font-family: monospace; font-size: 0.85rem; resize: vertical; margin-bottom: 1rem;" oninput="document.getElementById('importFromTextBtn').disabled = !this.value"></textarea>
+                <button id="importFromTextBtn" onclick="importFromTextArea()" disabled style="width: 100%; padding: 1rem; background: white; color: #f5576c; border: none; border-radius: 0.5rem; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-size: 1.05rem;" onmouseover="if(!this.disabled) {this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.15)'}" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.1)'">
+                    📥 データを読み込む
+                </button>
+            </div>
+            
+            <!-- その他の方法（折りたたみ） -->
+            <details style="margin-bottom: 1rem;">
+                <summary style="cursor: pointer; padding: 0.75rem; background: #f9fafb; border-radius: 0.5rem; font-weight: 600; color: #4b5563;">その他の引継ぎ方法</summary>
+                <div style="padding: 1rem; background: #f9fafb; border-radius: 0 0 0.5rem 0.5rem; margin-top: -0.5rem;">
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="font-size: 0.95rem; color: #374151; margin-bottom: 0.5rem;">💾 ファイルでエクスポート</h4>
+                        <button onclick="exportData()" style="width: 100%; padding: 0.75rem; background: #667eea; color: white; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer;">ファイルをダウンロード</button>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 0.95rem; color: #374151; margin-bottom: 0.5rem;">📂 ファイルでインポート</h4>
+                        <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="importDataFromFile(event)">
+                        <button onclick="document.getElementById('importFileInput').click()" style="width: 100%; padding: 0.75rem; background: #f5576c; color: white; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer;">ファイルを選択</button>
+                    </div>
+                </div>
+            </details>
+            
+            <!-- インポートオプション -->
+            <div style="padding: 1rem; background: #f9fafb; border-radius: 0.5rem; border: 1px solid #e5e7eb; margin-bottom: 1rem;">
+                <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem; color: #374151;">⚙️ インポート設定</h4>
+                <label style="display: flex; align-items: center; cursor: pointer;">
+                    <input type="checkbox" id="importMergeOption" checked style="margin-right: 0.5rem;">
+                    <span style="font-size: 0.9rem; color: #4b5563;">既存データとマージする（推奨）</span>
+                </label>
+            </div>
+            
+            <!-- データ削除 -->
+            <details style="margin-bottom: 0;">
+                <summary style="cursor: pointer; padding: 0.75rem; background: #fee2e2; border-radius: 0.5rem; font-weight: 600; color: #991b1b; border: 1px solid #fecaca;">⚠️ データを削除</summary>
+                <div style="padding: 1rem; background: #fee2e2; border-radius: 0 0 0.5rem 0.5rem; margin-top: -0.5rem; border: 1px solid #fecaca; border-top: none;">
+                    <p style="color: #7f1d1d; margin-bottom: 1rem; font-size: 0.85rem;">
+                        全ての学習データを削除します（取り消し不可）
+                    </p>
+                    <button onclick="clearAllData()" style="width: 100%; padding: 0.75rem; background: #dc2626; color: white; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer;">🗑️ 全データを削除</button>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- 🚀 Lazy Loading System による高速化 -->
+    <!-- Critical: 初期表示に必須のスクリプトのみ読み込む -->
+    <script src="js/image-fallback.js"></script>
+    <script src="js/lazy-loader.js"></script>
+    
+    <script>
+        // 🗑️ 古いService Workerを完全にアンインストール
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                registrations.forEach(registration => {
+                    registration.unregister().then(success => {
+                        if (success) {
+                            console.log('✅ Service Worker unregistered successfully');
+                        }
+                    });
+                });
+            });
+            
+            // すべてのキャッシュを削除
+            if ('caches' in window) {
+                caches.keys().then(cacheNames => {
+                    cacheNames.forEach(cacheName => {
+                        caches.delete(cacheName).then(() => {
+                            console.log(`✅ Cache "${cacheName}" deleted`);
+                        });
+                    });
+                });
+            }
+        }
+
+        // Lazy Loading実行
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Starting Lazy Load...');
+            window.LazyLoader.loadByPriority();
+        });
+    </script>
+    
+    <!-- 以下のスクリプトはLazy Loaderによって動的に読み込まれます -->
+    <!-- 
+    ✅ Critical (即座):
+    - js/questions-database.js
+    - js/streak-system.js  
+    - js/user-profile.js
+    - js/app.js
+    
+    🟡 High (少し遅延):
+    - js/spaced-repetition.js
+    - js/review-system.js
+    - js/unified-review-hub.js
+    - js/growth-dashboard.js
+    - js/daily-missions.js
+    - js/weakness-analysis.js
+    
+    🟢 Medium (オンデマンド):
+    - js/weakness-training.js
+    - js/mistake-notebook.js
+    - js/pattern-memorization.js
+    - js/point-rewards.js
+    - js/learning-insights.js
+    - js/learning-insights-ui.js
+    
+    🔵 Low (ユーザー選択時):
+    - js/secretary-expressions.js
+    - js/secretary-greetings.js
+    - js/secretary-rewards.js
+    - js/secretary-daily.js
+    - js/secretary-multi.js
+    
+    ⚪ Optional:
+    - js/data-sync.js
+    -->
+    
+    <script>
+    // データ同期パネルの表示/非表示
+    function showDataSyncPanel() {
+        document.getElementById('dataSyncPanel').style.display = 'flex';
+        // テキストエリアをクリア
+        document.getElementById('pasteDataArea').value = '';
+        document.getElementById('importFromTextBtn').disabled = true;
+    }
+    
+    function toggleDataSyncPanel() {
+        const panel = document.getElementById('dataSyncPanel');
+        if (panel.style.display === 'none') {
+            showDataSyncPanel();
+        } else {
+            panel.style.display = 'none';
+        }
+    }
+    
+    // クリップボードにコピー（簡易版）
+    async function copyToClipboardSimple() {
+        const btn = event.target;
+        const originalText = btn.textContent;
+        
+        try {
+            btn.disabled = true;
+            btn.textContent = '📋 コピー中...';
+            
+            const result = await DataSync.copyToClipboard();
+            
+            if (result.success) {
+                btn.textContent = '✅ コピー完了！';
+                btn.style.background = '#10b981';
+                btn.style.color = 'white';
+                
+                // 成功メッセージ
+                setTimeout(() => {
+                    alert(
+                        '✅ クリップボードにコピーしました！\n\n' +
+                        '次のステップ：\n' +
+                        '1. LINEやメールで自分に送信\n' +
+                        '2. 他の端末で受信\n' +
+                        '3. 「他の端末へ」の欄に貼り付け\n' +
+                        '4. 「データを読み込む」をクリック\n\n' +
+                        `データサイズ: ${Math.round(result.size / 1024)}KB`
+                    );
+                }, 300);
+                
+                // ボタンを元に戻す
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = 'white';
+                    btn.style.color = '#667eea';
+                    btn.disabled = false;
+                }, 3000);
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error('コピーエラー:', error);
+            btn.textContent = originalText;
+            btn.disabled = false;
+            alert('❌ コピーに失敗しました\n\n' + error.message + '\n\n代わりにファイルダウンロードをお試しください。');
+        }
+    }
+    
+    // テキストエリアからインポート（QRコード対応版）
+    async function importFromTextArea() {
+        const textarea = document.getElementById('pasteDataArea');
+        const text = textarea.value.trim();
+        const btn = document.getElementById('importFromTextBtn');
+        const originalText = btn.textContent;
+        
+        if (!text) {
+            alert('❌ データが入力されていません');
+            return;
+        }
+        
+        try {
+            btn.disabled = true;
+            btn.textContent = '📥 読み込み中...';
+            
+            const mergeOption = document.getElementById('importMergeOption').checked;
+            
+            let finalText = text;
+            
+            // 🆕 LZ-String圧縮データかチェック
+            try {
+                // Base64形式ならLZ-String圧縮データの可能性
+                if (/^[A-Za-z0-9+/=]+$/.test(text) && text.length > 100) {
+                    const decompressed = LZString.decompressFromBase64(text);
+                    if (decompressed && decompressed.startsWith('TOEIC_DATA_V1:')) {
+                        console.log('✅ QRコードからの圧縮データを検出・解凍しました');
+                        finalText = decompressed;
+                    }
+                }
+            } catch (e) {
+                // 解凍失敗時は通常のテキストとして処理
+                console.log('通常のテキストデータとして処理します');
+            }
+            
+            const result = DataSync.importFromText(finalText, {
+                merge: mergeOption,
+                overwrite: false
+            });
+            
+            if (result.success) {
+                btn.textContent = '✅ 完了！';
+                btn.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    alert(
+                        `✅ データの引継ぎが完了しました！\n\n` +
+                        `インポート: ${result.importCount}件\n` +
+                        `スキップ: ${result.skipCount}件\n\n` +
+                        `ページをリロードして反映します。`
+                    );
+                    location.reload();
+                }, 300);
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error('インポートエラー:', error);
+            btn.textContent = originalText;
+            btn.disabled = false;
+            alert('❌ データの読み込みに失敗しました\n\n' + error.message + '\n\n正しいデータが貼り付けられているか確認してください。');
+        }
+    }
+    
+    // データエクスポート（ファイル）
+    function exportData() {
+        try {
+            const filename = DataSync.downloadAsFile();
+            alert(`✅ データをエクスポートしました！\n\nファイル名: ${filename}\n\nこのファイルを他の端末で開いてインポートしてください。`);
+        } catch (error) {
+            console.error('エクスポートエラー:', error);
+            alert('❌ エクスポートに失敗しました: ' + error.message);
+        }
+    }
+    
+    // データインポート（ファイル）
+    async function importDataFromFile(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        try {
+            const mergeOption = document.getElementById('importMergeOption').checked;
+            
+            const result = await DataSync.importFromFile(file, {
+                merge: mergeOption,
+                overwrite: false
+            });
+            
+            if (result.success) {
+                alert(`✅ ${result.message}\n\nインポート: ${result.importCount}件\nスキップ: ${result.skipCount}件\n\nページをリロードして反映します。`);
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            } else {
+                alert(`❌ インポートに失敗しました\n\n${result.message}`);
+            }
+        } catch (error) {
+            console.error('インポートエラー:', error);
+            alert('❌ インポートに失敗しました: ' + error.message);
+        }
+        
+        // ファイル選択をリセット
+        event.target.value = '';
+    }
+    
+    // データクリア
+    function clearAllData() {
+        const result = DataSync.clearAllData();
+        if (result.success) {
+            alert('🗑️ 全データを削除しました\n\nページをリロードします。');
+            setTimeout(() => {
+                location.reload();
+            }, 500);
+        }
+    }
+    
+
+    </script>
+</body>
+</html>

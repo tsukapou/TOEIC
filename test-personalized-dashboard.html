@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パーソナライズドダッシュボード テスト</title>
+    <link rel="stylesheet" href="css/personalized-dashboard.css">
+</head>
+<body style="background: #f3f4f6; padding: 2rem;">
+    <h1 style="text-align: center; color: #1f2937; margin-bottom: 2rem;">🎯 パーソナライズドダッシュボード テスト</h1>
+    
+    <!-- ダッシュボードコンテナ -->
+    <div id="personalizedDashboard"></div>
+    
+    <div style="text-align: center; margin-top: 2rem;">
+        <button onclick="testRender()" style="padding: 1rem 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 0.5rem; font-size: 1rem; font-weight: 600; cursor: pointer;">
+            ダッシュボードを再描画
+        </button>
+    </div>
+    
+    <!-- スクリプト -->
+    <script src="js/personalized-learning-nav.js"></script>
+    <script src="js/personalized-dashboard.js"></script>
+    
+    <script>
+        console.log('=== Test Start ===');
+        
+        // 1. モジュールが読み込まれているか確認
+        console.log('PersonalizedLearningNav:', typeof PersonalizedLearningNav);
+        console.log('PersonalizedDashboard:', typeof PersonalizedDashboard);
+        
+        // 2. 初期化
+        if (typeof PersonalizedLearningNav !== 'undefined') {
+            console.log('PersonalizedLearningNav.init() 実行中...');
+            PersonalizedLearningNav.init();
+            console.log('PersonalizedLearningNav.init() 完了');
+        }
+        
+        // 3. ダッシュボード描画
+        function testRender() {
+            if (typeof PersonalizedDashboard !== 'undefined') {
+                console.log('PersonalizedDashboard.render() 実行中...');
+                PersonalizedDashboard.render();
+                console.log('PersonalizedDashboard.render() 完了');
+            }
+        }
+        
+        // 初回描画
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded');
+            testRender();
+        });
+        
+        console.log('=== Test End ===');
+    </script>
+</body>
+</html>
